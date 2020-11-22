@@ -24,21 +24,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre de usuario"
+        android:text="Correo electrónico"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:layout_below="@id/txtLoginMain"
         android:layout_marginStart="30dp"
         android:layout_marginTop="80dp"
-        android:id="@+id/txtUsernameMain"/>
+        android:id="@+id/txtCorreoMain"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Username"
-        android:layout_below="@id/txtUsernameMain"
+        android:layout_below="@id/txtCorreoMain"
         android:layout_marginStart="28dp"
         android:layout_marginTop="5dp"
-        android:id="@+id/etUsernameMain"/>
+        android:id="@+id/etCorreoMain"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         android:text="Contraseña"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:layout_below="@id/etUsernameMain"
+        android:layout_below="@id/etCorreoMain"
         android:layout_marginStart="30dp"
         android:layout_marginTop="60dp"
         android:id="@+id/txtPasswdMain"/>
@@ -54,6 +54,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:inputType="textPassword"
         android:layout_below="@id/txtPasswdMain"
         android:layout_marginStart="28dp"
         android:layout_marginTop="5dp"
@@ -64,9 +65,24 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/etPasswdMain"
-        android:text="Iniciar Sesíon"
+        android:text="Iniciar Sesión"
         android:backgroundTint="#A81821"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        android:onClick="loginBtn"
+        android:id="@+id/btnLogin"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnLogin"
+        android:text="Registrarse"
+        android:layout_marginTop="10dp"
+        android:background="@color/material_on_surface_disabled"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:id="@+id/btnRegisterScreen"/>
 
     <ImageView
         android:layout_width="match_parent"

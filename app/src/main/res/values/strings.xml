@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Control de atención Psicológica</string>
-    <string name="login">Login</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="register">Registrarse</string>
 </resources>
