@@ -9,10 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -29,10 +26,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 public class MainActivity extends AppCompatActivity {
+    
     EditText mail, password;
     Button login, register;
     String us, pass;
     Intent i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                i = new Intent(MainActivity.this, registro.class);
+                i = new Intent(MainActivity.this, RegistroActivity.class);
                 startActivity(i);
             }
         });
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (response.contains("1")) {
                         Toast.makeText(MainActivity.this, "Bienvenid@", Toast.LENGTH_SHORT).show();
-                        i = new Intent(MainActivity.this, eact.class);
+                        i = new Intent(MainActivity.this, MenuActivity.class);
                         startActivity(i);
                     } else {
                         Toast.makeText(MainActivity.this, "Datos incorrectos", Toast.LENGTH_SHORT).show();

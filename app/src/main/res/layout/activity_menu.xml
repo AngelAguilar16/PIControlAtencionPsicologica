@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#0770A9" />
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="150dp"
+        android:backgroundTint="#A9A528"
+        android:text="Agenda"
+        android:id="@+id/btnAgenda"/>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="150dp"
+        android:backgroundTint="#A9A528"
+        android:text="Citas"
+        android:id="@+id/btnCitas"/>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="#A9A528"
+        android:layout_below="@id/btnAgenda"
+        android:text="Expedientes"
+        android:id="@+id/btnExpedientes"/>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="#A9A528"
+        android:layout_below="@id/btnCitas"
+        android:text="Reportes"
+        android:id="@+id/btnReportes"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#0770A9"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

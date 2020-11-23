@@ -12,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica">
 
-        <activity android:name=".eact" />
-        <activity android:name=".registro" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
