@@ -16,8 +16,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class MainActivity extends AppCompatActivity {
     EditText mail, password;
@@ -48,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginBtn(View view) {
-        StringRequest request = new StringRequest(Request.Method.POST, "https://10.0.2.2/dif/login.php",
+        trustAllCertificates();//Si vas a hacer mas llamadas a cualquier URL utiliza esta funcion antes de cada llamada, para que no de error en los certificados
+        StringRequest request = new StringRequest(Request.Method.POST, "https://10.0.2.2/dif/login.php", //Si no te funciona esto, pon la ip de tu computadora
                 response -> {
 
                     if (response.contains("1")) {
@@ -64,12 +74,45 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("correo",  /*mail.getText().toString()*/ "dmontesdeoca1@ucol.mx");
-                params.put("password", /*password.getText().toString()*/ "123456");
+                params.put("correo",  mail.getText().toString());
+                params.put("password", password.getText().toString()) ;
                 return params;
             }
         };
 
         Volley.newRequestQueue(this).add(request);
+    }
+
+    //Hace que no cheque los certificados y confia en todos, vamos a quitar esto antes de que salga a producción la app
+    public void trustAllCertificates() {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+                        public X509Certificate[] getAcceptedIssuers() {
+                            X509Certificate[] myTrustedAnchors = new X509Certificate[0];
+                            return myTrustedAnchors;
+                        }
+
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        }
+                    }
+            };
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+            });
+        } catch (Exception e) {
+        }
     }
 }

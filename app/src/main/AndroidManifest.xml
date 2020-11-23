@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica">
+
         <activity android:name=".eact" />
         <activity android:name=".registro" />
         <activity android:name=".MainActivity">
