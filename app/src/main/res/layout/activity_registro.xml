@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegistroActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:textColor="@color/black"
         android:textSize="62sp"
         android:fontFamily="sans-serif-black"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="30dp"
         android:id="@+id/txtLoginMain"/>
 
@@ -29,7 +29,7 @@
         android:textColor="@color/black"
         android:layout_below="@id/txtLoginMain"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/txtUsernameMain"/>
     <EditText
         android:layout_width="300dp"
@@ -99,15 +99,36 @@
         android:layout_marginTop="5dp"
         android:id="@+id/etPasswdConfirm"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rol"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/etPasswdConfirm"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/txtTipoUsuario"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTipoUsuario"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
+        android:spinnerMode="dropdown"
+        android:id="@+id/spTipoUsuario" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/etPasswdConfirm"
+        android:layout_below="@id/spTipoUsuario"
         android:text="Registrarse"
         android:backgroundTint="#A81821"
-        android:layout_marginTop="40dp"
-        android:id="@+id/btnRegister"/>
+        android:layout_marginTop="20dp"
+        android:onClick="registerBtn"
+        android:id="@+id/btnRegister" />
 
     <Button
         android:layout_width="wrap_content"
@@ -117,7 +138,7 @@
         android:text="Iniciar Sesión"
         android:background="@color/material_on_surface_disabled"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:id="@+id/btnLoginSreen"/>
 
     <ImageView

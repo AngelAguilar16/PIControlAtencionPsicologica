@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         login = (Button) findViewById(R.id.btnLogin);
 
-
-
         register = (Button) findViewById(R.id.btnRegisterScreen);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Hace que no cheque los certificados y confia en todos, vamos a quitar esto antes de que salga a producción la app
-    public void trustAllCertificates() {
+    public static void trustAllCertificates() {
         try {
             TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
