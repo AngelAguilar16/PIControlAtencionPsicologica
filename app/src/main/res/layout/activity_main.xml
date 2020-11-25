@@ -78,8 +78,9 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btnLogin"
         android:text="Registrarse"
-        android:backgroundTint="#A81821"
         android:layout_marginTop="10dp"
+        android:background="@color/material_on_surface_disabled"
+        android:textColor="@color/black"
         android:textSize="12dp"
         android:id="@+id/btnRegisterScreen"/>
 

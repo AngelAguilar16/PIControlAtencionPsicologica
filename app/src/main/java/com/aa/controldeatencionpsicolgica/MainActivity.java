@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loginBtn(View view) {
         trustAllCertificates();//Si vas a hacer mas llamadas a cualquier URL utiliza esta funcion antes de cada llamada, para que no de error en los certificados
-        StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.78/dif/login.php", //Si no te funciona esto, pon la ip de tu computadora
+        StringRequest request = new StringRequest(Request.Method.POST, "https://10.0.2.2/dif/login.php", //Si no te funciona esto, pon la ip de tu computadora
                 response -> {
 
                     if (response.contains("1")) {
