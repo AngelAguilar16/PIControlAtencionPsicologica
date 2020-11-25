@@ -21,18 +21,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
     Spinner spTipoUsuario;
     String[] opciones = {"Psicología", "Psiquiatría"};
     Integer tipo;
     EditText nombre, mail, password1, password2;
-    Intent ii;
-    Button btnRegister;
+    Intent ii, i;
+    Button btnRegister, btnLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         spTipoUsuario = (Spinner) findViewById(R.id.spTipoUsuario);
         btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnLogin = findViewById(R.id.btnLoginSreen);
         nombre = (EditText) findViewById(R.id.etUsernameMain);
         mail = (EditText) findViewById(R.id.etEmail);
         password1 = (EditText) findViewById(R.id.etPasswdMain);
@@ -42,6 +45,14 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
 
         spTipoUsuario.setAdapter(aa);
         spTipoUsuario.setOnItemSelectedListener(this);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i = new Intent(RegistroActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -59,9 +70,8 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
     public void registerBtn(View view) {
         if (password1.getText().toString().equals(password2.getText().toString())) {
             MainActivity.trustAllCertificates();//Si vas a hacer mas llamadas a cualquier URL utiliza esta funcion antes de cada llamada, para que no de error en los certificados
-            StringRequest request = new StringRequest(Request.Method.POST, "https://10.0.2.2/dif/register.php", //Si no te funciona esto, pon la ip de tu computadora
+            StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.78/dif/register.php", //Si no te funciona esto, pon la ip de tu computadora
                     response -> {
-
                         if (response.contains("1")) {
                             Toast.makeText(RegistroActivity.this, "Bienvenid@", Toast.LENGTH_SHORT).show();
                             ii = new Intent(RegistroActivity.this, MenuActivity.class); //Puse una activity en blanco para cuando se registre el usuario
