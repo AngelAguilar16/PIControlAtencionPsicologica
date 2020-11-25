@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,52 +7,82 @@
     tools:context=".MenuActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#0770A9" />
-
-    <Button
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="150dp"
-        android:backgroundTint="#A9A528"
-        android:text="Agenda"
-        android:id="@+id/btnAgenda"/>
-
-    <Button
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="150dp"
-        android:backgroundTint="#A9A528"
-        android:text="Citas"
-        android:id="@+id/btnCitas"/>
-
-    <Button
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="70dp"
-        android:backgroundTint="#A9A528"
-        android:layout_below="@id/btnAgenda"
-        android:text="Expedientes"
-        android:id="@+id/btnExpedientes"/>
-
-    <Button
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="70dp"
-        android:backgroundTint="#A9A528"
-        android:layout_below="@id/btnCitas"
-        android:text="Reportes"
-        android:id="@+id/btnReportes"/>
-
-    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#0770A9"
-        android:layout_alignParentBottom="true"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btnReportes"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_below="@id/btnCitas"
+        android:backgroundTint="#A9A528"
+        android:text="Reportes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <Button
+        android:id="@+id/btnExpedientes"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_below="@id/btnAgenda"
+        android:backgroundTint="#A9A528"
+        android:text="Expedientes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <Button
+        android:id="@+id/btnCitas"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#A9A528"
+        android:text="Citas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28" />
+
+    <Button
+        android:id="@+id/btnAgenda"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#A9A528"
+        android:text="Agenda"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#0770A9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

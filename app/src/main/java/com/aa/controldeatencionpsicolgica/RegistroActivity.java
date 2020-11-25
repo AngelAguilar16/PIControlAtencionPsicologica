@@ -26,13 +26,14 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
     Integer tipo;
     EditText nombre, mail, password1, password2;
     Intent ii;
-    Button btnRegister;
+    Button btnRegister, btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         spTipoUsuario = (Spinner) findViewById(R.id.spTipoUsuario);
         btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnLogin = findViewById(R.id.btnLoginSreen);
         nombre = (EditText) findViewById(R.id.etUsernameMain);
         mail = (EditText) findViewById(R.id.etEmail);
         password1 = (EditText) findViewById(R.id.etPasswdMain);
@@ -42,6 +43,14 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
 
         spTipoUsuario.setAdapter(aa);
         spTipoUsuario.setOnItemSelectedListener(this);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ii = new Intent(RegistroActivity.this, MainActivity.class);
+                startActivity(ii);
+            }
+        });
     }
 
     @Override
