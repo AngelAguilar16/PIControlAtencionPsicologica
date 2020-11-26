@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
 )engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
 
 create table if not exists Paciente (
-    id_paciente TINYINT(3) unsigned not null,
+    id_paciente SMALLINT(5) unsigned not null,
     fecha_registro DATE not null,
     nombres VARCHAR(50) not null,
     nombre_pmt VARCHAR(50), /* Nombre de padre, madre o tutor en caso de ser menor de edad */
@@ -28,7 +28,7 @@ create table if not exists Paciente (
 
 /* El caso en el que se está trabajando, en caso de que haya dos o más pacientes del mismo */
 create table if not exists Caso (
-    id_caso TINYINT(3) unsigned not null,
+    id_caso SMALLINT(5) unsigned not null,
     fecha_apertura DATE,
     descripcion_general VARCHAR(500),
     estado TINYINT(4),
@@ -36,10 +36,10 @@ create table if not exists Caso (
 )engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
 
 create table if not exists Cita (
-    id_cita TINYINT(3) unsigned not null,
+    id_cita SMALLINT(5) unsigned not null,
     fecha DATE,
     hora TIME,
-    paciente TINYINT(3) unsigned default null, /* No será un campo obligatorio, en caso de que sea nuevo paciente, simplemente se ingresará el nombre */
+    paciente SMALLINT(5) unsigned default null, /* No será un campo obligatorio, en caso de que sea nuevo paciente, simplemente se ingresará el nombre */
     nombre VARCHAR(50),
     usuario TINYINT(3) unsigned,
     asistio int(1) default null, /* Al pasar la hora de la cita, si no es creada ninguna ocurrencia de "Consulta" se asignará 0 que significa que no asistió, y viceversa con 1 */
@@ -59,11 +59,11 @@ create table if not exists Cita (
 )engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
 
 create table if not exists Consulta (
-    id_consulta TINYINT(3) unsigned not null,
+    id_consulta SMALLINT(5) unsigned not null,
     usuario TINYINT(3) unsigned not null,
-    cita TINYINT(3) unsigned, /* En caso de ser con cita */
-    caso TINYINT(3) unsigned not null,
-    paciente TINYINT(3) unsigned not null,
+    cita SMALLINT(5) unsigned, /* En caso de ser con cita */
+    caso SMALLINT(5) unsigned not null,
+    paciente SMALLINT(5) unsigned not null,
     fecha DATE not null,
     hora TIME not null,
     motivo_atencion VARCHAR(500) not null,
