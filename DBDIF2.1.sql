@@ -14,7 +14,7 @@ create table if not exists Paciente (
     fecha_registro DATE not null,
     nombres VARCHAR(50) not null,
     nombre_pmt VARCHAR(50), /* Nombre de padre, madre o tutor en caso de ser menor de edad */
-    telefono int(15),
+    telefono VARCHAR(15),
     estado VARCHAR(25),
     municipio VARCHAR(25),
     domicilio VARCHAR(80),
@@ -42,7 +42,7 @@ create table if not exists Cita (
     paciente SMALLINT(5) unsigned default null, /* No será un campo obligatorio, en caso de que sea nuevo paciente, simplemente se ingresará el nombre */
     nombre VARCHAR(50),
     usuario TINYINT(3) unsigned,
-    asistio int(1) default null, /* Al pasar la hora de la cita, si no es creada ninguna ocurrencia de "Consulta" se asignará 0 que significa que no asistió, y viceversa con 1 */
+    asistio TINYINT(1) unsigned default null, /* Al pasar la hora de la cita, si no es creada ninguna ocurrencia de "Consulta" se asignará 0 que significa que no asistió, y viceversa con 1 */
     PRIMARY KEY (id_cita),
     INDEX fk_usuarioC_idx (usuario ASC),
     INDEX fk_pacienteC_idx (paciente ASC),
