@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddPacientesActivity">
+    tools:context=".InfoPacientesActivity">
 
 
     <ImageView
-        android:id="@+id/imgPaciente_AddPaciente"
+        android:id="@+id/imgPaciente_InfoPaciente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/lblNombre_AddPaciente"
+        android:id="@+id/lblNombre_InfoPaciente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Paciente"
@@ -45,7 +45,7 @@
         tools:ignore="MissingConstraints">
 
         <Button
-            android:id="@+id/btnLlamar_AddPacientes"
+            android:id="@+id/btnLlamar_InfoPacientes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
             android:text="Llamar" />
 
         <Button
-            android:id="@+id/btnExpediente_AddPacientes"
+            android:id="@+id/btnExpediente_InfoPacientes"
             android:layout_width="wrap_content"
             android:layout_height="68dp"
             android:layout_weight="1"
@@ -68,7 +68,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnEditar_AddPacientes"
+        android:id="@+id/btnEditar_InfoPacientes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Editar \nInformacion"
