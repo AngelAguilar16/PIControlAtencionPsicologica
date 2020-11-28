@@ -65,6 +65,7 @@
         android:layout_height="140dp"
         android:backgroundTint="#A9A528"
         android:text="Agenda"
+        android:onClick="agendaBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
