@@ -3,6 +3,7 @@
     package="com.aa.controldeatencionpsicolgica">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,7 @@
         <activity
             android:name=".AgendaActivity"
             android:label="@string/title_activity_agenda"
-            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar"></activity>
+            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar"/>
         <activity android:name=".MenuActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
