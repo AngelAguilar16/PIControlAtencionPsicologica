@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,6 +46,14 @@ public class AgendaActivity extends AppCompatActivity {
             //Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             Intent i = new Intent(AgendaActivity.this, AddNewContactoAgenda.class);
             startActivity(i);
+        });
+
+        lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(AgendaActivity.this, AgendaDetailsActivity.class);
+                startActivity(i);
+            }
         });
 
         showList();
