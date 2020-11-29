@@ -16,9 +16,9 @@ public class MenuActivity extends AppCompatActivity {
         setTitle("Bienvenido");
     }
 
-
     public void agendaBtn(View v){
         Intent i = new Intent(MenuActivity.this, AgendaActivity.class);
         startActivity(i);
     }
+
 }

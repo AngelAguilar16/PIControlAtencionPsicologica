@@ -1,5 +1,6 @@
 package com.aa.controldeatencionpsicolgica;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
@@ -43,8 +44,9 @@ public class AgendaActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Intent i = new Intent(AgendaActivity.this, AddNewContactoAgenda.class);
+                startActivity(i);
             }
         });
 

@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica">
+        <activity android:name=".AddNewContactoAgenda"></activity>
         <activity
             android:name=".AgendaActivity"
             android:label="@string/title_activity_agenda"
-            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar"/>
+            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
