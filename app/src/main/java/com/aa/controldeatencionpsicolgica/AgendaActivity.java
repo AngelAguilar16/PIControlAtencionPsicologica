@@ -41,13 +41,10 @@ public class AgendaActivity extends AppCompatActivity {
 
         pacienteList = new ArrayList<>();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                Intent i = new Intent(AgendaActivity.this, AddNewContactoAgenda.class);
-                startActivity(i);
-            }
+        fab.setOnClickListener(view -> {
+            //Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Intent i = new Intent(AgendaActivity.this, AddNewContactoAgenda.class);
+            startActivity(i);
         });
 
         showList();
@@ -71,6 +68,7 @@ public class AgendaActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }, error -> { });
+        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
 }
