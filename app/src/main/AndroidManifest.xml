@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica">
-        <activity android:name=".UpdateInformacionActivity"></activity>
+        <activity android:name=".AddNewCitaActivity"></activity>
+        <activity android:name=".UpdateInformacionActivity" />
         <activity android:name=".AddPacientesActivity" />
         <activity android:name=".InfoPacientesActivity" />
-        <activity android:name=".CitasDiaActivity"></activity>
+        <activity android:name=".CitasDiaActivity" />
         <activity android:name=".CitasActivity" />
         <activity android:name=".EditContactoAgendaActivity" />
         <activity

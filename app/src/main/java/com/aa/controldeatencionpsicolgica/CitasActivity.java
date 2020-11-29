@@ -6,6 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
+import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Model.Cita;
+import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class CitasActivity extends AppCompatActivity {
 
@@ -28,4 +43,5 @@ public class CitasActivity extends AppCompatActivity {
         if(view.getId() == R.id.btn30) i.putExtra("dia", btn30.getText().toString());
         startActivity(i);
     }
+
 }
