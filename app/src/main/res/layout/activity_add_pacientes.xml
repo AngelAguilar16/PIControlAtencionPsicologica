@@ -4,6 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddPacientes">
+    tools:context=".AddPacientesActivity">
 
+    <ImageView
+        android:id="@+id/imgPaciente_AddPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.175"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/txtName_AddPaciente"
+        android:layout_width="307dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPaciente_AddPaciente"
+        app:layout_constraintVertical_bias="0.118" />
+
+    <EditText
+        android:id="@+id/txtPaterno_AddPacientes"
+        android:layout_width="311dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint="Apellido Paterno"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName_AddPaciente"
+        app:layout_constraintVertical_bias="0.065" />
+
+    <EditText
+        android:id="@+id/txtTelefono_AddPacientes"
+        android:layout_width="311dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="28dp"
+        android:ems="10"
+        android:hint="Numero de Telefono"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaterno_AddPacientes"
+        app:layout_constraintVertical_bias="0.175" />
+
+    <EditText
+        android:id="@+id/txtMaterno_AddPacientes"
+        android:layout_width="311dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="140dp"
+        android:ems="10"
+        android:hint="Apellido Materno"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPaterno_AddPacientes"
+        app:layout_constraintVertical_bias="0.265" />
+
+    <Button
+        android:id="@+id/btnAddPaciente"
+        android:layout_width="172dp"
+        android:layout_height="68dp"
+        android:text="Añadir Paciente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelefono_AddPacientes" />
 </androidx.constraintlayout.widget.ConstraintLayout>
