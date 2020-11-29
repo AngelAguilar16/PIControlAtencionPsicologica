@@ -21,4 +21,9 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void citasBtn(View v){
+        Intent i = new Intent(MenuActivity.this, CitasActivity.class);
+        startActivity(i);
+    }
+
 }

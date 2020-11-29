@@ -4,86 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuActivity">
+    tools:context=".CitasActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#0770A9"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/btnReportes"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_below="@id/btnCitas"
-        android:backgroundTint="#A9A528"
-        android:text="Reportes"
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Noviembre"
+        android:textSize="48sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.782"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.044" />
 
     <Button
-        android:id="@+id/btnExpedientes"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_below="@id/btnAgenda"
+        android:id="@+id/btn28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="28"
         android:backgroundTint="#A9A528"
-        android:text="Expedientes"
+        android:onClick="seeCitas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
-        android:id="@+id/btnCitas"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:id="@+id/btn29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="29"
+        android:onClick="seeCitas"
         android:backgroundTint="#A9A528"
-        android:text="Citas"
-        android:onClick="citasBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnAgenda"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:id="@+id/btn30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30"
+        android:onClick="seeCitas"
         android:backgroundTint="#A9A528"
-        android:text="Agenda"
-        android:onClick="agendaBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.848"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
         android:background="#0770A9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 

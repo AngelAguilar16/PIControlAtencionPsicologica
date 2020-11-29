@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica">
-        <activity android:name=".EditContactoAgendaActivity"></activity>
+        <activity android:name=".CitasDiaActivity"></activity>
+        <activity android:name=".CitasActivity" />
+        <activity android:name=".EditContactoAgendaActivity" />
         <activity
             android:name=".AgendaDetailsActivity"
             android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar" />
