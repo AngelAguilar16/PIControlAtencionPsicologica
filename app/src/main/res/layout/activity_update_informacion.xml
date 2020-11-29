@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.065" />
 
     <Button
-        android:id="@+id/bnUpdatePaciente"
+        android:id="@+id/btnUpdatePaciente"
         android:layout_width="172dp"
         android:layout_height="68dp"
         android:layout_marginBottom="40dp"

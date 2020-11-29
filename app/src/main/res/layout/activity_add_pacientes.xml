@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.265" />
 
     <Button
-        android:id="@+id/bnAddPaciente"
+        android:id="@+id/btnAddPaciente"
         android:layout_width="172dp"
         android:layout_height="68dp"
         android:text="Añadir Paciente"
