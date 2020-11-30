@@ -24,7 +24,7 @@
         $row = mysqli_fetch_array($id_q);
         $id = intval($row[0]);
         $id += 1;
-        $insert = mysqli_query($mysqli, "INSERT INTO paciente VALUES ('$id', '$fecha_registro', '$nombres', '$nombre_pmt', '$telefono', '$estado', '$municipio', '$domicilio', '$sexo', '$fecha_nacimiento', '$estado_civil', '$escolaridad', '$ocupacion'");
+        $insert = mysqli_query($mysqli, "INSERT INTO paciente VALUES ('$id', '$fecha_registro', '$nombres', '$nombre_pmt', '$telefono', '$estado', '$municipio', '$domicilio', '$sexo', '$fecha_nacimiento', '$estado_civil', '$escolaridad', '$ocupacion')");
         //$insert = mysqli_query($mysqli, "INSERT INTO usuario (id_usuario, nombres, correo, password, tipo_usuario) VALUES ( '3', 'Daniel Montes de Oca' , 'danymontes00@hotmail.com', '123', 'Psicología')");
         if ($insert == TRUE) {
             echo '1'; //se ingreso correctamente
