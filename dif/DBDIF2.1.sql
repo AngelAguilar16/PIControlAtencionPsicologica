@@ -2,22 +2,32 @@
 
 CREATE TABLE IF NOT EXISTS Usuario (
     id_usuario TINYINT(3) unsigned NOT NULL, /* Usuario es el psicólogo o psiquiatra que se registra */
-    nombres VARCHAR(50) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    ap VARCHAR(50) NOT NULL, /* apellido paterno */
+    am VARCHAR(50) NOT NULL, /* apellido materno */
     correo VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    tipo_usuario VARCHAR(10) NOT NULL, /* Se registrará con un spinner si es psicólogo o psiquiatra */
+    tipo_usuario VARCHAR(10) NOT NULL, /* Se registrará con un spinner si es psicólogo, psiquiatra o recepcionista(persona que hace las citas) */
     PRIMARY KEY(id_usuario)
 )engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
 
 create table if not exists Paciente (
     id_paciente SMALLINT(5) unsigned not null,
     fecha_registro DATE not null,
-    nombres VARCHAR(50) not null,
+    nombre VARCHAR(50) not null,
+    ap VARCHAR(50) NOT NULL, /* apellido paterno */
+    am VARCHAR(50) NOT NULL, /* apellido materno */
+    menor_de_edad TINYINT(1) unsigned DEFAULT 0,
     nombre_pmt VARCHAR(50), /* Nombre de padre, madre o tutor en caso de ser menor de edad */
+    ap_pmt VARCHAR(50),
+    am_pmt VARCHAR(50),
     telefono VARCHAR(15),
     estado VARCHAR(25),
     municipio VARCHAR(25),
-    domicilio VARCHAR(80),
+    localidad VARCHAR(50),
+    calle VARCHAR(50),
+    numero_casa VARCHAR(10),
+    cp VARCHAR(5),
     sexo VARCHAR(20),
     fecha_nacimiento DATE,
     estado_civil VARCHAR(25),
@@ -31,7 +41,8 @@ create table if not exists Caso (
     id_caso SMALLINT(5) unsigned not null,
     fecha_apertura DATE,
     descripcion_general VARCHAR(500),
-    estado TINYINT(4),
+    estado TINYINT(1) unsigned,
+    tipo_caso VARCHAR(15), /* Peritaje, psicología, psquiatría */
     PRIMARY KEY(id_caso)
 )engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
 
@@ -39,8 +50,7 @@ create table if not exists Cita (
     id_cita SMALLINT(5) unsigned not null,
     fecha DATE,
     hora TIME,
-    paciente SMALLINT(5) unsigned default null, /* No será un campo obligatorio, en caso de que sea nuevo paciente, simplemente se ingresará el nombre */
-    nombre VARCHAR(50),
+    paciente SMALLINT(5) unsigned, /* En caso de que sea nuevo paciente y no exista, se creará uno nuevo automáticamente */
     usuario TINYINT(3) unsigned,
     asistio TINYINT(1) unsigned default null, /* Al pasar la hora de la cita, si no es creada ninguna ocurrencia de "Consulta" se asignará 0 que significa que no asistió, y viceversa con 1 */
     PRIMARY KEY (id_cita),
@@ -93,6 +103,35 @@ create table if not exists Consulta (
     CONSTRAINT fk_cita
         FOREIGN KEY (cita)
         REFERENCES Cita (id_cita)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+)engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
+
+create table if not exists Sesion_peritaje (
+    id_peritaje SMALLINT(5) unsigned not null,
+    usuario TINYINT(3) unsigned not null,
+    caso SMALLINT(5) unsigned not null,
+    nombre_paciente VARCHAR(50) not null,
+    ap_paciente VARCHAR(50) not null,
+    am_paciente VARCHAR(50) not null,
+    menor_de_edad TINYINT(1) unsigned DEFAULT 0,
+    nombre_pmt VARCHAR(50), /* Nombre de padre, madre o tutor en caso de ser menor de edad */
+    fecha DATE not null,
+    hora DATE not null,
+    tipo_consulta VARCHAR(50), /* Test, entrevista, evaluación, etc. No sé exactamente si una sesión sólo consistiría en una sola de esas opciones o varias, para ver cómo lo implementamos en la app */
+    motivo_atencion VARCHAR(500),
+    notas_sesion VARCHAR(500),
+    PRIMARY KEY(id_peritaje),
+    INDEX fk_usuarioP_idx (usuario ASC),
+    INDEX fk_casoP_idx (caso ASC),
+    CONSTRAINT fk_usuarioP
+        FOREIGN KEY (usuario)
+        REFERENCES Usuario (id_usuario)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_casoP
+        FOREIGN KEY (caso)
+        REFERENCES Caso (id_caso)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
 )engine=InnoDB default charset=UTF8 default collate=utf8_unicode_ci;
