@@ -1,32 +1,24 @@
 package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spTipoUsuario;
     String[] opciones = {"Psicología", "Psiquiatría"};
     Integer tipo;
-    EditText nombre, mail, password1, password2;
+    EditText nombre, ap, am, mail, password1, password2;
     Intent ii;
     Button btnRegister, btnLogin;
+    String urlAddress="http://192.168.1.69/dif/register.php";
+    static Boolean succ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,41 +57,9 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
-    public void registerBtn(View view) {
-        if (password1.getText().toString().equals(password2.getText().toString())) {
-            MainActivity.trustAllCertificates();//Si vas a hacer mas llamadas a cualquier URL utiliza esta funcion antes de cada llamada, para que no de error en los certificados
-            StringRequest request = new StringRequest(Request.Method.POST, "https://10.0.2.2/dif/register.php", //Si no te funciona esto, pon la ip de tu computadora
-                    response -> {
-
-                        if (response.contains("1")) {
-                            Toast.makeText(RegistroActivity.this, "Bienvenid@", Toast.LENGTH_SHORT).show();
-                            ii = new Intent(RegistroActivity.this, MenuActivity.class); //Puse una activity en blanco para cuando se registre el usuario
-                            startActivity(ii);
-                        } else if (response.contains("0")) {
-                            Toast.makeText(RegistroActivity.this, "El usuario ya existe", Toast.LENGTH_SHORT).show();
-                        } else if (response.contains("2")) {
-                            Toast.makeText(RegistroActivity.this, "Hubo un error", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegistroActivity.this, response+"", Toast.LENGTH_SHORT).show();
-                        }
-                    }, error -> {
-                Toast.makeText(RegistroActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
-            }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("nombres", nombre.getText().toString());
-                    params.put("correo", mail.getText().toString());
-                    params.put("password", password1.getText().toString());
-                    params.put("t_usuario", opciones[tipo]);
-                    return params;
-                }
-            };
-
-            Volley.newRequestQueue(this).add(request);
-        } else if (!password1.getText().toString().equals(password2.getText().toString()))
-            Toast.makeText(RegistroActivity.this, "Las constraseñas no coinciden", Toast.LENGTH_LONG).show();
-        else if (TextUtils.isEmpty(nombre.getText().toString().trim()) || TextUtils.isEmpty(mail.getText().toString().trim())) //No logro hacer que compruebe si está vacío el campo, pero ya funciona el registro
-            Toast.makeText(RegistroActivity.this, "Completar todos los campos", Toast.LENGTH_LONG).show();
+    public void registerBtn(View view){
+        SenderReg s = new SenderReg(RegistroActivity.this, urlAddress, opciones[tipo], nombre, mail, password1);
+        s.execute();
     }
+
 }

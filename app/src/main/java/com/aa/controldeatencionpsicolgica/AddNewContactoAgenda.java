@@ -13,16 +13,25 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 public class AddNewContactoAgenda extends AppCompatActivity {
 
     EditText nombres, telefono, estado, municipio, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
-    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());;
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +52,7 @@ public class AddNewContactoAgenda extends AppCompatActivity {
     }
 
     public void addNewContactBtn(View view) {
-            MainActivity.trustAllCertificates();//Si vas a hacer mas llamadas a cualquier URL utiliza esta funcion antes de cada llamada, para que no de error en los certificados
+            trustAllCertificates();
             StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.78/dif/addContacto.php", //Si no te funciona esto, pon la ip de tu computadora
                     response -> {
                         if (response.contains("1")) {
@@ -82,5 +91,38 @@ public class AddNewContactoAgenda extends AppCompatActivity {
             Volley.newRequestQueue(this).add(request);
         /*if (TextUtils.isEmpty(nombre.getText().toString().trim()) || TextUtils.isEmpty(mail.getText().toString().trim())) //No logro hacer que compruebe si está vacío el campo, pero ya funciona el registro
             Toast.makeText(RegistroActivity.this, "Completar todos los campos", Toast.LENGTH_LONG).show();*/
+    }
+
+    //Hace que no cheque los certificados y confia en todos, vamos a quitar esto antes de que salga a producción la app
+    public static void trustAllCertificates() {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+                        public X509Certificate[] getAcceptedIssuers() {
+                            X509Certificate[] myTrustedAnchors = new X509Certificate[0];
+                            return myTrustedAnchors;
+                        }
+
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        }
+                    }
+            };
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+            });
+        } catch (Exception e) {
+        }
     }
 }

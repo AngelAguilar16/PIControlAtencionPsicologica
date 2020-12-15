@@ -2,7 +2,9 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     
     EditText mail, password;
     Button login, register;
-    String us, pass;
     Intent i;
+    String urlAddress="http://192.168.1.69/dif/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,65 +53,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        cargarSP();
+    }
+
+    private void cargarSP() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        Boolean s_ini = preferences.getBoolean("s_ini", Boolean.FALSE);
+
+        if (s_ini.equals(Boolean.TRUE)){
+            i = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(i);
+        }
+
     }
 
     public void loginBtn(View view) {
-        trustAllCertificates();//Si vas a hacer mas llamadas a cualquier URL utiliza esta funcion antes de cada llamada, para que no de error en los certificados
-        StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.78/dif/login.php", //Si no te funciona esto, pon la ip de tu computadora
-                response -> {
-
-                    if (response.contains("1")) {
-                        Toast.makeText(MainActivity.this, "Bienvenid@", Toast.LENGTH_SHORT).show();
-                        i = new Intent(MainActivity.this, MenuActivity.class);
-                        startActivity(i);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
-                    }
-                }, error -> {
-                    Toast.makeText(MainActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("correo",  mail.getText().toString());
-                params.put("password", password.getText().toString()) ;
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(this).add(request);
+        SenderLog s = new SenderLog(MainActivity.this, urlAddress, mail, password);
+        s.execute();
     }
 
-    //Hace que no cheque los certificados y confia en todos, vamos a quitar esto antes de que salga a producción la app
-    public static void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-                            X509Certificate[] myTrustedAnchors = new X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
 
-                        @Override
-                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-        }
-    }
 }
