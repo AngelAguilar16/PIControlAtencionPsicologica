@@ -2,17 +2,43 @@ package com.aa.controldeatencionpsicolgica.Model;
 
 public class Paciente {
 
-    String id, fecha_registro, nombres, nombre_pmt, telefono, estado, municipio, domicilio, sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion;
+    String id;
+    String fecha_registro;
+    String nombres;
+    String ap;
+    String am;
+    String nombre_pmt;
+    String ap_pmt;
+    String am_pmt;
+    String telefono;
+    String estado;
+    String municipio;
+    String localidad;
+    String calle;
+    String numero_casa;
+    String cp;
+    String sexo;
+    String fecha_nacimiento;
+    String estado_civil;
+    String escolaridad;
+    String ocupacion;
 
-    public Paciente(String id, String fecha_registro, String nombres, String nombre_pmt, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
+    public Paciente(String id, String fecha_registro, String nombres, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
         this.id = id;
         this.fecha_registro = fecha_registro;
         this.nombres = nombres;
+        this.ap = ap;
+        this.am = am;
         this.nombre_pmt = nombre_pmt;
+        this.ap_pmt = ap_pmt;
+        this.am_pmt = am_pmt;
         this.telefono = telefono;
         this.estado = estado;
         this.municipio = municipio;
-        this.domicilio = domicilio;
+        this.localidad = localidad;
+        this.calle = calle;
+        this.numero_casa = numero_casa;
+        this.cp = cp;
         this.sexo = sexo;
         this.fecha_nacimiento = fecha_nacimiento;
         this.estado_civil = estado_civil;
@@ -32,9 +58,17 @@ public class Paciente {
         return nombres;
     }
 
-    public String getNombre_pmt() {
-        return nombre_pmt;
+    public String getAp() {
+        return ap;
     }
+
+    public String getAm() { return am; }
+
+    public String getNombre_pmt() { return nombre_pmt; }
+
+    public String getAp_pmt() { return ap_pmt; }
+
+    public String getAm_pmt() { return am_pmt; }
 
     public String getTelefono() {
         return telefono;
@@ -49,7 +83,7 @@ public class Paciente {
     }
 
     public String getDomicilio() {
-        return domicilio;
+        return calle;
     }
 
     public String getSexo() {

@@ -15,35 +15,48 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    EditText mail, password;
-    String correo, pass;
+    String estado, municipio;
+    EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
+    String nom, ap, am, tel, dom, sex, fechaN, estadoC, esc, ocup;
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     ProgressDialog pd;
 
-    public SenderNewContacto(Context c, String urlAddress, EditText... editTexts) {
+    public SenderNewContacto(Context c, String urlAddress, String estado, String municipio, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
+        this.estado = estado;
+        this.municipio = municipio;
 
-        this.mail = editTexts[0];
-        this.password = editTexts[1];
+        this.nombres = editTexts[0];
+        this.apellido_paterno = editTexts[1];
+        this.apellido_materno = editTexts[2];
+        this.telefono = editTexts[3];
+        this.domicilio = editTexts[4];
+        this.sexo = editTexts[5];
+        this.fecNac = editTexts[6];
+        this.estCiv = editTexts[7];
+        this.escolaridad = editTexts[8];
+        this.ocupacion = editTexts[9];
 
-        /*fecha_registro = date;
-        nombres = nombres.getText().toString();
-        nombre_pmt = "NOTIENE";
-        telefono = telefono.getText().toString();
-        estado = estado.getText().toString();
-        municipio = municipio.getText().toString();
-        domicilio = domicilio.getText().toString();
-        sexo = sexo.getText().toString();
-        fecha_nacimiento = fecNac.getText().toString();
-        estado_civil = estCiv.getText().toString();
-        escolaridad = escolaridad.getText().toString();
-        ocupacion = ocupacion.getText().toString();*/
+        nom = nombres.getText().toString();
+        ap = apellido_paterno.getText().toString();
+        am = apellido_materno.getText().toString();
+        tel = telefono.getText().toString();
+        dom = domicilio.getText().toString();
+        sex = sexo.getText().toString();
+        fechaN = fecNac.getText().toString();
+        estadoC = estCiv.getText().toString();
+        esc = escolaridad.getText().toString();
+        ocup = ocupacion.getText().toString();
 
     }
 
@@ -52,8 +65,8 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
         super.onPreExecute();
 
         pd = new ProgressDialog(c);
-        pd.setTitle("Iniciar sesión");
-        pd.setMessage("Iniciando sesión... Espere un momento");
+        pd.setTitle("Registrar paciente");
+        pd.setMessage("Registrando paciente... Espere un momento");
         pd.show();
     }
 
@@ -73,8 +86,10 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
                 //guardarDatos();
                 Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
+            } else if(response.equals("2")){
+                Toast.makeText(c, "Error!", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(c, "El usuario no existe", Toast.LENGTH_LONG).show();
+                Toast.makeText(c, "Ya existe", Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -96,7 +111,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerLog(correo, pass).packData());
+            bw.write(new DataPackagerNewContacto(nom, ap, am, tel, dom, sex, fechaN, estadoC, esc, ocup, date, estado, municipio).packData());
 
             bw.flush();
 

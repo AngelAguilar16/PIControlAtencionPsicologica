@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,10 +31,13 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public class AddNewContactoAgenda extends AppCompatActivity {
-
-    EditText nombres, telefono, estado, municipio, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
-    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+public class AddNewContactoAgenda extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    Spinner spinnerMunicipio, spinnerEstado;
+    EditText nombres, apellido_paterno, apellido_materno, telefono, estado, municipio, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
+    String[] oMunicipio = { "Manzanillo", "Tecomán", "Armería", "Comala", "Villa de Álvarez", "Cuauhtémoc", "Ixtlahuacán", "Coquimatlán", "Minatitlán"};
+    String[] oEstado = { "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Chiapas", "Chihuahua", "Durango", "Distrito Federal", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "México", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"};
+    int opM = 0, opE = 0;
+    String urlAddress="http://192.168.1.69/dif/addContacto.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +45,9 @@ public class AddNewContactoAgenda extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_contacto_agenda);
 
         nombres = findViewById(R.id.etNombres);
+        apellido_paterno = findViewById(R.id.etApPaterno);
+        apellido_materno = findViewById(R.id.etApMaterno);
         telefono = findViewById(R.id.etTelefono);
-        estado = findViewById(R.id.etEstado);
-        municipio = findViewById(R.id.etMunicipio);
         domicilio = findViewById(R.id.etDomicilio);
         sexo = findViewById(R.id.etSexo);
         fecNac = findViewById(R.id.etFecNac);
@@ -49,80 +55,35 @@ public class AddNewContactoAgenda extends AppCompatActivity {
         escolaridad = findViewById(R.id.etEscolaridad);
         ocupacion = findViewById(R.id.etOcupacion);
 
+        spinnerMunicipio = (Spinner) findViewById(R.id.spinnerMunicipio);
+        spinnerEstado = (Spinner) findViewById(R.id.spinnerEstado);
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oMunicipio);
+        ArrayAdapter<String> ab = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oEstado);
+
+        spinnerMunicipio.setAdapter(aa);
+        spinnerMunicipio.setOnItemSelectedListener(this);
+
+        spinnerEstado.setAdapter(ab);
+        spinnerEstado.setOnItemSelectedListener(this);
     }
 
     public void addNewContactBtn(View view) {
-            trustAllCertificates();
-            StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.78/dif/addContacto.php", //Si no te funciona esto, pon la ip de tu computadora
-                    response -> {
-                        if (response.contains("1")) {
-                            Toast.makeText(this, "Paciente Añadido", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(this, AgendaActivity.class); //Puse una activity en blanco para cuando se registre el usuario
-                            startActivity(i);
-                        } else if (response.contains("0")) {
-                            Toast.makeText(this, "El paciente ya existe", Toast.LENGTH_SHORT).show();
-                        } else if (response.contains("2")) {
-                            Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(this, response+"", Toast.LENGTH_SHORT).show();
-                        }
-                    }, error -> {
-                Toast.makeText(this, "Error: " + error, Toast.LENGTH_SHORT).show();
-            }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("fecha_registro", date);
-                    params.put("nombres", nombres.getText().toString());
-                    params.put("nombre_pmt", "NOTIENE");
-                    params.put("telefono", telefono.getText().toString());
-                    params.put("estado", estado.getText().toString());
-                    params.put("municipio", municipio.getText().toString());
-                    params.put("domicilio", domicilio.getText().toString());
-                    params.put("sexo", sexo.getText().toString());
-                    params.put("fecha_nacimiento", fecNac.getText().toString());
-                    params.put("estado_civil", estCiv.getText().toString());
-                    params.put("escolaridad", escolaridad.getText().toString());
-                    params.put("ocupacion", ocupacion.getText().toString());
-                    return params;
-                }
-            };
-
-            Volley.newRequestQueue(this).add(request);
-        /*if (TextUtils.isEmpty(nombre.getText().toString().trim()) || TextUtils.isEmpty(mail.getText().toString().trim())) //No logro hacer que compruebe si está vacío el campo, pero ya funciona el registro
-            Toast.makeText(RegistroActivity.this, "Completar todos los campos", Toast.LENGTH_LONG).show();*/
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oMunicipio[opM], oEstado[opE],nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion);
+        s.execute();
     }
 
-    //Hace que no cheque los certificados y confia en todos, vamos a quitar esto antes de que salga a producción la app
-    public static void trustAllCertificates() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-                            X509Certificate[] myTrustedAnchors = new X509Certificate[0];
-                            return myTrustedAnchors;
-                        }
-
-                        @Override
-                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception e) {
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if(adapterView.getId()==R.id.spinnerMunicipio){
+            opM = i;
         }
+        if(adapterView.getId()==R.id.spinnerEstado){
+            opE = i;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

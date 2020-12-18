@@ -1,6 +1,8 @@
 <?php
     $email = filter_input(INPUT_POST, "correo");
-    $nombres = filter_input(INPUT_POST, "nombres");
+    $nombre = filter_input(INPUT_POST, "nombre");
+    $ap = filter_input(INPUT_POST, "ap");
+    $am = filter_input(INPUT_POST, "am");
     $pass = filter_input(INPUT_POST, "password");
     $t_usuario = filter_input(INPUT_POST, "t_usuario");
 
@@ -16,7 +18,7 @@
         $row = mysqli_fetch_array($id_q);
         $id = intval($row[0]);
         $id += 1;
-        $insert = mysqli_query($mysqli, "INSERT INTO usuario VALUES ('$id', '$nombres', '$email', '$pass', '$t_usuario')");
+        $insert = mysqli_query($mysqli, "INSERT INTO usuario VALUES ('$id', '$nombre', '$ap', '$am', '$email', '$pass', '$t_usuario')");
         //$insert = mysqli_query($mysqli, "INSERT INTO usuario (id_usuario, nombres, correo, password, tipo_usuario) VALUES ( '3', 'Daniel Montes de Oca' , 'danymontes00@hotmail.com', '123', 'Psicología')");
         if ($insert == TRUE) {
             echo '1'; //se ingreso correctamente
