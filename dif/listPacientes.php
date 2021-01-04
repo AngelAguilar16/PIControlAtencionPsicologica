@@ -1,7 +1,7 @@
-<?php 
+<?php
 
     include_once("conn.php");
-    $query = "SELECT * FROM `paciente` ";
+    $query = "SELECT * FROM paciente ";
 
     $result = mysqli_query($con, $query);
     $number_of_rows = mysqli_num_rows($result);
