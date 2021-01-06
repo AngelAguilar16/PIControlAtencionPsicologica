@@ -18,6 +18,7 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
     Intent ii;
     Button btnRegister, btnLogin;
     String urlAddress="http://192.168.1.69/dif/register.php";
+
     static Boolean succ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

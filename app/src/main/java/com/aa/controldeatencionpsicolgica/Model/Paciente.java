@@ -4,7 +4,7 @@ public class Paciente {
 
     String id;
     String fecha_registro;
-    String nombres;
+    String nombre;
     String ap;
     String am;
     String nombre_pmt;
@@ -23,10 +23,10 @@ public class Paciente {
     String escolaridad;
     String ocupacion;
 
-    public Paciente(String id, String fecha_registro, String nombres, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
+    public Paciente(String id, String fecha_registro, String nombre, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
         this.id = id;
         this.fecha_registro = fecha_registro;
-        this.nombres = nombres;
+        this.nombre = nombre;
         this.ap = ap;
         this.am = am;
         this.nombre_pmt = nombre_pmt;
@@ -54,8 +54,8 @@ public class Paciente {
         return fecha_registro;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getAp() {

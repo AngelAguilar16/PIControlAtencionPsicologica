@@ -22,6 +22,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
     String urlAddress;
     String t_us;
     EditText nombre, a_p, a_m, mail, password1, password2;
+    int id;
     String nom,ap,am,correo,pass;
 
     ProgressDialog pd;
@@ -71,12 +72,13 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
 
         if(response != null)
         {
-            if(response.equals("1")) {
+            if(response.equals("0")) {
+                Toast.makeText(c, "Ya hay un usuario registrado con ese correo", Toast.LENGTH_LONG).show();
+            } else {
+                id = Integer.parseInt(response);
                 guardarDatos();
                 Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
-            } else if (response.equals("0")) {
-                Toast.makeText(c, "Ya hay un usuario registrado con ese correo", Toast.LENGTH_LONG).show();
             }
 
         }else
@@ -148,6 +150,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
         Boolean s_ini = Boolean.TRUE; //True significa que la sesión se quedará iniciada cada que se inicie la aplicación, se cambiará el valor a False cuando se cierre sesión.
 
         SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("id", id);
         editor.putString("user", nom);
         editor.putString("ap", ap);
         editor.putString("am", am);

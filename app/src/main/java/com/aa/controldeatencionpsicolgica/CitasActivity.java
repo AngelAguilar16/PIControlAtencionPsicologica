@@ -15,6 +15,7 @@ import com.aa.controldeatencionpsicolgica.Model.Cita;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,9 +32,16 @@ public class CitasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_citas);
 
+        FloatingActionButton add = findViewById(R.id.add);
+
         btn28 = findViewById(R.id.btn28);
         btn29 = findViewById(R.id.btn29);
         btn30 = findViewById(R.id.btn30);
+
+        add.setOnClickListener(view -> {
+            Intent i = new Intent(CitasActivity.this, AddNewCitaActivity.class);
+            startActivity(i);
+        });
     }
 
     public void seeCitas(View view){

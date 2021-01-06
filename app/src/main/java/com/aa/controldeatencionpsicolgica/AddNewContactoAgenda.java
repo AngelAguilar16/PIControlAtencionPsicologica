@@ -68,7 +68,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     }
 
     public void addNewContactBtn(View view) {
-        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oMunicipio[opM], oEstado[opE],nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion);
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 
