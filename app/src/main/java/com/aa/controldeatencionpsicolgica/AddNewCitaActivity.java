@@ -10,13 +10,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.aa.controldeatencionpsicolgica.Sender.SenderCita;
 
 public class AddNewCitaActivity extends AppCompatActivity {
     DatePicker dp;
     TimePicker tp;
     EditText np;
     String fecha, hora;
-    int nombre, usuario, paciente;
+    int usuario, paciente;
     Button crear_cita;
 
     String urlAddress="http://192.168.1.69/dif/addCita.php";
@@ -37,17 +40,16 @@ public class AddNewCitaActivity extends AppCompatActivity {
                 fecha = dp.getYear() + "-" + dp.getMonth() + "-" + dp.getDayOfMonth();
                 //agregar selector de pacientes en un modal y agregar cita
                 paciente = Integer.parseInt(np.getText().toString());
-                usuario = 1;
 
-                SenderCita s = new SenderCita(AddNewCitaActivity.this, urlAddress, fecha, hora, usuario, paciente);
+                SenderCita s = new SenderCita(AddNewCitaActivity.this, urlAddress, fecha, hora, cargarIdusuario(), paciente);
                 s.execute();
             }
         });
     }
 
-    public void cargarSp() {
+    public int cargarIdusuario() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
-        nombre = preferences.getInt("id", Integer.parseInt("Error"));
+        return preferences.getInt("id", 0);
     }
 }

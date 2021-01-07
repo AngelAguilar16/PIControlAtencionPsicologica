@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.aa.controldeatencionpsicolgica.Sender.SenderReg;
+
 public class RegistroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spTipoUsuario;
     String[] opciones = {"Psicología", "Psiquiatría"};

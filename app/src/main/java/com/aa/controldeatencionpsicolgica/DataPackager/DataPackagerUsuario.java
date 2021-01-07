@@ -1,4 +1,4 @@
-package com.aa.controldeatencionpsicolgica;
+package com.aa.controldeatencionpsicolgica.DataPackager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,14 +8,14 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 
-public class DataPackagerLog {
+public class DataPackagerUsuario {
 
-    String email, pass;
+    String email;
 
 
-    public DataPackagerLog(String email, String pass) {
+    public DataPackagerUsuario(String email) {
         this.email = email;
-        this.pass = pass;
+
     }
 
     public String packData()
@@ -26,7 +26,6 @@ public class DataPackagerLog {
         try
         {
             jo.put("correo", email);
-            jo.put("password", pass);
 
 
             Boolean firstValue=true;

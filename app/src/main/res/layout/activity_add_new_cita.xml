@@ -28,7 +28,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre del paciente"
+                android:hint="id del paciente (temporal)"
                 android:id="@+id/nombrePaciente"/>
 
             <Button

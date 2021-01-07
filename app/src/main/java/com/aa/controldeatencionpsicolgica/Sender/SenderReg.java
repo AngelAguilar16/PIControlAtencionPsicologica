@@ -1,4 +1,4 @@
-package com.aa.controldeatencionpsicolgica;
+package com.aa.controldeatencionpsicolgica.Sender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,6 +7,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.aa.controldeatencionpsicolgica.Connector;
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReg;
+import com.aa.controldeatencionpsicolgica.MenuActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -91,7 +95,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
     private String send()
     {
 
-        HttpURLConnection con=Connector.connect(urlAddress);
+        HttpURLConnection con= Connector.connect(urlAddress);
 
         if(con==null)
         {

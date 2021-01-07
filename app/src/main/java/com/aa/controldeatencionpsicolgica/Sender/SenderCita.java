@@ -1,12 +1,14 @@
-package com.aa.controldeatencionpsicolgica;
+package com.aa.controldeatencionpsicolgica.Sender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import com.aa.controldeatencionpsicolgica.CitasActivity;
+import com.aa.controldeatencionpsicolgica.Connector;
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,24 +18,23 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
-public class SenderLog extends AsyncTask<Void,Void,String> {
+public class SenderCita extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    EditText mail, password;
-    String correo, pass;
+    String fecha, hora;
+    int usuario, paciente;
 
     ProgressDialog pd;
 
-    public SenderLog(Context c, String urlAddress, EditText... editTexts) {
+    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, int paciente) {
         this.c = c;
         this.urlAddress = urlAddress;
 
-        this.mail = editTexts[0];
-        this.password = editTexts[1];
-
-        correo = mail.getText().toString();
-        pass = password.getText().toString();
+        this.fecha = fecha;
+        this.hora = hora;
+        this.usuario = usuario;
+        this.paciente = paciente;
 
     }
 
@@ -42,8 +43,8 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
         super.onPreExecute();
 
         pd = new ProgressDialog(c);
-        pd.setTitle("Iniciar sesión");
-        pd.setMessage("Iniciando sesión... Espere un momento");
+        pd.setTitle("Agendar cita");
+        pd.setMessage("Agendando cita... Espere un momento");
         pd.show();
     }
 
@@ -60,11 +61,11 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
 
         if (response != null) {
             if (response.equals("1")) {
-                //guardarDatos();
-                Intent ii = new Intent(c, MenuActivity.class);
+                //Toast.makeText(c, "cita realizada", Toast.LENGTH_LONG).show();
+                Intent ii = new Intent(c, CitasActivity.class);
                 c.startActivity(ii);
             } else {
-                Toast.makeText(c, "El usuario no existe", Toast.LENGTH_LONG).show();
+                Toast.makeText(c, "Hubo un error php " + response, Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -86,7 +87,7 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerLog(correo, pass).packData());
+            bw.write(new DataPackagerCita(fecha, hora, usuario, paciente).packData());
 
             bw.flush();
 
