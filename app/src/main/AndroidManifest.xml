@@ -11,8 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ControlDeAtenciónPsicológica">
-        <activity android:name=".AddNewCitaActivity"></activity>
+        android:theme="@style/Theme.ControlDeAtenciónPsicológica"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MenuMaterial"></activity>
+        <activity android:name=".AddNewCitaActivity" />
         <activity android:name=".UpdateInformacionActivity" />
         <activity android:name=".AddPacientesActivity" />
         <activity android:name=".InfoPacientesActivity" />
@@ -35,6 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -21,9 +21,9 @@
         $insert = mysqli_query($mysqli, "INSERT INTO usuario VALUES ('$id', '$nombre', '$email', '$pass', '$t_usuario')");
         //$insert = mysqli_query($mysqli, "INSERT INTO usuario (id_usuario, nombres, correo, password, tipo_usuario) VALUES ( '3', 'Daniel Montes de Oca' , 'danymontes00@hotmail.com', '123', 'Psicología')");
         if ($insert == TRUE) {
-            echo '1'; //se ingreso correctamente
+            echo $id; //se ingreso correctamente
         } else {
-            echo '2'; //Error
+            echo 'false'; //Error
         }
     }
     mysqli_close($mysqli);

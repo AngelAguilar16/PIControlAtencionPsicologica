@@ -1,4 +1,4 @@
-package com.aa.controldeatencionpsicolgica;
+package com.aa.controldeatencionpsicolgica.Sender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,6 +7,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.aa.controldeatencionpsicolgica.Handlers.Connector;
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReg;
+import com.aa.controldeatencionpsicolgica.MenuActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,6 +26,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
     String urlAddress;
     String t_us;
     EditText nombre, a_p, a_m, mail, password1, password2;
+    int id;
     String nom,ap,am,correo,pass;
 
     ProgressDialog pd;
@@ -32,17 +37,16 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
         this.t_us = t_us;
 
         this.nombre=editTexts[0];
-        //this.a_p=editTexts[1];
-        //this.a_m=editTexts[2];
-        this.mail=editTexts[1];
-        this.password1=editTexts[2];
+        this.a_p=editTexts[1];
+        this.a_m=editTexts[2];
+        this.mail=editTexts[3];
+        this.password1=editTexts[4];
 
 
         nom=nombre.getText().toString();
-        //ap=a_p.getText().toString();
-        //am=a_m.getText().toString();
-        ap="mope";
-        am="mopa";
+        ap=a_p.getText().toString();
+        am=a_m.getText().toString();
+
         correo=mail.getText().toString();
         pass=password1.getText().toString();
 
@@ -71,12 +75,13 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
 
         if(response != null)
         {
-            if(response.equals("1")) {
+            if(response.equals("0")) {
+                Toast.makeText(c, "Ya hay un usuario registrado con ese correo", Toast.LENGTH_LONG).show();
+            } else {
+                id = Integer.parseInt(response);
                 guardarDatos();
                 Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
-            } else if (response.equals("0")) {
-                Toast.makeText(c, "Ya hay un usuario registrado con ese correo", Toast.LENGTH_LONG).show();
             }
 
         }else
@@ -89,7 +94,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
     private String send()
     {
 
-        HttpURLConnection con=Connector.connect(urlAddress);
+        HttpURLConnection con= Connector.connect(urlAddress);
 
         if(con==null)
         {
@@ -148,6 +153,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
         Boolean s_ini = Boolean.TRUE; //True significa que la sesión se quedará iniciada cada que se inicie la aplicación, se cambiará el valor a False cuando se cierre sesión.
 
         SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("id", id);
         editor.putString("user", nom);
         editor.putString("ap", ap);
         editor.putString("am", am);

@@ -2,34 +2,14 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import com.aa.controldeatencionpsicolgica.Sender.SenderNewContacto;
 
 public class AddNewContactoAgenda extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinnerMunicipio, spinnerEstado;
@@ -68,7 +48,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     }
 
     public void addNewContactBtn(View view) {
-        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oMunicipio[opM], oEstado[opE],nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion);
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 

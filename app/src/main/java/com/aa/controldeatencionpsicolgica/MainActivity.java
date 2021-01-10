@@ -9,23 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import com.aa.controldeatencionpsicolgica.Sender.SenderLog;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -34,13 +19,14 @@ public class MainActivity extends AppCompatActivity {
     Intent i;
     String urlAddress="https://192.168.1.78/dif/login.php";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mail = (EditText) findViewById(R.id.etCorreoMain);
-        password = (EditText) findViewById(R.id.etPasswdMain);
+        mail = (EditText) findViewById(R.id.editTextEmail);
+        password = (EditText) findViewById(R.id.editTextPassword);
 
         login = (Button) findViewById(R.id.btnLogin);
 
