@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.CitasActivity;
-import com.aa.controldeatencionpsicolgica.Connector;
+import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
 
 import java.io.BufferedReader;

@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mail = (EditText) findViewById(R.id.etCorreoMain);
-        password = (EditText) findViewById(R.id.etPasswdMain);
+        mail = (EditText) findViewById(R.id.editTextEmail);
+        password = (EditText) findViewById(R.id.editTextPassword);
 
         login = (Button) findViewById(R.id.btnLogin);
 

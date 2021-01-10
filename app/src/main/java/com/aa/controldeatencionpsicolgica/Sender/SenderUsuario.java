@@ -2,17 +2,12 @@ package com.aa.controldeatencionpsicolgica.Sender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
-import com.aa.controldeatencionpsicolgica.AgendaActivity;
-import com.aa.controldeatencionpsicolgica.Connector;
+import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerUsuario;
-import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
 
 

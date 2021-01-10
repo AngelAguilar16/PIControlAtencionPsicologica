@@ -30,9 +30,11 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLoginSreen);
         nombre = (EditText) findViewById(R.id.etUsernameMain);
+        ap = (EditText) findViewById(R.id.editTextAP);
+        am = (EditText) findViewById(R.id.editTextAM);
         mail = (EditText) findViewById(R.id.etEmail);
         password1 = (EditText) findViewById(R.id.etPasswdMain);
-        password2 = (EditText) findViewById(R.id.etPasswdConfirm);
+        //password2 = (EditText) findViewById(R.id.etPasswdConfirm);
 
         ArrayAdapter<String> aa = new ArrayAdapter<>(RegistroActivity.this, android.R.layout.simple_dropdown_item_1line, opciones);
 
@@ -61,7 +63,7 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void registerBtn(View view){
-        SenderReg s = new SenderReg(RegistroActivity.this, urlAddress, opciones[tipo], nombre, mail, password1);
+        SenderReg s = new SenderReg(RegistroActivity.this, urlAddress, opciones[tipo], nombre, ap, am, mail, password1);
         s.execute();
     }
 

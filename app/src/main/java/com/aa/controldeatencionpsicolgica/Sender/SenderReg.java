@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Connector;
+import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReg;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 
@@ -37,17 +37,16 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
         this.t_us = t_us;
 
         this.nombre=editTexts[0];
-        //this.a_p=editTexts[1];
-        //this.a_m=editTexts[2];
-        this.mail=editTexts[1];
-        this.password1=editTexts[2];
+        this.a_p=editTexts[1];
+        this.a_m=editTexts[2];
+        this.mail=editTexts[3];
+        this.password1=editTexts[4];
 
 
         nom=nombre.getText().toString();
-        //ap=a_p.getText().toString();
-        //am=a_m.getText().toString();
-        ap="mope";
-        am="mopa";
+        ap=a_p.getText().toString();
+        am=a_m.getText().toString();
+
         correo=mail.getText().toString();
         pass=password1.getText().toString();
 

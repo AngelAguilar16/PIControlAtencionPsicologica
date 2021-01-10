@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
-import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
