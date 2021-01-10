@@ -19,86 +19,77 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/txtLoginMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/login"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Inicio de sesion"
         android:textColor="@color/black"
-        android:textSize="62sp"
+        android:textSize="58sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.187" />
 
-    <EditText
-        android:id="@+id/etCorreoMain"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtCorreoMain"
-        android:hint="Correo Electrónico"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
-
-    <EditText
-        android:id="@+id/etPasswdMain"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtPasswdMain"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552" />
-
-    <TextView
-        android:id="@+id/txtCorreoMain"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtLoginMain"
-        android:text="Correo electrónico"
-        android:textColor="@color/black"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.361" />
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:startIconDrawable="@drawable/ic_baseline_email_24"
+        app:layout_constraintVertical_bias="0.375"
+        android:hint="Correo Electronico">
 
-    <TextView
-        android:id="@+id/txtPasswdMain"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_pswd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etCorreoMain"
-        android:text="Contraseña"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+        android:hint="Contraseña"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_baseline_key_24"
+        app:layout_constraintVertical_bias="0.499">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="310dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etPasswdMain"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#A81821"
+        android:fontFamily="@font/roboto"
         android:onClick="loginBtn"
         android:text="Iniciar Sesión"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,6 +104,7 @@
         android:layout_below="@id/btnLogin"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#A81821"
+        android:fontFamily="@font/roboto"
         android:text="Registrarse"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -133,5 +125,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
