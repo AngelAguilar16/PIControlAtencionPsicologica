@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerLog;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -64,7 +65,7 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("1")) {
                 guardarDatos();
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
             } else {
                 Toast.makeText(c, "El usuario no existe", Toast.LENGTH_LONG).show();
@@ -131,8 +132,11 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
 
         SharedPreferences.Editor editor = preferences.edit();
 
+        Boolean s_ini = Boolean.TRUE;
+
         editor.putString("email", correo);
         editor.putString("pass", pass);
+        editor.putBoolean("s_ini", s_ini);
 
 
         editor.commit();
