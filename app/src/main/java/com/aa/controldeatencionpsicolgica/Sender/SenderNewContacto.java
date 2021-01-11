@@ -26,36 +26,35 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    String estado, municipio;
-    EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
+    String estado, municipio, sexo;
+    EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion;
     String nom, ap, am, tel, dom, sex, fechaN, estadoC, esc, ocup;
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     ProgressDialog pd;
 
-    public SenderNewContacto(Context c, String urlAddress, String estado, String municipio, EditText... editTexts) {
+    public SenderNewContacto(Context c, String urlAddress, String estado, String municipio, String sexo, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.estado = estado;
         this.municipio = municipio;
+        this.sexo = sexo;
 
         this.nombres = editTexts[0];
         this.apellido_paterno = editTexts[1];
         this.apellido_materno = editTexts[2];
         this.telefono = editTexts[3];
         this.domicilio = editTexts[4];
-        this.sexo = editTexts[5];
-        this.fecNac = editTexts[6];
-        this.estCiv = editTexts[7];
-        this.escolaridad = editTexts[8];
-        this.ocupacion = editTexts[9];
+        this.fecNac = editTexts[5];
+        this.estCiv = editTexts[6];
+        this.escolaridad = editTexts[7];
+        this.ocupacion = editTexts[8];
 
         nom = nombres.getText().toString();
         ap = apellido_paterno.getText().toString();
         am = apellido_materno.getText().toString();
         tel = telefono.getText().toString();
         dom = domicilio.getText().toString();
-        sex = sexo.getText().toString();
         fechaN = fecNac.getText().toString();
         estadoC = estCiv.getText().toString();
         esc = escolaridad.getText().toString();
@@ -114,7 +113,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerNewContacto(nom, ap, am, tel, dom, sex, fechaN, estadoC, esc, ocup, date, estado, municipio).packData());
+            bw.write(new DataPackagerNewContacto(nom, ap, am, tel, dom, sexo, fechaN, estadoC, esc, ocup, date, estado, municipio).packData());
 
             bw.flush();
 

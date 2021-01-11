@@ -55,17 +55,17 @@ public class CitasDiaActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        showList();
+        //showList();
     }
 
-    private void showList(){
+    /*private void showList(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://192.168.1.78/dif/listCitas.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Cita c = new Cita(pacObj.getString("id_cita"),pacObj.getString("fecha"),pacObj.getString("hora"),pacObj.getString("paciente"), pacObj.getString("nombre"), pacObj.getString("usuario"), pacObj.getString("asistio"));
+                    Cita c = new Cita(pacObj.getInt("id_cita"),pacObj.getString("fecha"),pacObj.getString("hora"),pacObj.getString("paciente"), pacObj.getString("nombre"), pacObj.getString("usuario"), pacObj.getString("asistio"));
                     citaList.add(c);
                 }
                 Citas_Adapter adapter = new Citas_Adapter(citaList, getApplicationContext());
@@ -77,5 +77,5 @@ public class CitasDiaActivity extends AppCompatActivity {
             }
         }, error -> { });
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-    }
+    }*/
 }

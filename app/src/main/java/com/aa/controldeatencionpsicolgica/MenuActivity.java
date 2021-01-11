@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
+import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -20,14 +22,16 @@ import org.json.JSONObject;
 
 public class MenuActivity extends AppCompatActivity {
     String mail;
+    int n_usuarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         setTitle("Bienvenido");
         getUsuario(cargarCorreo());
-        //Toast.makeText(MenuActivity.this, nombre + "", Toast.LENGTH_LONG).show();
+        //Toast.makeText(MenuActivity.this, nP + "", Toast.LENGTH_LONG).show();
     }
+
 
     public String cargarCorreo() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
@@ -104,5 +108,7 @@ public class MenuActivity extends AppCompatActivity {
 
         editor.commit();
     }
+
+
 
 }

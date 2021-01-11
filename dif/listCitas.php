@@ -1,9 +1,9 @@
-<?php 
+<?php
 
-    include_once("conn.php");
-    $query = "SELECT * FROM `cita` ";
+    $mysqli = new mysqli("localhost","root","","dbdif");
+    $query = "SELECT * FROM cita";
 
-    $result = mysqli_query($con, $query);
+    $result = mysqli_query($mysqli, $query);
     $number_of_rows = mysqli_num_rows($result);
 
     $response = array();
@@ -16,6 +16,6 @@
 
     header('Content-Type: application/json');
     echo json_encode(array("citasList"=>$response));
-    mysqli_close($con);
+    mysqli_close($mysqli);
 
 ?>

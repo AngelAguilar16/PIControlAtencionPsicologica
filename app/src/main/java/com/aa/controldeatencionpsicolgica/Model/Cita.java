@@ -1,20 +1,19 @@
 package com.aa.controldeatencionpsicolgica.Model;
 
 public class Cita {
+    int id, paciente ,usuario, asistio;
+    String fecha, hora;
 
-    String id, fecha, hora, paciente, nombre, usuario, asistio;
-
-    public Cita(String id, String fecha, String hora, String paciente, String nombre, String usuario, String asistio) {
+    public Cita(int id, String fecha, String hora, int paciente, int usuario, int asistio) {
         this.id = id;
         this.fecha = fecha;
         this.hora = hora;
         this.paciente = paciente;
-        this.nombre = nombre;
         this.usuario = usuario;
         this.asistio = asistio;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -26,19 +25,15 @@ public class Cita {
         return hora;
     }
 
-    public String getPaciente() {
+    public int getPaciente() {
         return paciente;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getUsuario() {
+    public int getUsuario() {
         return usuario;
     }
 
-    public String getAsistio() {
+    public int getAsistio() {
         return asistio;
     }
 }

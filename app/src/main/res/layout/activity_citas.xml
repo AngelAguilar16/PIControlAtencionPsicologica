@@ -20,56 +20,17 @@
 
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Noviembre"
-        android:textSize="48sp"
         android:textColor="@color/black"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:layout_constraintVertical_bias="0.044" />
-
-    <Button
-        android:id="@+id/btn28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="28"
-        android:backgroundTint="#A9A528"
-        android:onClick="seeCitas"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
-        android:id="@+id/btn29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="29"
-        android:onClick="seeCitas"
-        android:backgroundTint="#A9A528"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="30"
-        android:onClick="seeCitas"
-        android:backgroundTint="#A9A528"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
@@ -97,5 +58,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ListView
+        android:id="@+id/lvCitas"
+        android:layout_width="411dp"
+        android:layout_height="479dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.772">
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

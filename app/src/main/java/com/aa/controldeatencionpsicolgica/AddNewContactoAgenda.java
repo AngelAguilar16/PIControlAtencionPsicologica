@@ -12,11 +12,12 @@ import android.widget.Spinner;
 import com.aa.controldeatencionpsicolgica.Sender.SenderNewContacto;
 
 public class AddNewContactoAgenda extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Spinner spinnerMunicipio, spinnerEstado;
-    EditText nombres, apellido_paterno, apellido_materno, telefono, estado, municipio, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
+    Spinner spinnerMunicipio, spinnerEstado, spinnerSexo;
+    EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
     String[] oMunicipio = { "Manzanillo", "Tecomán", "Armería", "Comala", "Villa de Álvarez", "Cuauhtémoc", "Ixtlahuacán", "Coquimatlán", "Minatitlán"};
-    String[] oEstado = { "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Chiapas", "Chihuahua", "Durango", "Distrito Federal", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "México", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"};
-    int opM = 0, opE = 0;
+    String[] oEstado = { "Colima" };
+    String[] oSexo = {"Masculino", "Femenino", "Otro"};
+    int opM = 0, opE = 0, opS = 0;
     String urlAddress="http://192.168.1.69/dif/addContacto.php";
 
     @Override
@@ -37,18 +38,23 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
 
         spinnerMunicipio = (Spinner) findViewById(R.id.spinnerMunicipio);
         spinnerEstado = (Spinner) findViewById(R.id.spinnerEstado);
+        spinnerSexo = (Spinner) findViewById(R.id.spinnerSexo);
         ArrayAdapter<String> aa = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oMunicipio);
         ArrayAdapter<String> ab = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oEstado);
+        ArrayAdapter<String> ac = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oSexo);
 
         spinnerMunicipio.setAdapter(aa);
         spinnerMunicipio.setOnItemSelectedListener(this);
 
         spinnerEstado.setAdapter(ab);
         spinnerEstado.setOnItemSelectedListener(this);
+
+        spinnerSexo.setAdapter(ac);
+        spinnerSexo.setOnItemSelectedListener(this);
     }
 
     public void addNewContactBtn(View view) {
-        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion);
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 
@@ -59,6 +65,9 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
         }
         if(adapterView.getId()==R.id.spinnerEstado){
             opE = i;
+        }
+        if(adapterView.getId()==R.id.spinnerSexo){
+            opS = i;
         }
     }
 

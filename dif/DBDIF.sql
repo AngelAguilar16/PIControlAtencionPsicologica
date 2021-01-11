@@ -52,7 +52,7 @@ create table if not exists Cita (
     hora TIME,
     paciente SMALLINT(5) unsigned, /* En caso de que sea nuevo paciente y no exista, se creará uno nuevo automáticamente */
     usuario TINYINT(3) unsigned,
-    asistio TINYINT(1) unsigned default null, /* Al pasar la hora de la cita, si no es creada ninguna ocurrencia de "Consulta" se asignará 0 que significa que no asistió, y viceversa con 1 */
+    asistio TINYINT(1) unsigned default 0, /* Al pasar la hora de la cita, si no es creada ninguna ocurrencia de "Consulta" se asignará 0 que significa que no asistió, y viceversa con 1 */
     PRIMARY KEY (id_cita),
     INDEX fk_usuarioC_idx (usuario ASC),
     INDEX fk_pacienteC_idx (paciente ASC),

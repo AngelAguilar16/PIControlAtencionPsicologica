@@ -2,7 +2,7 @@
 
    $mysqli = new mysqli("localhost","root","","dbdif");
 
-   $result = mysqli_query($mysqli, "SELECT * FROM usuario");
+   $result = mysqli_query($mysqli, "SELECT COUNT(id_usuario) AS n_usuarios FROM usuario");
 
    $number_of_rows = mysqli_num_rows($result);
 

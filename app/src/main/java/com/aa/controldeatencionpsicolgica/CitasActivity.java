@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Cita;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.Request;
@@ -21,11 +22,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitasActivity extends AppCompatActivity {
 
-    Button btn28, btn29, btn30;
+    ListView lvCitas;
+    List<Cita> citasList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +36,40 @@ public class CitasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_citas);
 
         FloatingActionButton add = findViewById(R.id.add);
+        lvCitas = (ListView) findViewById(R.id.lvCitas);
 
-        btn28 = findViewById(R.id.btn28);
-        btn29 = findViewById(R.id.btn29);
-        btn30 = findViewById(R.id.btn30);
+        citasList = new ArrayList<>();
 
         add.setOnClickListener(view -> {
             Intent i = new Intent(CitasActivity.this, AddNewCitaActivity.class);
             startActivity(i);
         });
+
+        showList();
+
+
     }
 
-    public void seeCitas(View view){
-        Intent i = new Intent(CitasActivity.this, CitasDiaActivity.class);
-        if(view.getId() == R.id.btn28) i.putExtra("dia", btn28.getText().toString());
-        if(view.getId() == R.id.btn29) i.putExtra("dia", btn29.getText().toString());
-        if(view.getId() == R.id.btn30) i.putExtra("dia", btn30.getText().toString());
-        startActivity(i);
+    private void showList(){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php", response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("citasList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+                    Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"), pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"));
+                    citasList.add(c);
+                }
+                Citas_Adapter adapter = new Citas_Adapter(citasList, getApplicationContext());
+                lvCitas.setAdapter(adapter);
+                //Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                //Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
+
 
 }
