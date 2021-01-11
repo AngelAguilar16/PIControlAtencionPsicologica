@@ -1,7 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Control de atención Psicológica</string>
     <string name="login">Iniciar Sesión</string>
     <string name="register">Registrarse</string>
+
+    <string name="hello_first_fragment" translatable="false"> Hello First Fragment</string>
+    <string name="next" translatable="false"> Next </string>
+    <string name="previous" translatable="false"> Hola </string>
+    <string name="first_fragment_label" translatable="false"> First Fragment Label </string>
+    <string name="second_fragment_label" translatable="false" > Second Fragment Label</string>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false"> Hello blank fragment </string>
 </resources>
