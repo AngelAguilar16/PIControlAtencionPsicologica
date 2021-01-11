@@ -46,6 +46,10 @@ public class Paciente {
         this.ocupacion = ocupacion;
     }
 
+    public Paciente(int id_paciente, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
+        this(id_paciente, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio, domicilio, "", "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion);
+    }
+
     public int getId(){
         return id;
     }
