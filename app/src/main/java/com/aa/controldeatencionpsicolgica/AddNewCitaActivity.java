@@ -44,7 +44,7 @@ public class AddNewCitaActivity extends AppCompatActivity {
     int size = getIntent().getIntExtra("size", 0);
     String[] oPacientes = new String[size];
     int[] idPacientes = new int[size];
-    String urlAddress="http://192.168.1.69/dif/addCita.php";
+    String urlAddress="http://192.168.1.68/dif/addCita.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +100,7 @@ public class AddNewCitaActivity extends AppCompatActivity {
     }
 
     public void pacientesList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listPacientes.php", response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.68/dif/listPacientes.php", response -> {
             try {
 
                 JSONObject obj = new JSONObject(response);

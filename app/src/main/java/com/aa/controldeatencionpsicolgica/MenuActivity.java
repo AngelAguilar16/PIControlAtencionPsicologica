@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getUsuario(String correo){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/getUsuario.php", response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.68/dif/getUsuario.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("Usuario");
@@ -70,13 +70,14 @@ public class MenuActivity extends AppCompatActivity {
                     JSONObject usuObj = array.getJSONObject(i);
                     if (usuObj.getString("correo").equals(correo)) {
                         Usuario u = new Usuario(usuObj.getInt("id_usuario"),
-                                                usuObj.getString("nombre"),
+                                                usuObj.getString("nombres"),
                                                 usuObj.getString("ap"),
                                                 usuObj.getString("am"),
                                                 usuObj.getString("correo"),
                                                 usuObj.getString("password"),
                                                 usuObj.getString("tipo_usuario"));
                         guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
+                        Toast.makeText(MenuActivity.this, u.getNombre(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

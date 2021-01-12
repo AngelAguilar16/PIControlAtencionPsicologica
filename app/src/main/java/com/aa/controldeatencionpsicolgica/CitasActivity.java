@@ -51,7 +51,7 @@ public class CitasActivity extends AppCompatActivity {
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php", response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.68/dif/listCitas.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
