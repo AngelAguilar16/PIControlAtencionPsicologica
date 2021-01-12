@@ -1,6 +1,8 @@
 package com.aa.controldeatencionpsicolgica.Model;
 
-public class Paciente {
+import java.io.Serializable;
+
+public class Paciente implements Serializable {
 
     int id;
     String fecha_registro;
@@ -13,6 +15,7 @@ public class Paciente {
     String telefono;
     String estado;
     String municipio;
+    String domicilio;
     String localidad;
     String calle;
     String numero_casa;
@@ -36,7 +39,7 @@ public class Paciente {
         this.estado = estado;
         this.municipio = municipio;
         this.localidad = localidad;
-        this.calle = calle;
+        this.calle = calle; // Domicilio
         this.numero_casa = numero_casa;
         this.cp = cp;
         this.sexo = sexo;
@@ -47,7 +50,7 @@ public class Paciente {
     }
 
     public Paciente(int id_paciente, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
-        this(id_paciente, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio, domicilio, "", "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion);
+        this(id_paciente, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion);
     }
 
     public int getId(){

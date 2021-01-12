@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +48,13 @@ public class AgendaActivity extends AppCompatActivity {
         lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(AgendaActivity.this, AgendaDetailsActivity.class);
-                startActivity(i);
+                Paciente paciente = pacienteList.get(position);
+                Intent intent = new Intent(getApplicationContext(), AgendaDetailsActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("pacienteData", paciente);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
