@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,11 +51,17 @@ public class CitasActivity extends AppCompatActivity {
         cargarSP();
         showList();
 
-
+        lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(CitasActivity.this, ReporteCita.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php?usuario=" + us, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.78/dif/listCitas.php?usuario=" + us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
