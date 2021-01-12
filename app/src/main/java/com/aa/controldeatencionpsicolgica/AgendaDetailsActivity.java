@@ -1,6 +1,7 @@
 package com.aa.controldeatencionpsicolgica;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,8 +39,13 @@ public class AgendaDetailsActivity extends AppCompatActivity {
             Toast.makeText(AgendaDetailsActivity.this, "El objeto es nulo", Toast.LENGTH_SHORT).show();
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        Paciente finalPaciente = paciente;
         fab.setOnClickListener(v -> {
             Intent i = new Intent(AgendaDetailsActivity.this, EditContactoAgendaActivity.class);
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("pacienteData1", finalPaciente);
+            i.putExtras(bundle);
             startActivity(i);
         });
     }
