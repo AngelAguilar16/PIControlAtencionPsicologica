@@ -73,9 +73,9 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
 
         pd.dismiss();
 
-        if(response != null)
+        if(response != null || response.equals("false"))
         {
-            if(response.equals("0")) {
+            if(response.equals("0") ) {
                 Toast.makeText(c, "Ya hay un usuario registrado con ese correo", Toast.LENGTH_LONG).show();
             } else {
                 id = Integer.parseInt(response);

@@ -45,10 +45,9 @@ CREATE TABLE `cita` (
   `id_cita` smallint(5) UNSIGNED NOT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `paciente` smallint(5) UNSIGNED DEFAULT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paciente` varchar(50) DEFAULT NULL,
   `usuario` tinyint(3) UNSIGNED DEFAULT NULL,
-  `asistio` tinyint(1) UNSIGNED DEFAULT NULL
+  `asistio` tinyint(1) UNSIGNED DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -111,6 +110,8 @@ INSERT INTO `paciente` (`id_paciente`, `fecha_registro`, `nombres`, `ap`, `am`, 
 CREATE TABLE `usuario` (
   `id_usuario` tinyint(3) UNSIGNED NOT NULL,
   `nombres` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ap` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `am` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `correo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `tipo_usuario` varchar(10) COLLATE utf8_unicode_ci NOT NULL
@@ -120,9 +121,9 @@ CREATE TABLE `usuario` (
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombres`, `correo`, `password`, `tipo_usuario`) VALUES
-(1, 'Luis', 'lmartinez@hotmail.com', '1234', 'Psicología'),
-(2, 'hola', 'hola', '1234', 'Psicología');
+INSERT INTO `usuario` (`id_usuario`, `nombres`,`ap`,`am`, `correo`, `password`, `tipo_usuario`) VALUES
+(1, 'Luis', 'a', 'e', 'lmartinez@hotmail.com', '1234', 'Psicología'),
+(2, 'hola', 'a', 'o', 'hola', '1234', 'Psicología');
 
 --
 -- Indexes for dumped tables
@@ -139,8 +140,7 @@ ALTER TABLE `caso`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id_cita`),
-  ADD KEY `fk_usuarioC_idx` (`usuario`),
-  ADD KEY `fk_pacienteC_idx` (`paciente`);
+  ADD KEY `fk_usuarioC_idx` (`usuario`);
 
 --
 -- Indexes for table `consulta`
@@ -172,7 +172,6 @@ ALTER TABLE `usuario`
 -- Constraints for table `cita`
 --
 ALTER TABLE `cita`
-  ADD CONSTRAINT `fk_pacienteC` FOREIGN KEY (`paciente`) REFERENCES `paciente` (`id_paciente`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_usuarioC` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 
 --

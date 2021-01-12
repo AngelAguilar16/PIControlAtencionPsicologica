@@ -25,11 +25,11 @@
                 android:layout_height="wrap_content"
                 android:datePickerMode="calendar"/>
 
-            <Button
+            <EditText
+                android:id="@+id/n_paciente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/pacienteBtn"
-                android:text="seleccionar paciente"/>
+                android:hint="Nombre del paciente"/>
 
             <Button
                 android:layout_width="match_parent"

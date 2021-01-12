@@ -10,11 +10,11 @@ import java.util.Iterator;
 
 public class DataPackagerCita {
 
-    String fecha, hora;
-    int usuario, paciente;
+    String fecha, hora, paciente;
+    int usuario;
 
 
-    public DataPackagerCita(String fecha, String hora, int usuario, int paciente) {
+    public DataPackagerCita(String fecha, String hora, int usuario, String paciente) {
         this.fecha = fecha;
         this.hora = hora;
         this.usuario = usuario;
