@@ -2,7 +2,9 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,7 @@ public class CitasActivity extends AppCompatActivity {
 
     ListView lvCitas;
     List<Cita> citasList;
+    int us;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,32 +47,36 @@ public class CitasActivity extends AppCompatActivity {
             Intent i = new Intent(CitasActivity.this, AddNewCitaActivity.class);
             startActivity(i);
         });
-
+        cargarSP();
         showList();
 
 
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php", response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php?usuario=" + us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"), pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"));
+                    Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"), pacObj.getString("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"));
                     citasList.add(c);
                 }
                 Citas_Adapter adapter = new Citas_Adapter(citasList, getApplicationContext());
                 lvCitas.setAdapter(adapter);
-                //Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
+                Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
-                //Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }, error -> { });
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
+    public void cargarSP() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
+        us = preferences.getInt("id", 0);
+    }
 }

@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mail, password;
     Button login, register;
     Intent i;
-    String urlAddress="https://192.168.1.78/dif/login.php";
+    String urlAddress="http://192.168.1.69/dif/login.php";
 
 
     @Override

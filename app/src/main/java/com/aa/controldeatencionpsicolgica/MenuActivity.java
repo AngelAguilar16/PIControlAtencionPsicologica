@@ -70,7 +70,7 @@ public class MenuActivity extends AppCompatActivity {
                     JSONObject usuObj = array.getJSONObject(i);
                     if (usuObj.getString("correo").equals(correo)) {
                         Usuario u = new Usuario(usuObj.getInt("id_usuario"),
-                                                usuObj.getString("nombre"),
+                                                usuObj.getString("nombres"),
                                                 usuObj.getString("ap"),
                                                 usuObj.getString("am"),
                                                 usuObj.getString("correo"),
@@ -83,7 +83,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
             } catch (JSONException e) {
-                Toast.makeText(MenuActivity.this,"Hubo un error",Toast.LENGTH_LONG).show();
+                Toast.makeText(MenuActivity.this,"Hubo un error" + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }, error -> { });
