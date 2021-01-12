@@ -75,8 +75,8 @@ public class AddNewCitaActivity extends AppCompatActivity {
         return preferences.getInt("id", 0);
     }
 
-    public void pacientesList(){
+    /*public void pacientesList(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listPacientes.php", response -> {
-            try {
+            try {*/
 
 }
