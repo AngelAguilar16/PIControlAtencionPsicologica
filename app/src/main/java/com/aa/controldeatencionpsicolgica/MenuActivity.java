@@ -29,6 +29,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setTitle("Bienvenido");
         getUsuario(cargarCorreo());
+        getPacientes();
         //Toast.makeText(MenuActivity.this, nP + "", Toast.LENGTH_LONG).show();
     }
 
@@ -49,6 +50,11 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void reportesBtn(View view) {
+        Intent i = new Intent(MenuActivity.this, ReporteCita.class);
+        startActivity(i);
+    }
+
     public void logoutBtn(View view) {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
@@ -62,7 +68,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getUsuario(String correo){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.68/dif/getUsuario.php", response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/getUsuario.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("Usuario");
@@ -110,6 +116,40 @@ public class MenuActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    private void getPacientes(){
+        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php", response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("pacientesList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    guardarPacientes(i, p.getId(), p.getNombre(), p.getAp(), p.getAm());
+                }
+
+                //Toast.makeText(AgendaActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    public void guardarPacientes(int i, int id, String nombre, String ap, String am) {
+
+        SharedPreferences preferences = getSharedPreferences("pacientes", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("i", i);
+        editor.putInt("id"+i, id);
+        editor.putString("user"+i, nombre);
+        editor.putString("ap"+i, ap);
+        editor.putString("am"+i, am);
+
+        editor.commit();
+    }
 
 
 }

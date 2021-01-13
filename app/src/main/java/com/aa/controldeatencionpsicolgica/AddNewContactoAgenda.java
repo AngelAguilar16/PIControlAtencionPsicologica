@@ -18,7 +18,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     String[] oEstado = { "Colima" };
     String[] oSexo = {"Masculino", "Femenino", "Otro"};
     int opM = 0, opE = 0, opS = 0;
-    String urlAddress="http://192.168.1.68/dif/addContacto.php";
+    String urlAddress="http://192.168.1.69/dif/addContacto.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

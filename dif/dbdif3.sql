@@ -34,7 +34,6 @@ CREATE TABLE `caso` (
   `descripcion_general` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `estado` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -45,8 +44,8 @@ CREATE TABLE `cita` (
   `id_cita` smallint(5) UNSIGNED NOT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `paciente` varchar(50) DEFAULT NULL,
-  `usuario` tinyint(3) UNSIGNED DEFAULT NULL,
+  `paciente` smallint(5) UNSIGNED NOT NULL,
+  `usuario` tinyint(3) UNSIGNED NOT NULL,
   `asistio` tinyint(1) UNSIGNED DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -78,6 +77,7 @@ CREATE TABLE `consulta` (
 
 CREATE TABLE `paciente` (
   `id_paciente` smallint(5) UNSIGNED NOT NULL,
+  `usuario` tinyint(3) UNSIGNED NOT NULL,
   `fecha_registro` date NOT NULL,
   `nombres` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `ap` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -98,8 +98,8 @@ CREATE TABLE `paciente` (
 -- Dumping data for table `paciente`
 --
 
-INSERT INTO `paciente` (`id_paciente`, `fecha_registro`, `nombres`, `ap`, `am`, `menor_de_edad`, `telefono`, `estado`, `municipio`, `domicilio`, `sexo`, `fecha_nacimiento`, `estado_civil`, `escolaridad`, `ocupacion`) VALUES
-(1, '2021-01-04', 'Antonieta', 'Martinez', 'Torres', 0, '3141312334', 'Manzanillo', 'Colima', 'Barrio 5', 'Femenino', '1999-12-25', 'Soltera', 'Universidad', 'Estudiante');
+INSERT INTO `paciente` (`id_paciente`,`usuario`, `fecha_registro`, `nombres`, `ap`, `am`, `menor_de_edad`, `telefono`, `estado`, `municipio`, `domicilio`, `sexo`, `fecha_nacimiento`, `estado_civil`, `escolaridad`, `ocupacion`) VALUES
+(1, 2, '2021-01-04', 'Antonieta', 'Martinez', 'Torres', 0, '3141312334', 'Manzanillo', 'Colima', 'Barrio 5', 'Femenino', '1999-12-25', 'Soltera', 'Universidad', 'Estudiante');
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,8 @@ ALTER TABLE `caso`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id_cita`),
-  ADD KEY `fk_usuarioC_idx` (`usuario`);
+  ADD KEY `fk_usuarioC_idx` (`usuario`),
+  ADD KEY `fk_pacienteC_idx` (`paciente`);
 
 --
 -- Indexes for table `consulta`
@@ -156,7 +157,8 @@ ALTER TABLE `consulta`
 -- Indexes for table `paciente`
 --
 ALTER TABLE `paciente`
-  ADD PRIMARY KEY (`id_paciente`);
+  ADD PRIMARY KEY (`id_paciente`),
+  ADD KEY `fk_usuarioP_idx` (`usuario`);
 
 --
 -- Indexes for table `usuario`
@@ -167,11 +169,13 @@ ALTER TABLE `usuario`
 --
 -- Constraints for dumped tables
 --
-
+ALTER TABLE `paciente`
+  ADD CONSTRAINT `fk_usuarioP` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 --
 -- Constraints for table `cita`
 --
 ALTER TABLE `cita`
+  ADD CONSTRAINT `fk_pacienteC` FOREIGN KEY (`paciente`) REFERENCES `paciente` (`id_paciente`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_usuarioC` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 
 --

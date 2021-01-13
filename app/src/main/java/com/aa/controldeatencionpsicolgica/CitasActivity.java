@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class CitasActivity extends AppCompatActivity {
 
     ListView lvCitas;
     List<Cita> citasList;
+    ArrayList<Paciente> pacienteList;
     int us;
 
     @Override
@@ -43,9 +46,13 @@ public class CitasActivity extends AppCompatActivity {
         lvCitas = (ListView) findViewById(R.id.lvCitas);
 
         citasList = new ArrayList<>();
-
+        pacienteList = new ArrayList<>();
+        getUsuarios();
         add.setOnClickListener(view -> {
             Intent i = new Intent(CitasActivity.this, AddNewCitaActivity.class);
+            Bundle args = new Bundle();
+            args.putSerializable("arraylist",(Serializable)pacienteList);
+            i.putExtra("pacienteList", args);
             startActivity(i);
         });
         cargarSP();
@@ -55,13 +62,15 @@ public class CitasActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(CitasActivity.this, ReporteCita.class);
+                Cita cita = citasList.get(position);
+                i.putExtra("paciente",cita.getPaciente());
                 startActivity(i);
             }
         });
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.78/dif/listCitas.php?usuario=" + us, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php?usuario=" + us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
@@ -72,9 +81,9 @@ public class CitasActivity extends AppCompatActivity {
                 }
                 Citas_Adapter adapter = new Citas_Adapter(citasList, getApplicationContext());
                 lvCitas.setAdapter(adapter);
-                Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
+                //Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
-                Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                //Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }, error -> { });
@@ -85,5 +94,26 @@ public class CitasActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
         us = preferences.getInt("id", 0);
+    }
+
+    private void getUsuarios(){
+        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php", response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("pacientesList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+                    //Paciente p = new Paciente(pacObj.getString("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"),pacObj.getString("nombre_pmt"),pacObj.getString("ap_pmt"),pacObj.getString("am_pmt"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("municipio"),pacObj.getString("calle"),pacObj.getString("numero_casa"),pacObj.getString("cp"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    //Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombre"),pacObj.getString("ap"),pacObj.getString("am"),pacObj.getString("nombre_pmt"),pacObj.getString("ap_pmt"),pacObj.getString("am_pmt"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("municipio"),pacObj.getString("calle"),pacObj.getString("numero_casa"),pacObj.getString("cp"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    pacienteList.add(p);
+                }
+                //Toast.makeText(AgendaActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 }

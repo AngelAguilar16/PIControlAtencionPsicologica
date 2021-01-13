@@ -31,7 +31,7 @@ public class Citas_Adapter extends ArrayAdapter<Cita> {
         TextView name = view.findViewById(R.id.tvNombres);
         Cita cita = citaList.get(position);
 
-        name.setText(cita.getFecha());
+        name.setText(cita.getFecha() + " " + cita.getHora() + " " + cita.getPaciente());
 
         return view;
     }

@@ -22,12 +22,12 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    String fecha, hora, paciente;
-    int usuario;
+    String fecha, hora;
+    int usuario, paciente;
 
     ProgressDialog pd;
 
-    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, String paciente) {
+    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, int paciente) {
         this.c = c;
         this.urlAddress = urlAddress;
 

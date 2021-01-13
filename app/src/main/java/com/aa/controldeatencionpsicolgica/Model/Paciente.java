@@ -112,4 +112,9 @@ public class Paciente implements Serializable {
     public String getOcupacion() {
         return ocupacion;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
