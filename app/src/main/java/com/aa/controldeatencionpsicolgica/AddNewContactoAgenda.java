@@ -2,6 +2,8 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +19,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     String[] oMunicipio = { "Manzanillo", "Tecomán", "Armería", "Comala", "Villa de Álvarez", "Cuauhtémoc", "Ixtlahuacán", "Coquimatlán", "Minatitlán"};
     String[] oEstado = { "Colima" };
     String[] oSexo = {"Masculino", "Femenino", "Otro"};
-    int opM = 0, opE = 0, opS = 0;
+    int opM = 0, opE = 0, opS = 0, usuario;
     String urlAddress="http://192.168.1.69/dif/addContacto.php";
 
     @Override
@@ -54,7 +56,8 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     }
 
     public void addNewContactBtn(View view) {
-        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
+        usuario = cargarIdusuario();
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], usuario, nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 
@@ -74,5 +77,10 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+    public int cargarIdusuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        return preferences.getInt("id", 0);
     }
 }

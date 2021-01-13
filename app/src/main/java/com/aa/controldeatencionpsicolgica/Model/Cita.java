@@ -1,10 +1,10 @@
 package com.aa.controldeatencionpsicolgica.Model;
 
 public class Cita {
-    int id ,usuario, asistio;
-    String fecha, hora, paciente;
+    int id ,usuario, asistio, paciente;
+    String fecha, hora;
 
-    public Cita(int id, String fecha, String hora, String paciente, int usuario, int asistio) {
+    public Cita(int id, String fecha, String hora, int paciente, int usuario, int asistio) {
         this.id = id;
         this.fecha = fecha;
         this.hora = hora;
@@ -25,7 +25,7 @@ public class Cita {
         return hora;
     }
 
-    public String getPaciente() {
+    public int getPaciente() {
         return paciente;
     }
 

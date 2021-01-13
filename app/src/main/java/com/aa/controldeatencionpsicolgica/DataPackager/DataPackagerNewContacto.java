@@ -11,9 +11,10 @@ import java.util.Iterator;
 public class DataPackagerNewContacto {
 
     String nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion, date, estado, municipio;
+    int usuario;
 
 
-    public DataPackagerNewContacto(String nombres,String apellido_paterno, String apellido_materno,String telefono,String domicilio,String sexo,String fecNac,String estCiv,String escolaridad,String ocupacion, String date, String estado, String municipio) {
+    public DataPackagerNewContacto(String nombres,String apellido_paterno, String apellido_materno,String telefono,String domicilio,String sexo,String fecNac,String estCiv,String escolaridad,String ocupacion, String date, String estado, String municipio, int usuario) {
         this.estado = estado;
         this.municipio = municipio;
         this.date = date;
@@ -27,6 +28,7 @@ public class DataPackagerNewContacto {
         this.estCiv = estCiv;
         this.escolaridad = escolaridad;
         this.ocupacion = ocupacion;
+        this.usuario = usuario;
     }
 
     public String packData()
@@ -49,6 +51,7 @@ public class DataPackagerNewContacto {
             jo.put("estado_civil", estCiv);
             jo.put("escolaridad", escolaridad);
             jo.put("ocupacion", ocupacion);
+            jo.put("usuario", usuario);
 
 
             Boolean firstValue=true;

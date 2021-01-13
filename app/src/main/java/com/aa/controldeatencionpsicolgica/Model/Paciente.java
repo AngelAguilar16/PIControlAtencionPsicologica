@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Paciente implements Serializable {
 
     int id;
+    int usuario;
     String fecha_registro;
     String nombre;
     String ap;
@@ -26,8 +27,9 @@ public class Paciente implements Serializable {
     String escolaridad;
     String ocupacion;
 
-    public Paciente(int id, String fecha_registro, String nombre, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
+    public Paciente(int id, int usuario, String fecha_registro, String nombre, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
         this.id = id;
+        this.usuario = usuario;
         this.fecha_registro = fecha_registro;
         this.nombre = nombre;
         this.ap = ap;
@@ -49,13 +51,15 @@ public class Paciente implements Serializable {
         this.ocupacion = ocupacion;
     }
 
-    public Paciente(int id_paciente, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
-        this(id_paciente, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion);
+    public Paciente(int id_paciente, int usuario, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
+        this(id_paciente, usuario, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion);
     }
 
     public int getId(){
         return id;
     }
+
+    public int getUsuario() { return usuario;}
 
     public String getFecha_registro() {
         return fecha_registro;

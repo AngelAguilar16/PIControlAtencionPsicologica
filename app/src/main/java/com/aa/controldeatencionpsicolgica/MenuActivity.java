@@ -29,7 +29,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setTitle("Bienvenido");
         getUsuario(cargarCorreo());
-        getPacientes();
+        //getPacientes();
         //Toast.makeText(MenuActivity.this, nP + "", Toast.LENGTH_LONG).show();
     }
 
@@ -83,7 +83,7 @@ public class MenuActivity extends AppCompatActivity {
                                                 usuObj.getString("password"),
                                                 usuObj.getString("tipo_usuario"));
                         guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
-                        Toast.makeText(MenuActivity.this, u.getNombre(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuActivity.this, u.getTipo_usuario(), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -116,7 +116,7 @@ public class MenuActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    private void getPacientes(){
+    /*private void getPacientes(){
         StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
@@ -124,7 +124,7 @@ public class MenuActivity extends AppCompatActivity {
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
 
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
                     guardarPacientes(i, p.getId(), p.getNombre(), p.getAp(), p.getAm());
                 }
 
@@ -149,7 +149,7 @@ public class MenuActivity extends AppCompatActivity {
         editor.putString("am"+i, am);
 
         editor.commit();
-    }
+    }*/
 
 
 }

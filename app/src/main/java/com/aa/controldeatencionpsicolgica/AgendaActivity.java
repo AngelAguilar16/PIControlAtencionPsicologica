@@ -1,6 +1,8 @@
 package com.aa.controldeatencionpsicolgica;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
@@ -28,6 +30,7 @@ public class AgendaActivity extends AppCompatActivity {
 
     ListView lvPacientes;
     List<Paciente> pacienteList;
+    int us;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +60,18 @@ public class AgendaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        cargarSP();
         showList();
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php", response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php?usuario="+ us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    //Paciente p = new Paciente(pacObj.getString("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"),pacObj.getString("nombre_pmt"),pacObj.getString("ap_pmt"),pacObj.getString("am_pmt"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("municipio"),pacObj.getString("calle"),pacObj.getString("numero_casa"),pacObj.getString("cp"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
-                    //Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombre"),pacObj.getString("ap"),pacObj.getString("am"),pacObj.getString("nombre_pmt"),pacObj.getString("ap_pmt"),pacObj.getString("am_pmt"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("municipio"),pacObj.getString("calle"),pacObj.getString("numero_casa"),pacObj.getString("cp"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
                     pacienteList.add(p);
                 }
                 Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());
@@ -82,6 +83,12 @@ public class AgendaActivity extends AppCompatActivity {
             }
         }, error -> { });
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    public void cargarSP() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        us = preferences.getInt("id", 0);
     }
 
 }

@@ -7,8 +7,8 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReporte;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
-import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerNewContacto;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 
 import java.io.BufferedReader;
@@ -19,48 +19,35 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class SenderNewContacto extends AsyncTask<Void,Void,String> {
+public class SenderReporte extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    String estado, municipio, sexo;
-    EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion;
-    String nom, ap, am, tel, dom, sex, fechaN, estadoC, esc, ocup;
-    int usuario;
+    EditText motivo, notas;
+    String mot, nots, t_consulta;
+    int usuario, cita, caso, paciente;
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
+    String hora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
     ProgressDialog pd;
 
-    public SenderNewContacto(Context c, String urlAddress, String estado, String municipio, String sexo, int usuario, EditText... editTexts) {
+    public SenderReporte(Context c, String urlAddress, int usuario, int cita, int caso, int paciente, String t_consulta, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
-        this.estado = estado;
-        this.municipio = municipio;
-        this.sexo = sexo;
         this.usuario = usuario;
+        this.cita = cita;
+        this.caso = caso;
+        this.t_consulta = t_consulta;
+        this.paciente = paciente;
 
-        this.nombres = editTexts[0];
-        this.apellido_paterno = editTexts[1];
-        this.apellido_materno = editTexts[2];
-        this.telefono = editTexts[3];
-        this.domicilio = editTexts[4];
-        this.fecNac = editTexts[5];
-        this.estCiv = editTexts[6];
-        this.escolaridad = editTexts[7];
-        this.ocupacion = editTexts[8];
+        this.motivo = editTexts[0];
+        this.notas = editTexts[1];
 
-        nom = nombres.getText().toString();
-        ap = apellido_paterno.getText().toString();
-        am = apellido_materno.getText().toString();
-        tel = telefono.getText().toString();
-        dom = domicilio.getText().toString();
-        fechaN = fecNac.getText().toString();
-        estadoC = estCiv.getText().toString();
-        esc = escolaridad.getText().toString();
-        ocup = ocupacion.getText().toString();
+        mot = motivo.getText().toString();
+        nots = notas.getText().toString();
 
     }
 
@@ -69,8 +56,8 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
         super.onPreExecute();
 
         pd = new ProgressDialog(c);
-        pd.setTitle("Registrar paciente");
-        pd.setMessage("Registrando paciente... Espere un momento");
+        pd.setTitle("Guardando Reporte");
+        pd.setMessage("Guardando Reporte... Espere un momento");
         pd.show();
     }
 
@@ -87,13 +74,10 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
         if (response != null) {
             if (response.equals("1")) {
-                //guardarDatos();
                 Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
-            } else if(response.equals("2")){
-                Toast.makeText(c, "Error!", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(c, "Ya existe", Toast.LENGTH_LONG).show();
+                Toast.makeText(c, usuario + " " + cita + " " + caso + " " + t_consulta, Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -115,7 +99,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerNewContacto(nom, ap, am, tel, dom, sexo, fechaN, estadoC, esc, ocup, date, estado, municipio, usuario).packData());
+            bw.write(new DataPackagerReporte(paciente, mot, nots, usuario, cita, caso, t_consulta, date, hora).packData());
 
             bw.flush();
 

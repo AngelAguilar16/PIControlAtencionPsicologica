@@ -1,9 +1,9 @@
 <?php
 
     $mysqli = new mysqli("localhost","root","","dbdif");
-    $usuario = intval($_GET['usuario']);
+    $id_paciente = intval($_GET['id_paciente']);
 
-    $query = "SELECT * FROM paciente WHERE usuario = '". $usuario ."'";
+    $query = "SELECT * FROM paciente WHERE id_paciente = '". $id_paciente ."'";
 
     $result = mysqli_query($mysqli, $query);
     $number_of_rows = mysqli_num_rows($result);
