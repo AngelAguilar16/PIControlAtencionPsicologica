@@ -28,7 +28,7 @@ public class ReporteCita extends AppCompatActivity {
     EditText editTextPaciente,editTextMotivo, editTextConsulta;
     String pa, t_us;
     int paciente, cita, usuario, caso = 1;
-    String urlAddress="http://192.168.1.69/dif/addReporte.php";
+    String urlAddress="http://192.168.1.68/dif/addReporte.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class ReporteCita extends AppCompatActivity {
     }
 
     private void queryPaciente(int paciente){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/getPaciente.php?id_paciente="+ paciente, response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.68/dif/getPaciente.php?id_paciente="+ paciente, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

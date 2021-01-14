@@ -19,7 +19,7 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
     EditText nombre, ap, am, mail, password1, password2;
     Intent ii;
     Button btnRegister, btnLogin;
-    String urlAddress="http://192.168.1.69/dif/register.php";
+    String urlAddress="http://192.168.1.68/dif/register.php";
 
     static Boolean succ;
     @Override

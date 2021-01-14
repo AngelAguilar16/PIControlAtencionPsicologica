@@ -30,7 +30,7 @@ public class EditContactoAgendaActivity extends AppCompatActivity {
     private EditText fecNac, estCiv, escolaridad, ocupacion;
     private Button btnActualizar;
 
-    private String URL = "http://192.168.1.69/dif/updatePacientes.php";
+    private String URL = "http://192.168.1.68/dif/updatePacientes.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

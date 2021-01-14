@@ -44,7 +44,7 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
     //EditText n_paciente;
     Spinner paciente;
     Button crear_cita;
-    String urlAddress="http://192.168.1.69/dif/addCita.php";
+    String urlAddress="http://192.168.1.68/dif/addCita.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
