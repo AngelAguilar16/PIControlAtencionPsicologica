@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReporteCita"></activity>
+        <activity android:name=".ExpedienteDetailsActivity2"></activity>
+        <activity android:name=".ExpedienteDetailsActivity" />
+        <activity android:name=".ExpedienteActivity" />
+        <activity android:name=".ReporteCita" />
         <activity android:name=".MenuMaterial" />
         <activity android:name=".AddNewCitaActivity" />
         <activity android:name=".UpdateInformacionActivity" />

@@ -50,6 +50,11 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void expedienteBtn(View v){
+        Intent i = new Intent(MenuActivity.this, ExpedienteActivity.class);
+        startActivity(i);
+    }
+
     public void reportesBtn(View view) {
         Intent i = new Intent(MenuActivity.this, ReporteCita.class);
         startActivity(i);
@@ -68,7 +73,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getUsuario(String correo){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/getUsuario.php", response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.68/dif/getUsuario.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("Usuario");

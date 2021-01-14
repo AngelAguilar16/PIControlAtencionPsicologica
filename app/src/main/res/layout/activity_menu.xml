@@ -39,6 +39,7 @@
         android:layout_height="140dp"
         android:layout_below="@id/btnAgenda"
         android:backgroundTint="#A9A528"
+        android:onClick="expedienteBtn"
         android:text="Expedientes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
