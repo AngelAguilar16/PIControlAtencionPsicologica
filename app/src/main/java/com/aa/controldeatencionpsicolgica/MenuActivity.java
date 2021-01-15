@@ -50,6 +50,11 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void expedientesBtn(View v){
+        Intent i = new Intent(MenuActivity.this, ExpedienteActivity.class);
+        startActivity(i);
+    }
+
     public void reportesBtn(View view) {
         Intent i = new Intent(MenuActivity.this, ReporteCita.class);
         startActivity(i);

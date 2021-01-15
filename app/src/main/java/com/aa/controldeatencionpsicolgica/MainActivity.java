@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean s_ini = preferences.getBoolean("s_ini", Boolean.FALSE);
 
         if (s_ini.equals(Boolean.TRUE)){
-            i = new Intent(MainActivity.this, MenuMaterial.class);
+            i = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(i);
         }
 

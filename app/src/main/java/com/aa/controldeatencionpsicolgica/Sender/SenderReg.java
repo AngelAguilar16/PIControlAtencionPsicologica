@@ -81,7 +81,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
             } else {
                 id = Integer.parseInt(response);
                 guardarDatos();
-                Intent ii = new Intent(c, MenuMaterial.class);
+                Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
             }
 
