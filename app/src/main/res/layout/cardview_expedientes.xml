@@ -50,6 +50,16 @@
                 android:textColor="@color/white"
                 android:text="TextView" />
 
+            <TextView
+                android:id="@+id/cvTxtNotas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/cvTxtFE"
+                android:layout_toEndOf="@id/person_photo"
+                android:textColor="@color/white"
+                android:text="Text"/>
+
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

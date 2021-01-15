@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReporte;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -74,7 +75,7 @@ public class SenderReporte extends AsyncTask<Void,Void,String> {
 
         if (response != null) {
             if (response.equals("1")) {
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
             } else {
                 Toast.makeText(c, usuario + " " + cita + " " + caso + " " + t_consulta, Toast.LENGTH_LONG).show();

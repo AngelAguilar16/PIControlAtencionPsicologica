@@ -90,8 +90,6 @@ public class ReportesFragment extends Fragment {
         editTextPaciente = (EditText) v.findViewById(R.id.editTextPaciente);
         editTextMotivo = (EditText) v.findViewById(R.id.editTextMotivo);
         editTextConsulta = (EditText) v.findViewById(R.id.editTextConsulta);
-
-        btnCloseReporte = v.findViewById(R.id.btnCloseReporte);
         btnGuardarDatosConsulta = v.findViewById(R.id.btnGuardarDatosConsulta);
         cargarSP();
         paciente = 1;
@@ -101,7 +99,7 @@ public class ReportesFragment extends Fragment {
         btnGuardarDatosConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cita = 1;
+                cita = 4;
                 SenderReporte s = new SenderReporte(context, urlAddress, usuario, cita, caso, paciente, t_us, editTextMotivo, editTextConsulta);
                 s.execute();
             }

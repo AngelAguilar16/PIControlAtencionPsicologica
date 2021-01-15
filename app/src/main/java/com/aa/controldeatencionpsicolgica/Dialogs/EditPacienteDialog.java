@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.aa.controldeatencionpsicolgica.AgendaActivity;
 import com.aa.controldeatencionpsicolgica.EditContactoAgendaActivity;
 import com.aa.controldeatencionpsicolgica.Fragments.AgendaFragment;
+import com.aa.controldeatencionpsicolgica.MenuMaterial;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.R;
 import com.android.volley.AuthFailureError;
@@ -179,7 +180,7 @@ public class EditPacienteDialog extends DialogFragment {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(context, "Datos actualizados!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(context, AgendaActivity.class);
+                            Intent intent = new Intent(context, MenuMaterial.class);
                             startActivity(intent);
                         }
                     }, new Response.ErrorListener() {

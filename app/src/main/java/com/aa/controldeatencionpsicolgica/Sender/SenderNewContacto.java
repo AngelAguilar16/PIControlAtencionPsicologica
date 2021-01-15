@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerNewContacto;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -96,7 +97,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("1")) {
                 //guardarDatos();
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
             } else if(response.equals("2")){
                 Toast.makeText(c, "Error!", Toast.LENGTH_LONG).show();
