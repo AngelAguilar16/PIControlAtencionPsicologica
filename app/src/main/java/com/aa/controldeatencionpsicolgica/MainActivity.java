@@ -17,7 +17,11 @@ public class MainActivity extends AppCompatActivity {
     EditText mail, password;
     Button login, register;
     Intent i;
+<<<<<<< refs/remotes/origin/master
     String urlAddress="http://192.168.1.68/dif/login.php";
+=======
+    String urlAddress="http://192.168.1.78/dif/login.php";
+>>>>>>> Update UI
 
 
     @Override
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean s_ini = preferences.getBoolean("s_ini", Boolean.FALSE);
 
         if (s_ini.equals(Boolean.TRUE)){
-            i = new Intent(MainActivity.this, MenuActivity.class);
+            i = new Intent(MainActivity.this, MenuMaterial.class);
             startActivity(i);
         }
 

@@ -1,6 +1,7 @@
 package com.aa.controldeatencionpsicolgica.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Paciente implements Serializable {
 
@@ -121,4 +122,6 @@ public class Paciente implements Serializable {
     public String toString() {
         return nombre;
     }
+
+    private List<Paciente> pacientes;
 }

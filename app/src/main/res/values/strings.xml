@@ -11,4 +11,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false"> Hello blank fragment </string>
+    <string name="title_activity_expediente_details_actvity">ExpedienteDetailsActvity</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

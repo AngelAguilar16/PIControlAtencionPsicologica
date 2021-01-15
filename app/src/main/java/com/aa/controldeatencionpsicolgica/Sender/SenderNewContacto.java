@@ -28,7 +28,15 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
     String urlAddress;
     String estado, municipio, sexo;
     EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion;
-    String nom, ap, am, tel, dom, sex, fechaN, estadoC, esc, ocup;
+    String nom;
+    String ap;
+    String am;
+    String tel;
+    String dom;
+    String fechaN;
+    String estadoC;
+    String esc;
+    String ocup;
     int usuario;
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 

@@ -80,7 +80,6 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     }
     public int cargarIdusuario() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
         return preferences.getInt("id", 0);
     }
 }

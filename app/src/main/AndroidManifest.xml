@@ -14,7 +14,14 @@
         android:theme="@style/Theme.ControlDeAtenciónPsicológica"
         android:usesCleartextTraffic="true">
         <activity android:name=".ExpedienteDetailsActivity2"></activity>
+<<<<<<< refs/remotes/origin/master
         <activity android:name=".ExpedienteDetailsActivity" />
+=======
+        <activity
+            android:name=".ExpedienteDetailsActivity"
+            android:label="@string/title_activity_expediente_details_actvity"
+            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar"></activity>
+>>>>>>> Update UI
         <activity android:name=".ExpedienteActivity" />
         <activity android:name=".ReporteCita" />
         <activity android:name=".MenuMaterial" />
