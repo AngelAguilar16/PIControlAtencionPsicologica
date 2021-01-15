@@ -11,10 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
+import com.aa.controldeatencionpsicolgica.CitasActivity;
+import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.MainActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.R;
+import com.aa.controldeatencionpsicolgica.ReporteCita;
+import com.aa.controldeatencionpsicolgica.Sender.SenderReporte;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +43,13 @@ public class ReportesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Button btnCloseReporte, btnGuardarDatosConsulta;
+    EditText editTextPaciente,editTextMotivo, editTextConsulta;
+    String pa, t_us;
+    int paciente, cita, usuario, caso = 1;
+    String urlAddress="http://192.168.1.78/dif/addReporte.php";
     Button btnCSM;
+    Context context;
 
     public ReportesFragment() {
         // Required empty public constructor
@@ -69,23 +86,55 @@ public class ReportesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_reportes, container, false);
+        context = getContext();
+        editTextPaciente = (EditText) v.findViewById(R.id.editTextPaciente);
+        editTextMotivo = (EditText) v.findViewById(R.id.editTextMotivo);
+        editTextConsulta = (EditText) v.findViewById(R.id.editTextConsulta);
 
-        btnCSM = v.findViewById(R.id.btnCSM);
+        btnCloseReporte = v.findViewById(R.id.btnCloseReporte);
+        btnGuardarDatosConsulta = v.findViewById(R.id.btnGuardarDatosConsulta);
+        cargarSP();
+        paciente = 1;
+        queryPaciente(paciente);
 
-        btnCSM.setOnClickListener(new View.OnClickListener() {
+
+        btnGuardarDatosConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                SharedPreferences preferences = v.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = preferences.edit();
-
-                editor.putBoolean("s_ini", Boolean.FALSE);
-                editor.apply();
-
-                Intent i = new Intent(v.getContext(), MainActivity.class);
-                startActivity(i);
+            public void onClick(View view) {
+                cita = 1;
+                SenderReporte s = new SenderReporte(context, urlAddress, usuario, cita, caso, paciente, t_us, editTextMotivo, editTextConsulta);
+                s.execute();
             }
         });
+
         return v;
+    }
+
+    private void queryPaciente(int paciente){
+        StringRequest stringRequest = new StringRequest("http://192.168.1.78/dif/getPaciente.php?id_paciente="+ paciente, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("pacientesList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
+                    pa = p.getNombre() + " " + p.getAp() + " " + p.getAm();
+                    editTextPaciente.setText(pa);
+                }
+                //Toast.makeText(ReporteCita.this,"Funcion activada" + pa,Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+                //Toast.makeText(ReporteCita.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void cargarSP() {
+        SharedPreferences preferences = context.getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        usuario = preferences.getInt("id", 0);
+        t_us = preferences.getString("t_us", "a");
     }
 }

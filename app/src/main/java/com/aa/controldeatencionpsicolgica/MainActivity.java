@@ -17,11 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mail, password;
     Button login, register;
     Intent i;
-<<<<<<< refs/remotes/origin/master
-    String urlAddress="http://192.168.1.68/dif/login.php";
-=======
     String urlAddress="http://192.168.1.78/dif/login.php";
->>>>>>> Update UI
 
 
     @Override
