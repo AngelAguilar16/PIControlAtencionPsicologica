@@ -88,7 +88,7 @@ public class MenuActivity extends AppCompatActivity {
                                                 usuObj.getString("password"),
                                                 usuObj.getString("tipo_usuario"));
                         guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
-                        Toast.makeText(MenuActivity.this, u.getTipo_usuario(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MenuActivity.this, u.getTipo_usuario(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

@@ -59,7 +59,7 @@ public class SenderUsuario extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("0")) {
                 //guardarDatos();
-                Toast.makeText(c, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", Toast.LENGTH_LONG).show();
+                //Toast.makeText(c, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", Toast.LENGTH_LONG).show();
             } else {
                 try {
                     JSONObject obj = new JSONObject(response);

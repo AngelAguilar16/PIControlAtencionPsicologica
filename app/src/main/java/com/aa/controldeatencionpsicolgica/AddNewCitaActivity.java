@@ -70,7 +70,7 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
                 Paciente paciente = p.get(np);
                 //Toast.makeText(AddNewCitaActivity.this,"" + paciente.getId(),Toast.LENGTH_LONG).show();
 
-                SenderCita s = new SenderCita(AddNewCitaActivity.this, urlAddress, fecha, hora, cargarIdusuario(), paciente.getId());
+                SenderCita s = new SenderCita(AddNewCitaActivity.this, urlAddress, fecha, hora, cargarIdusuario(), 1,paciente.getId());
                 s.execute();
             }
         });

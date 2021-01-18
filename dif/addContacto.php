@@ -13,6 +13,7 @@
     $escolaridad = filter_input(INPUT_POST, "escolaridad");
     $ocupacion = filter_input(INPUT_POST, "ocupacion");
     $usuario = filter_input(INPUT_POST, "usuario");
+    $caso = filter_input(INPUT_POST, "caso");
 
     $mysqli = new mysqli("localhost","root","","dbdif");
 
@@ -20,8 +21,8 @@
     $row = mysqli_fetch_array($id_q);
     $id = intval($row[0]);
     $id += 1;
-    $insert = mysqli_query($mysqli, "INSERT INTO paciente(id_paciente, usuario, fecha_registro, nombres, ap, am, menor_de_edad, telefono, estado, municipio, domicilio, sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion) 
-    VALUES ('$id', '$usuario', '$fecha_registro', '$nombres', '$ap', '$am', 0, '$telefono', '$estado', '$municipio', '$domicilio', '$sexo', '$fecha_nacimiento', '$estado_civil', '$escolaridad', '$ocupacion')");
+    $insert = mysqli_query($mysqli, "INSERT INTO paciente(id_paciente, usuario, fecha_registro, nombres, ap, am, menor_de_edad, telefono, estado, municipio, domicilio, sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion, caso) 
+    VALUES ('$id', '$usuario', '$fecha_registro', '$nombres', '$ap', '$am', 0, '$telefono', '$estado', '$municipio', '$domicilio', '$sexo', '$fecha_nacimiento', '$estado_civil', '$escolaridad', '$ocupacion', '$caso')");
 
     if ($insert == TRUE) {
         echo '1'; //se ingreso correctamente

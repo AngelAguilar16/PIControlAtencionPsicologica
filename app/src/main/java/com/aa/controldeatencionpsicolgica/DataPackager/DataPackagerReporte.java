@@ -10,16 +10,15 @@ import java.util.Iterator;
 public class DataPackagerReporte {
 
     String motivo, notas, t_consulta, fecha, hora;
-    int paciente, usuario, cita, caso;
+    int paciente, usuario, cita;
 
 
-    public DataPackagerReporte(int paciente, String motivo, String notas, int usuario, int cita, int caso, String t_consulta, String fecha, String hora) {
+    public DataPackagerReporte(int paciente, String motivo, String notas, int usuario, int cita, String t_consulta, String fecha, String hora) {
         this.paciente = paciente;
         this.motivo = motivo;
         this.notas = notas;
         this.usuario = usuario;
         this.cita = cita;
-        this.caso = caso;
         this.t_consulta = t_consulta;
         this.fecha = fecha;
         this.hora = hora;
@@ -37,7 +36,6 @@ public class DataPackagerReporte {
             jo.put("notas", notas);
             jo.put("usuario", usuario);
             jo.put("cita", cita);
-            jo.put("caso", caso);
             jo.put("t_consulta", t_consulta);
             jo.put("fecha", fecha);
             jo.put("hora", hora);

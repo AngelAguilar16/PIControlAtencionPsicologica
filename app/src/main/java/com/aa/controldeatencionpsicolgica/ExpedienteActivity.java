@@ -53,7 +53,7 @@ public class ExpedienteActivity extends AppCompatActivity {
     }
 
     private void showList() {
-        StringRequest stringRequest = new StringRequest("http://192.168.1.68/dif/listPacientes.php?usuario="+ us, response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php?usuario="+ us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

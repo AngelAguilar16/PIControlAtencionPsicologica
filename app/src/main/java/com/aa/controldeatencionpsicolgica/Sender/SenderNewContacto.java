@@ -38,18 +38,19 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
     String estadoC;
     String esc;
     String ocup;
-    int usuario;
+    int usuario, caso;
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     ProgressDialog pd;
 
-    public SenderNewContacto(Context c, String urlAddress, String estado, String municipio, String sexo, int usuario, EditText... editTexts) {
+    public SenderNewContacto(Context c, String urlAddress, String estado, String municipio, String sexo, int usuario, int caso, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.estado = estado;
         this.municipio = municipio;
         this.sexo = sexo;
         this.usuario = usuario;
+        this.caso = caso;
 
         this.nombres = editTexts[0];
         this.apellido_paterno = editTexts[1];
@@ -97,7 +98,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("1")) {
                 //guardarDatos();
-                Intent ii = new Intent(c, MenuMaterial.class);
+                Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
             } else if(response.equals("2")){
                 Toast.makeText(c, "Error!", Toast.LENGTH_LONG).show();
@@ -124,7 +125,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerNewContacto(nom, ap, am, tel, dom, sexo, fechaN, estadoC, esc, ocup, date, estado, municipio, usuario).packData());
+            bw.write(new DataPackagerNewContacto(nom, ap, am, tel, dom, sexo, fechaN, estadoC, esc, ocup, date, estado, municipio, usuario, caso).packData());
 
             bw.flush();
 

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.aa.controldeatencionpsicolgica.CitasActivity;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
+import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
@@ -24,17 +25,18 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
     Context c;
     String urlAddress;
     String fecha, hora;
-    int usuario, paciente;
+    int usuario, paciente, visible;
 
     ProgressDialog pd;
 
-    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, int paciente) {
+    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, int visible,int paciente) {
         this.c = c;
         this.urlAddress = urlAddress;
 
         this.fecha = fecha;
         this.hora = hora;
         this.usuario = usuario;
+        this.visible = visible;
         this.paciente = paciente;
 
     }
@@ -63,7 +65,7 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("1")) {
                 //Toast.makeText(c, "cita realizada", Toast.LENGTH_LONG).show();
-                Intent ii = new Intent(c, MenuMaterial.class);
+                Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
             } else {
                 Toast.makeText(c, "Hubo un error php " + response, Toast.LENGTH_LONG).show();
@@ -88,7 +90,7 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerCita(fecha, hora, usuario, paciente).packData());
+            bw.write(new DataPackagerCita(fecha, hora, usuario, visible,paciente).packData());
 
             bw.flush();
 

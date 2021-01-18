@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Sender.SenderReg;
@@ -27,8 +28,9 @@ public class ReporteCita extends AppCompatActivity {
     Button btnCloseReporte, btnGuardarDatosConsulta;
     EditText editTextPaciente,editTextMotivo, editTextConsulta;
     String pa, t_us;
-    int paciente, cita, usuario, caso = 1;
-    String urlAddress="http://192.168.1.69/dif/addReporte.php";
+    int paciente, cita, usuario;
+
+    String urlAddress= ((Variable) this.getApplication()).getIp() + "addReporte.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +60,14 @@ public class ReporteCita extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cita = getIntent().getIntExtra("cita", 0);
-                SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, caso, paciente, t_us, editTextMotivo, editTextConsulta);
+                SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, paciente, t_us, editTextMotivo, editTextConsulta);
                 s.execute();
             }
         });
     }
 
     private void queryPaciente(int paciente){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/getPaciente.php?id_paciente="+ paciente, response -> {
+        StringRequest stringRequest = new StringRequest(((Variable) this.getApplication()).getIp() + "getPaciente.php?id_paciente="+ paciente, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

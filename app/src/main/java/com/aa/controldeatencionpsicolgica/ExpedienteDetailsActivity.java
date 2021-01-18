@@ -68,7 +68,7 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
 
     // Metodo para mostrar los reportes del paciente
     private void showList() {
-        StringRequest stringRequest = new StringRequest("http://192.168.1.78/dif/listExpediente.php?paciente="+ us, response -> {
+        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listExpediente.php?paciente="+ us, response -> {
             try{
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("expedienteList");

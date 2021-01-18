@@ -19,7 +19,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     String[] oMunicipio = { "Manzanillo", "Tecomán", "Armería", "Comala", "Villa de Álvarez", "Cuauhtémoc", "Ixtlahuacán", "Coquimatlán", "Minatitlán"};
     String[] oEstado = { "Colima" };
     String[] oSexo = {"Masculino", "Femenino", "Otro"};
-    int opM = 0, opE = 0, opS = 0, usuario;
+    int opM = 0, opE = 0, opS = 0, usuario;//caso = 1
     String urlAddress="http://192.168.1.69/dif/addContacto.php";
 
     @Override
@@ -57,7 +57,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
 
     public void addNewContactBtn(View view) {
         usuario = cargarIdusuario();
-        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], usuario, nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], usuario, 1, nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 

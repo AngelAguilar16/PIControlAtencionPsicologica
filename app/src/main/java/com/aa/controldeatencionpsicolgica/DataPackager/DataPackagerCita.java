@@ -11,13 +11,14 @@ import java.util.Iterator;
 public class DataPackagerCita {
 
     String fecha, hora;
-    int usuario, paciente;
+    int usuario, paciente, visible;
 
 
-    public DataPackagerCita(String fecha, String hora, int usuario, int paciente) {
+    public DataPackagerCita(String fecha, String hora, int usuario, int visible,int paciente) {
         this.fecha = fecha;
         this.hora = hora;
         this.usuario = usuario;
+        this.visible = visible;
         this.paciente = paciente;
     }
 
@@ -31,6 +32,7 @@ public class DataPackagerCita {
             jo.put("fecha", fecha);
             jo.put("hora", hora);
             jo.put("usuario", usuario);
+            jo.put("visible", visible);
             jo.put("paciente", paciente);
 
 

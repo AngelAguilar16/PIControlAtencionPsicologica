@@ -14,9 +14,9 @@ import com.aa.controldeatencionpsicolgica.Sender.SenderReg;
 
 public class RegistroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spTipoUsuario;
-    String[] opciones = {"Psicología", "Psiquiatría"};
+    String[] opciones = {"Psicología", "Psiquiatría", "Peritaje"};
     Integer tipo;
-    EditText nombre, ap, am, mail, password1, password2;
+    EditText nombre, ap, am, mail, password1;
     Intent ii;
     Button btnRegister, btnLogin;
     String urlAddress="http://192.168.1.69/dif/register.php";
@@ -34,7 +34,6 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
         am = (EditText) findViewById(R.id.editTextAM);
         mail = (EditText) findViewById(R.id.etEmail);
         password1 = (EditText) findViewById(R.id.etPasswdMain);
-        //password2 = (EditText) findViewById(R.id.etPasswdConfirm);
 
         ArrayAdapter<String> aa = new ArrayAdapter<>(RegistroActivity.this, android.R.layout.simple_dropdown_item_1line, opciones);
 

@@ -185,7 +185,7 @@ public class AddCitaDialog extends DialogFragment {
 
     public void addNewCitaBtn() {
         usuario = cargarIdusuario();
-        SenderCita s = new SenderCita(context, urlAddress, fecha.getText().toString(), hora.getText().toString(), cargarIdusuario(), pacientes.get(np).getId());
+        SenderCita s = new SenderCita(context, urlAddress, fecha.getText().toString(), hora.getText().toString(), cargarIdusuario(), 1,pacientes.get(np).getId());
         s.execute();
     }
 

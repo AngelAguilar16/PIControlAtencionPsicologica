@@ -30,7 +30,7 @@ public class AddPacienteDialog extends DialogFragment {
     String[] oEstado = { "Colima" };
     String[] oSexo = {"Masculino", "Femenino", "Otro"};
     String urlAddress="http://192.168.1.78/dif/addContacto.php";
-    int opM = 0, opE = 0, opS = 0, usuario;
+    int opM = 0, opE = 0, opS = 0, usuario, caso = 1;
     Context context;
 
     public static AddPacienteDialog display(FragmentManager fragmentManager) {
@@ -150,7 +150,7 @@ public class AddPacienteDialog extends DialogFragment {
 
     public void addNewContactBtn() {
         usuario = cargarIdusuario();
-        SenderNewContacto s = new SenderNewContacto(context, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], usuario, nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
+        SenderNewContacto s = new SenderNewContacto(context, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], usuario, caso,nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 }

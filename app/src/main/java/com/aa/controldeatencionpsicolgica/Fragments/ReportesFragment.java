@@ -100,7 +100,7 @@ public class ReportesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 cita = 4;
-                SenderReporte s = new SenderReporte(context, urlAddress, usuario, cita, caso, paciente, t_us, editTextMotivo, editTextConsulta);
+                SenderReporte s = new SenderReporte(context, urlAddress, usuario, cita, paciente, t_us, editTextMotivo, editTextConsulta);
                 s.execute();
             }
         });
