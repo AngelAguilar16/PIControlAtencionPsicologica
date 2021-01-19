@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Sender.SenderCita;
@@ -44,7 +45,7 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
     //EditText n_paciente;
     Spinner paciente;
     Button crear_cita;
-    String urlAddress="http://192.168.1.69/dif/addCita.php";
+    String urlAddress= Variable.ip + "addCita.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

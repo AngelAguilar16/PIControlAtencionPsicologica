@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Sender.SenderNewContacto;
 
 public class AddNewContactoAgenda extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -20,7 +21,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     String[] oEstado = { "Colima" };
     String[] oSexo = {"Masculino", "Femenino", "Otro"};
     int opM = 0, opE = 0, opS = 0, usuario;//caso = 1
-    String urlAddress="http://192.168.1.69/dif/addContacto.php";
+    String urlAddress= Variable.ip + "addContacto.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

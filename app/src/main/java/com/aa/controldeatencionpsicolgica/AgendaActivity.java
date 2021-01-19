@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.Request;
@@ -65,7 +66,7 @@ public class AgendaActivity extends AppCompatActivity {
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php?usuario="+ us, response -> {
+        StringRequest stringRequest = new StringRequest(Variable.ip + "listPacientes.php?usuario="+ us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

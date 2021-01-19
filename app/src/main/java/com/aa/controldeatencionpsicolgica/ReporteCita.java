@@ -30,7 +30,7 @@ public class ReporteCita extends AppCompatActivity {
     String pa, t_us;
     int paciente, cita, usuario;
 
-    String urlAddress= ((Variable) this.getApplication()).getIp() + "addReporte.php";
+    String urlAddress= Variable.ip + "addReporte.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class ReporteCita extends AppCompatActivity {
     }
 
     private void queryPaciente(int paciente){
-        StringRequest stringRequest = new StringRequest(((Variable) this.getApplication()).getIp() + "getPaciente.php?id_paciente="+ paciente, response -> {
+        StringRequest stringRequest = new StringRequest(Variable.ip + "getPaciente.php?id_paciente="+ paciente, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

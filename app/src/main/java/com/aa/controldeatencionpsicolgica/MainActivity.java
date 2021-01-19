@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Sender.SenderLog;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mail, password;
     Button login, register;
     Intent i;
-    String urlAddress="http://192.168.1.69/dif/login.php";
+    String urlAddress= Variable.ip + "login.php";
 
 
     @Override

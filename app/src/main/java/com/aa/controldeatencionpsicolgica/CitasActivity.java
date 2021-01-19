@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Cita;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
@@ -72,7 +73,7 @@ public class CitasActivity extends AppCompatActivity {
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.69/dif/listCitas.php?usuario=" + us, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Variable.ip + "listCitas.php?usuario=" + us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
@@ -100,7 +101,7 @@ public class CitasActivity extends AppCompatActivity {
     }
 
     private void getUsuarios(){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php?usuario="+us, response -> {
+        StringRequest stringRequest = new StringRequest(Variable.ip + "listPacientes.php?usuario="+us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

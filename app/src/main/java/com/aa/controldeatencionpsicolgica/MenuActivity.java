@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
@@ -73,7 +74,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getUsuario(String correo){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/getUsuario.php", response -> {
+        StringRequest stringRequest = new StringRequest(Variable.ip + "getUsuario.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("Usuario");

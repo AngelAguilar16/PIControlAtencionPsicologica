@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.aa.controldeatencionpsicolgica.Global.Variable;
 import com.aa.controldeatencionpsicolgica.Sender.SenderReg;
 
 public class RegistroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -19,7 +20,7 @@ public class RegistroActivity extends AppCompatActivity implements AdapterView.O
     EditText nombre, ap, am, mail, password1;
     Intent ii;
     Button btnRegister, btnLogin;
-    String urlAddress="http://192.168.1.69/dif/register.php";
+    String urlAddress= Variable.ip + "register.php";
 
     static Boolean succ;
     @Override
