@@ -2,7 +2,6 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,12 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Global.Variable;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
-import com.aa.controldeatencionpsicolgica.Sender.SenderReg;
 import com.aa.controldeatencionpsicolgica.Sender.SenderReporte;
 import com.android.volley.toolbox.StringRequest;
 
@@ -30,7 +27,7 @@ public class ReporteCita extends AppCompatActivity {
     String pa, t_us;
     int paciente, cita, usuario;
 
-    String urlAddress= Variable.ip + "addReporte.php";
+    String urlAddress= Global.ip + "addReporte.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +64,7 @@ public class ReporteCita extends AppCompatActivity {
     }
 
     private void queryPaciente(int paciente){
-        StringRequest stringRequest = new StringRequest(Variable.ip + "getPaciente.php?id_paciente="+ paciente, response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "getPaciente.php?id_paciente="+ paciente, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");

@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Global.Variable;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,7 +31,7 @@ public class EditContactoAgendaActivity extends AppCompatActivity {
     private EditText fecNac, estCiv, escolaridad, ocupacion;
     private Button btnActualizar;
 
-    private String URL = Variable.ip + "updatePacientes.php";
+    private String URL = Global.ip + "updatePacientes.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

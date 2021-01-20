@@ -1,64 +1,55 @@
 package com.aa.controldeatencionpsicolgica;
 
-import android.content.Context;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgendaActivity extends AppCompatActivity {
+public class ListaPacientes extends AppCompatActivity {
 
     ListView lvPacientes;
     List<Paciente> pacienteList;
-
+    String a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agenda);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        lvPacientes = findViewById(R.id.lvPacientes);
-
+        setContentView(R.layout.activity_lista_pacientes);
+        lvPacientes = findViewById(R.id.lvPacientesCaso);
         pacienteList = new ArrayList<>();
-
-        fab.setOnClickListener(view -> {
-            //Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            Intent i = new Intent(AgendaActivity.this, AddNewContactoAgenda.class);
-            startActivity(i);
-        });
-
+        a = getIntent().getStringExtra("desc");
         lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Paciente paciente = pacienteList.get(position);
-                Intent intent = new Intent(getApplicationContext(), AgendaDetailsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddNewCaso.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putSerializable("pacienteData", paciente);
                 intent.putExtras(bundle);
+                intent.putExtra("desc", a);
                 startActivity(intent);
+                finish();
             }
         });
         showList();
+
     }
 
     private void showList(){
@@ -81,6 +72,4 @@ public class AgendaActivity extends AppCompatActivity {
         }, error -> { });
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
-
-
 }

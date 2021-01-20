@@ -13,11 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ExpedienteDetailsActivity2"></activity>
+        <activity android:name=".ListaPacientes"></activity>
+        <activity android:name=".AddNewCaso" />
+        <activity android:name=".ExpedienteDetailsActivity2" />
         <activity
             android:name=".ExpedienteDetailsActivity"
             android:label="@string/title_activity_expediente_details_actvity"
-            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar"></activity>
+            android:theme="@style/Theme.ControlDeAtenciónPsicológica.NoActionBar" />
         <activity android:name=".ExpedienteActivity" />
         <activity android:name=".ReporteCita" />
         <activity android:name=".MenuMaterial" />

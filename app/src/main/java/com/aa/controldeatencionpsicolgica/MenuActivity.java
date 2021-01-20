@@ -9,12 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
-import com.aa.controldeatencionpsicolgica.Global.Variable;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
-import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
-import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -32,6 +29,7 @@ public class MenuActivity extends AppCompatActivity {
         getUsuario(cargarCorreo());
         //getPacientes();
         //Toast.makeText(MenuActivity.this, nP + "", Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -57,7 +55,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void reportesBtn(View view) {
-        Intent i = new Intent(MenuActivity.this, ReporteCita.class);
+        Intent i = new Intent(MenuActivity.this, AddNewCaso.class);
         startActivity(i);
     }
 
@@ -74,7 +72,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getUsuario(String correo){
-        StringRequest stringRequest = new StringRequest(Variable.ip + "getUsuario.php", response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "getUsuario.php", response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("Usuario");
@@ -90,6 +88,7 @@ public class MenuActivity extends AppCompatActivity {
                                                 usuObj.getString("tipo_usuario"));
                         guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
                         //Toast.makeText(MenuActivity.this, u.getTipo_usuario(), Toast.LENGTH_SHORT).show();
+                        Global.setUsuario(u.getId_usuario());
                     }
 
                 }
@@ -122,40 +121,6 @@ public class MenuActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    /*private void getPacientes(){
-        StringRequest stringRequest = new StringRequest("http://192.168.1.69/dif/listPacientes.php", response -> {
-            try {
-                JSONObject obj = new JSONObject(response);
-                JSONArray array = obj.getJSONArray("pacientesList");
-                for (int i = 0; i < array.length(); i++){
-                    JSONObject pacObj = array.getJSONObject(i);
-
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
-                    guardarPacientes(i, p.getId(), p.getNombre(), p.getAp(), p.getAm());
-                }
-
-                //Toast.makeText(AgendaActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
-                //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
-        }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-    }
-
-    public void guardarPacientes(int i, int id, String nombre, String ap, String am) {
-
-        SharedPreferences preferences = getSharedPreferences("pacientes", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("i", i);
-        editor.putInt("id"+i, id);
-        editor.putString("user"+i, nombre);
-        editor.putString("ap"+i, ap);
-        editor.putString("am"+i, am);
-
-        editor.commit();
-    }*/
 
 
 }

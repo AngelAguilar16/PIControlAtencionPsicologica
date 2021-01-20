@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Expediente_Adapter;
-import com.aa.controldeatencionpsicolgica.Global.Variable;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Expediente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
@@ -69,7 +69,7 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
 
     // Metodo para mostrar los reportes del paciente
     private void showList() {
-        StringRequest stringRequest = new StringRequest(Variable.ip + "listExpediente.php?paciente="+ us, response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "listExpediente.php?paciente="+ us, response -> {
             try{
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("expedienteList");

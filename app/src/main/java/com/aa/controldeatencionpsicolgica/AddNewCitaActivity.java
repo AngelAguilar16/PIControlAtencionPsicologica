@@ -2,10 +2,7 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,28 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
-import com.aa.controldeatencionpsicolgica.Global.Variable;
-import com.aa.controldeatencionpsicolgica.Handlers.Handler;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Sender.SenderCita;
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class AddNewCitaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatePicker dp;
@@ -45,7 +29,7 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
     //EditText n_paciente;
     Spinner paciente;
     Button crear_cita;
-    String urlAddress= Variable.ip + "addCita.php";
+    String urlAddress= Global.ip + "addCita.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
