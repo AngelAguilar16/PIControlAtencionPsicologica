@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Struct;
+import java.util.ArrayList;
 
 public class AddNewCaso extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class AddNewCaso extends AppCompatActivity {
     Button btnCrearPacienteCaso, btnSelectPacienteCaso, btnCrearCaso;
     Paciente paciente = null;
     String urlAddress = Global.ip + "addCaso.php";
+    ArrayList<Paciente> pac = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,11 @@ public class AddNewCaso extends AppCompatActivity {
         String a = getIntent().getStringExtra("desc");
         Bundle objeto = getIntent().getExtras();
 
-
-        if(objeto != null){ paciente = (Paciente) objeto.getSerializable("pacienteData"); }
+        if(objeto != null){
+            pac = (ArrayList<Paciente>) objeto.getSerializable("pacientes");
+            paciente = (Paciente) objeto.getSerializable("pacienteData");
+            pac.add(paciente);
+        }
         if (a != null){ etDescCaso.setText(a); }
 
         btnCrearPacienteCaso = (Button) findViewById(R.id.btnCrearPacienteCaso);
@@ -58,6 +63,10 @@ public class AddNewCaso extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AddNewCaso.this, ListaPacientes.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("pacientes", pac);
+                i.putExtras(bundle);
                 i.putExtra("desc", etDescCaso.getText().toString());
                 startActivity(i);
             }
@@ -66,9 +75,8 @@ public class AddNewCaso extends AppCompatActivity {
         btnCrearCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SenderCaso s = new SenderCaso(AddNewCaso.this, urlAddress, etDescCaso.getText().toString(), paciente.getId());
+                SenderCaso s = new SenderCaso(AddNewCaso.this, urlAddress, etDescCaso.getText().toString(), pac);
                 s.execute();
-
             }
         });
     }

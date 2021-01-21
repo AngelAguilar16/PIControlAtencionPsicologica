@@ -27,8 +27,9 @@ public class Paciente implements Serializable {
     String estado_civil;
     String escolaridad;
     String ocupacion;
+    int caso;
 
-    public Paciente(int id, int usuario, String fecha_registro, String nombre, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
+    public Paciente(int id, int usuario, String fecha_registro, String nombre, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion, int caso) {
         this.id = id;
         this.usuario = usuario;
         this.fecha_registro = fecha_registro;
@@ -50,10 +51,11 @@ public class Paciente implements Serializable {
         this.estado_civil = estado_civil;
         this.escolaridad = escolaridad;
         this.ocupacion = ocupacion;
+        this.caso = caso;
     }
 
-    public Paciente(int id_paciente, int usuario, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion) {
-        this(id_paciente, usuario, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion);
+    public Paciente(int id_paciente, int usuario, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion, int caso) {
+        this(id_paciente, usuario, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion, caso);
     }
 
     public int getId(){
@@ -116,6 +118,22 @@ public class Paciente implements Serializable {
 
     public String getOcupacion() {
         return ocupacion;
+    }
+
+    public int getCaso() { return caso; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Paciente other = (Paciente) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 
     @Override

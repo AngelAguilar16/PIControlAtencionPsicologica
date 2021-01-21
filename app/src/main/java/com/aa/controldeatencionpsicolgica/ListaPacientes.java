@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
@@ -26,6 +27,7 @@ public class ListaPacientes extends AppCompatActivity {
 
     ListView lvPacientes;
     List<Paciente> pacienteList;
+    ArrayList<Paciente> pList = new ArrayList<>();
     String a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,9 @@ public class ListaPacientes extends AppCompatActivity {
         setContentView(R.layout.activity_lista_pacientes);
         lvPacientes = findViewById(R.id.lvPacientesCaso);
         pacienteList = new ArrayList<>();
+        Bundle objeto = getIntent().getExtras();
+
+        pList = (ArrayList<Paciente>) objeto.getSerializable("pacientes");
         a = getIntent().getStringExtra("desc");
         lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -42,6 +47,7 @@ public class ListaPacientes extends AppCompatActivity {
                 Bundle bundle = new Bundle();
 
                 bundle.putSerializable("pacienteData", paciente);
+                bundle.putSerializable("pacientes", pList);
                 intent.putExtras(bundle);
                 intent.putExtra("desc", a);
                 startActivity(intent);
@@ -59,12 +65,18 @@ public class ListaPacientes extends AppCompatActivity {
                 JSONArray array = obj.getJSONArray("pacientesList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"));
-                    pacienteList.add(p);
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"), pacObj.getInt("caso"));
+                    if (pList.size() == 0) {
+                        pacienteList.add(p);
+                    } else {
+                        if (!pList.contains(p)){
+                            pacienteList.add(p);
+                        }
+                    }
                 }
                 Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());
                 lvPacientes.setAdapter(adapter);
-                //Toast.makeText(AgendaActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
+                //Toast.makeText(ListaPacientes.this,"" + pList.size(),Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();

@@ -15,6 +15,7 @@ import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerLog;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuMaterial;
+import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.BufferedReader;
@@ -25,6 +26,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -34,10 +36,10 @@ public class SenderCaso extends AsyncTask<Void,Void,String> {
     String urlAddress;
     String descripcion;
     String fecha = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-    int paciente;
+    ArrayList<Paciente> paciente;
     ProgressDialog pd;
 
-    public SenderCaso(Context c, String urlAddress, String descripcion, int paciente) {
+    public SenderCaso(Context c, String urlAddress, String descripcion, ArrayList<Paciente> paciente) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.paciente = paciente;
@@ -71,7 +73,10 @@ public class SenderCaso extends AsyncTask<Void,Void,String> {
             if (response.equals("false")) {
                 Toast.makeText(c, "Hubo un error", Toast.LENGTH_LONG).show();
             } else {
-                asignarCaso(response);
+                for (Paciente pp : paciente){
+                    asignarCaso(response, pp.getId());
+                }
+
                 Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
             }
@@ -131,8 +136,8 @@ public class SenderCaso extends AsyncTask<Void,Void,String> {
         return null;
     }
 
-    private void asignarCaso(String caso){
-        StringRequest stringRequest = new StringRequest(Global.ip + "asignarCaso.php?paciente="+ paciente + "&caso=" + caso, response -> {
+    private void asignarCaso(String caso, int paci){
+        StringRequest stringRequest = new StringRequest(Global.ip + "asignarCaso.php?paciente="+ paci + "&caso=" + caso, response -> {
             try {
                 Toast.makeText(c, "" + response, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
