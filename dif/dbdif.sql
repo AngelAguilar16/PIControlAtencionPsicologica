@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-01-2021 a las 21:29:52
+-- Tiempo de generación: 27-01-2021 a las 00:18:48
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -98,8 +98,8 @@ CREATE TABLE `consulta` (
 
 INSERT INTO `consulta` (`id_consulta`, `usuario`, `cita`, `paciente`, `fecha`, `hora`, `motivo_atencion`, `notas_sesion`, `tipo_consulta`, `tratamiento`) VALUES
 (1, 2, 1, 1, '2021-01-06', '12:30:00', 'Depresión', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mattis, ante vel pretium fringilla, nunc libero porta eros, et porttitor ipsum urna vitae metus. Proin ullamcorper, risus interdum dignissim fringilla, turpis urna gravida mi, et malesuada arcu arcu sed enim. Curabitur gravida vestibulum tellus, sit amet sodales est bibendum quis. Sed vel erat ut magna tristique congue. Mauris malesuada luctus nisi, ac viverra purus finibus ut. Ut tincidunt maximus lacus, sed malesuada odio lob', 'Psicología', 'Decir me amo 3 veces a las 3:00 a.m. con las luces apagadas'),
-(2, 3, 2, 2, '2021-01-18', '17:15:06', 'aaaaaaaaaaaa', 'sdasdasdas', 'Peritaje', NULL),
-(3, 4, 3, 3, '2021-01-19', '15:24:09', 'aaaaaaaaaaaa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Peritaje', NULL);
+(2, 4, 2, 2, '2021-01-18', '17:15:06', 'Robo', 'Sed euismod, justo quis vulputate euismod, magna erat finibus enim, vitae vulputate orci est ac ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis vitae lacus lectus. Nunc viverra vulputate odio ac accumsan. Maecenas in malesuada mi. Suspendisse pellentesque pulvinar eros, euismod mattis erat dictum ac. Quisque malesuada malesuada dictum. ', 'Peritaje', NULL),
+(3, 3, 3, 3, '2021-01-19', '15:24:09', 'Ansiedad', 'Praesent finibus, sapien eget feugiat facilisis, odio augue iaculis ex, a lobortis justo lectus vitae orci. Mauris lobortis, neque eget facilisis dapibus, arcu elit malesuada dui, sed hendrerit metus lectus vitae velit. Morbi leo leo, tempus vitae dolor et, accumsan lacinia nulla. Phasellus sodales, velit id pretium tincidunt, leo erat varius urna, ac commodo metus tortor ac magna. Morbi faucibus augue sit amet bibendum. ', 'Psiquiatría', NULL);
 
 -- --------------------------------------------------------
 
@@ -133,10 +133,33 @@ CREATE TABLE `paciente` (
 
 INSERT INTO `paciente` (`id_paciente`, `usuario`, `fecha_registro`, `nombres`, `ap`, `am`, `menor_de_edad`, `telefono`, `estado`, `municipio`, `domicilio`, `sexo`, `fecha_nacimiento`, `estado_civil`, `escolaridad`, `ocupacion`, `caso`) VALUES
 (1, 2, '2021-01-04', 'Antonieta', 'Martinez', 'Torres', 0, '3141312334', 'Manzanillo', 'Colima', 'Barrio 5', 'Femenino', '1999-12-25', 'Soltera', 'Universidad', 'Estudiante', 1),
-(2, 3, '2021-01-18', 'adada', 'sdasdasd', 'asdasdas', 0, 'dasdasdas', 'Colima', 'Manzanillo', 'asdasdas', 'Masculino', '0000-00-00', '', '', '', 1),
-(3, 4, '2021-01-19', 'a', 'ad', 'afd', 0, '12354221', 'Colima', 'Manzanillo', '', 'Masculino', '0000-00-00', '', '', '', 1),
-(4, 4, '2021-01-19', 'DAniel', 'sadasd', 'lalala', 0, '12312512', 'Colima', 'Manzanillo', '', 'Masculino', '0000-00-00', '', '', '', 2),
-(5, 4, '2021-01-19', 'dddddddddd', 'aaaaada', 'dada', 0, '123123', 'Colima', 'Manzanillo', '', 'Masculino', '0000-00-00', '', '', '', 1);
+(2, 3, '2021-01-18', 'José', 'Pérez', 'Hernandez', 0, '8187092442', 'Colima', 'Manzanillo', 'El Dorado', 'Masculino', '2004-03-13', '', '', '', 1),
+(3, 4, '2021-01-19', 'Alberto', 'Ortiz', 'Gutiérrez', 0, '1235422156', 'Colima', 'Manzanillo', 'Marimar', 'Masculino', '1991-12-14', '', '', '', 1),
+(4, 4, '2021-01-19', 'Daniel', 'Torres', 'Lizárraga', 0, '3412312512', 'Colima', 'Manzanillo', 'Mar de Plata', 'Masculino', '2000-11-04', '', '', '', 2),
+(5, 4, '2021-01-19', 'Julio', 'Díaz', 'Estrada', 0, '3145123123', 'Colima', 'Manzanillo', 'Las brisas', 'Masculino', '1998-04-24', '', '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `peritaje`
+--
+
+CREATE TABLE `peritaje` (
+  `id_peritaje` smallint(5) UNSIGNED NOT NULL,
+  `usuario` tinyint(3) UNSIGNED NOT NULL,
+  `paciente` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `motivo_atencion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `notas_sesion` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `peritaje`
+--
+
+INSERT INTO `peritaje` (`id_peritaje`, `usuario`, `paciente`, `fecha`, `hora`, `motivo_atencion`, `notas_sesion`) VALUES
+(1, 4, 'Pedro Núñez Longoria', '2021-01-21', '18:26:20', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...', 'Nulla eleifend vulputate dui, vel euismod ex posuere nec. Mauris vitae arcu varius, commodo ex commodo, fringilla est. Donec eget turpis dui. Sed volutpat diam sit amet eros dictum egestas sit amet id massa. Ut arcu lectus, lacinia ullamcorper libero id, tincidunt efficitur velit. Nulla blandit leo a commodo pharetra. Fusce eget erat lacus. Nam mattis feugiat volutpat. Nulla et velit urna. Aliquam nec viverra tortor. Mauris nec sodales arcu. Vivamus convallis tellus sit amet justo vehicula, eu p');
 
 -- --------------------------------------------------------
 
@@ -161,8 +184,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nombres`, `ap`, `am`, `correo`, `password`, `tipo_usuario`) VALUES
 (1, 'Luis', 'a', 'e', 'lmartinez@hotmail.com', '1234', 'Psicología'),
 (2, 'hola', 'a', 'o', 'hola', '1234', 'Psicología'),
-(3, 'Pepe', 'e', 'a', 'elpepe', '1234', 'Peritaje'),
-(4, 'dododo', 'dadada', 'daede', 'dada', '123', 'Peritaje');
+(3, 'Pepe', 'e', 'a', 'elpepe', '1234', 'Psiquiatría'),
+(4, 'Daniel', 'Montes de Oca', 'Solis', 'dada', '123', 'Peritaje');
 
 --
 -- Índices para tablas volcadas
@@ -200,6 +223,13 @@ ALTER TABLE `paciente`
   ADD KEY `fk_caso_idx` (`caso`);
 
 --
+-- Indices de la tabla `peritaje`
+--
+ALTER TABLE `peritaje`
+  ADD PRIMARY KEY (`id_peritaje`),
+  ADD KEY `fk_usuarioPE_idx` (`usuario`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -230,6 +260,12 @@ ALTER TABLE `consulta`
 ALTER TABLE `paciente`
   ADD CONSTRAINT `fk_caso` FOREIGN KEY (`caso`) REFERENCES `caso` (`id_caso`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_usuarioP` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `peritaje`
+--
+ALTER TABLE `peritaje`
+  ADD CONSTRAINT `fk_usuarioPE` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

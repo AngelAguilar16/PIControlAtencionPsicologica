@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".AddNewCaso">
 
     <EditText
         android:id="@+id/etDescCaso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:ems="10"
         android:hint="Descripción"
         android:inputType="textPersonName"
@@ -21,38 +23,39 @@
         app:layout_constraintVertical_bias="0.127" />
 
     <Button
-        android:id="@+id/btnCrearPacienteCaso"
-        android:layout_width="109dp"
-        android:layout_height="70dp"
-        android:text="Crear Paciente"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
         android:id="@+id/btnSelectPacienteCaso"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_width="267dp"
+        android:layout_height="63dp"
+        android:fitsSystemWindows="true"
         android:text="Seleccionar Paciente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.795" />
 
     <Button
         android:id="@+id/btnCrearCaso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:text="Crear Caso"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828" />
+        app:layout_constraintVertical_bias="0.952" />
+
+    <ListView
+        android:id="@+id/lvPacientesSelec"
+        android:layout_width="410dp"
+        android:layout_height="325dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.413" />
 </androidx.constraintlayout.widget.ConstraintLayout>

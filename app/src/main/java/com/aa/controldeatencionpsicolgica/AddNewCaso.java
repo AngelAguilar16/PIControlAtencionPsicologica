@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
@@ -27,10 +28,12 @@ import java.util.ArrayList;
 public class AddNewCaso extends AppCompatActivity {
 
     EditText etDescCaso;
-    Button btnCrearPacienteCaso, btnSelectPacienteCaso, btnCrearCaso;
+    ListView lvPacientes;
+    Button btnSelectPacienteCaso, btnCrearCaso;
     Paciente paciente = null;
     String urlAddress = Global.ip + "addCaso.php";
     ArrayList<Paciente> pac = new ArrayList<>();
+    ArrayList<Paciente> pacienteList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class AddNewCaso extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_caso);
 
         etDescCaso = (EditText) findViewById(R.id.etDescCaso);
+        lvPacientes = findViewById(R.id.lvPacientesSelec);
         String a = getIntent().getStringExtra("desc");
         Bundle objeto = getIntent().getExtras();
 
@@ -48,16 +52,10 @@ public class AddNewCaso extends AppCompatActivity {
         }
         if (a != null){ etDescCaso.setText(a); }
 
-        btnCrearPacienteCaso = (Button) findViewById(R.id.btnCrearPacienteCaso);
+
         btnSelectPacienteCaso = (Button) findViewById(R.id.btnSelectPacienteCaso);
         btnCrearCaso = (Button) findViewById(R.id.btnCrearCaso);
-
-        btnCrearPacienteCaso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        showList();
 
         btnSelectPacienteCaso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +79,29 @@ public class AddNewCaso extends AppCompatActivity {
         });
     }
 
+    private void showList(){
+        StringRequest stringRequest = new StringRequest(Global.ip + "listPacientes.php?usuario="+ Global.us, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("pacientesList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"), pacObj.getInt("caso"));
 
+                    if (pac.contains(p)){
+                        pacienteList.add(p);
+                    }
+
+                }
+                Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());
+                lvPacientes.setAdapter(adapter);
+                //Toast.makeText(ListaPacientes.this,"" + pList.size(),Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
 
 }

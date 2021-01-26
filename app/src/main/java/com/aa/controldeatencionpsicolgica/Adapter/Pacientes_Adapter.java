@@ -29,7 +29,7 @@ public class Pacientes_Adapter extends ArrayAdapter<Paciente> {
         TextView name = view.findViewById(R.id.tvNombres);
         Paciente paciente = pacienteList.get(position);
 
-        name.setText(paciente.getNombre());
+        name.setText(paciente.getNombre() + " " + paciente.getAp() + " " + paciente.getAm());
 
         return view;
     }

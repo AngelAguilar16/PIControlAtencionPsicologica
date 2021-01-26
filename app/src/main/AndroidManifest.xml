@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListaPacientes"></activity>
+        <activity android:name=".PeritajeActivity"></activity>
+        <activity android:name=".MenuActivityPeritaje" />
+        <activity android:name=".ListaPacientes" />
         <activity android:name=".AddNewCaso" />
         <activity android:name=".ExpedienteDetailsActivity2" />
         <activity

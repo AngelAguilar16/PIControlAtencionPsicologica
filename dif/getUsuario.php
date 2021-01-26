@@ -1,8 +1,10 @@
 <?php
 
+    $correo = $_GET['correo'];
+
    $mysqli = new mysqli("localhost","root","","dbdif");
 
-   $result = mysqli_query($mysqli, "SELECT * FROM usuario");
+   $result = mysqli_query($mysqli, "SELECT * FROM usuario WHERE correo = '". $correo ."'");
 
    $number_of_rows = mysqli_num_rows($result);
 
