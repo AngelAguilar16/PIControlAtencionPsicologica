@@ -56,7 +56,7 @@ public class EditContactoAgendaActivity extends AppCompatActivity {
         if(objeto != null){
             paciente = (Paciente) objeto.getSerializable("pacienteData1");
 
-            Toast.makeText(EditContactoAgendaActivity.this, "El ID es: " + paciente.getId(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(EditContactoAgendaActivity.this, "El ID es: " + paciente.getId(), Toast.LENGTH_SHORT).show();
 
             nombres.setText(paciente.getNombre() + " "+ paciente.getAp() + " " + paciente.getAm());
             telefono.setText(paciente.getTelefono());

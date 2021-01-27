@@ -42,7 +42,6 @@ public class AgendaActivity extends AppCompatActivity {
         pacienteList = new ArrayList<>();
 
         fab.setOnClickListener(view -> {
-            //Snackbar.make(view, "Botoncito Añadir", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             Intent i = new Intent(AgendaActivity.this, AddNewContactoAgenda.class);
             startActivity(i);
         });

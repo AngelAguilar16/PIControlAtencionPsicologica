@@ -48,10 +48,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
         Boolean s_ini = preferences.getBoolean("s_ini", Boolean.FALSE);
+        String t_us = preferences.getString("t_us", "false");
 
         if (s_ini.equals(Boolean.TRUE)){
-            i = new Intent(MainActivity.this, MenuActivity.class);
-            startActivity(i);
+            if(t_us.equals("Peritaje")){
+                i = new Intent(MainActivity.this, MenuActivityPeritaje.class);
+                startActivity(i);
+            } else {
+                i = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+
         }
 
     }
