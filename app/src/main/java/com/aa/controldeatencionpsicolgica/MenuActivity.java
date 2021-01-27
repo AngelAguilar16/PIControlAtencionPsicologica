@@ -67,18 +67,25 @@ public class MenuActivity extends AppCompatActivity {
         editor.putBoolean("s_ini", Boolean.FALSE);
         editor.commit();
 
+        SharedPreferences pref = getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
         Intent i = new Intent(MenuActivity.this, MainActivity.class);
         startActivity(i);
     }
 
     public void getUsuario(String correo){
-        StringRequest stringRequest = new StringRequest(Global.ip + "getUsuario.php", response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "getUsuario.php?correo=" + correo, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("Usuario");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject usuObj = array.getJSONObject(i);
-                    if (usuObj.getString("correo").equals(correo)) {
+
                         Usuario u = new Usuario(usuObj.getInt("id_usuario"),
                                                 usuObj.getString("nombres"),
                                                 usuObj.getString("ap"),
@@ -89,7 +96,7 @@ public class MenuActivity extends AppCompatActivity {
                         guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
                         //Toast.makeText(MenuActivity.this, u.getTipo_usuario(), Toast.LENGTH_SHORT).show();
                         Global.setUsuario(u.getId_usuario());
-                    }
+
 
                 }
 

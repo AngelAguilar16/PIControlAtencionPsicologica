@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Global {
 
-    public final static String ip ="http://192.168.1.69/dif/";
+    public final static String ip ="http://p5s.000webhostapp.com/dif/";
     public static int us = 0;
 
     public static ArrayList<Paciente> getPacientes(Context c){

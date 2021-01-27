@@ -32,6 +32,13 @@ public class MenuActivityPeritaje extends AppCompatActivity {
         editor.putBoolean("s_ini", Boolean.FALSE);
         editor.commit();
 
+        SharedPreferences pref = getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
         Intent i = new Intent(MenuActivityPeritaje.this, MainActivity.class);
         startActivity(i);
     }

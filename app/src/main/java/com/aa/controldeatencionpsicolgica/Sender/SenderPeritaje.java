@@ -11,6 +11,7 @@ import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerPeritaje;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReporte;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -72,7 +73,7 @@ public class SenderPeritaje extends AsyncTask<Void,Void,String> {
 
         if (response != null) {
             if (response.equals("1")) {
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuActivityPeritaje.class);
                 c.startActivity(ii);
             } else {
                 Toast.makeText(c, "Error php" + response, Toast.LENGTH_LONG).show();
