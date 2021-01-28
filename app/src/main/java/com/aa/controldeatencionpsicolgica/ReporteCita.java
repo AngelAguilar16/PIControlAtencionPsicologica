@@ -9,16 +9,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Sender.SenderReporte;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReporteCita extends AppCompatActivity {
 
@@ -56,11 +66,39 @@ public class ReporteCita extends AppCompatActivity {
         btnGuardarDatosConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setUpdateCitas();
+
                 cita = getIntent().getIntExtra("cita", 0);
                 SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, paciente, t_us, editTextMotivo, editTextConsulta);
                 s.execute();
+
             }
         });
+    }
+
+    private void setUpdateCitas(){
+        StringRequest request = new StringRequest(Request.Method.POST, Global.ip + "updateCitas.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(ReporteCita.this, "Cita Actualizada", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ReporteCita.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("id", Integer.toString(cita));
+                parametros.put("asistio", "1");
+                parametros.put("visible", "0");
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(ReporteCita.this);
+        requestQueue.add(request);
     }
 
     private void queryPaciente(int paciente){

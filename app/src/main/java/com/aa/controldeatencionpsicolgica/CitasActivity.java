@@ -74,8 +74,10 @@ public class CitasActivity extends AppCompatActivity {
                 JSONArray array = obj.getJSONArray("citasList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"), pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"));
-                    citasList.add(c);
+                    if(pacObj.getInt("visible") == 1 && pacObj.getInt("asistio") == 0) {
+                        Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"), pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"));
+                        citasList.add(c);
+                    }
                 }
                 Citas_Adapter adapter = new Citas_Adapter(citasList, getApplicationContext());
                 lvCitas.setAdapter(adapter);
@@ -87,6 +89,8 @@ public class CitasActivity extends AppCompatActivity {
         }, error -> { });
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
+
+
 
     /*private void getUsuarios(){
         StringRequest stringRequest = new StringRequest(Global.ip + "listPacientes.php?usuario="+us, response -> {
