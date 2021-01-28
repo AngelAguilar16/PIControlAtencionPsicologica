@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Expediente implements Serializable {
 
+    private String tratamiento;
     private Integer id_consulta, usuario, cita, caso, paciente;
     private String fecha, hora, motivo_atencion, notas_sesion, tipo_consulta;
 
@@ -47,17 +48,19 @@ public class Expediente implements Serializable {
         return tipo_consulta;
     }
 
-    public Expediente(int id_consulta, int usuario, int cita, int caso, int paciente, String fecha, String hora, String motivo_atencion, String notas_sesion, String tipo_consulta) {
+    public String getTratamiento(){return tratamiento;}
+
+    public Expediente(int id_consulta, int usuario, int cita, int paciente, String fecha, String hora, String motivo_atencion, String notas_sesion, String tipo_consulta, String tratamiento) {
         this.id_consulta = id_consulta;
         this.usuario = usuario;
         this.cita = cita;
-        this.caso = caso;
         this.paciente = paciente;
         this.fecha = fecha;
         this.hora = hora;
         this.motivo_atencion = motivo_atencion;
         this.notas_sesion = notas_sesion;
         this.tipo_consulta = tipo_consulta;
+        this.tratamiento = tratamiento;
 
     }
 }

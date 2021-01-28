@@ -49,6 +49,8 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
             lblNombre.setText(paciente.getNombre());
             us = paciente.getId();
 
+            showList();
+
             Toast.makeText(ExpedienteDetailsActivity.this, "Id apciente: "+ us, Toast.LENGTH_SHORT).show();
         }
         lvExpediente.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,7 +66,6 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
 
             }
         });
-        showList();
     }
 
     // Metodo para mostrar los reportes del paciente
@@ -76,8 +77,8 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
                     Expediente expediente = new Expediente(pacObj.getInt("id_consulta"), pacObj.getInt("usuario"), pacObj.getInt("cita"),
-                            pacObj.getInt("caso"), pacObj.getInt("paciente"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"), pacObj.getString("tipo_consulta"));
+                            pacObj.getInt("paciente"), pacObj.getString("fecha"), pacObj.getString("hora"),
+                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"), pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
                     expedientesList.add(expediente);
                 }
                 Expediente_Adapter adapter = new Expediente_Adapter(expedientesList, getApplicationContext());

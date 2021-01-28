@@ -27,10 +27,11 @@ public class Expediente_Adapter extends ArrayAdapter<Expediente> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.list_expedientes, null, true);
+
         TextView expediente = view.findViewById(R.id.tvExpedientes);
         Expediente expediente1 = expedienteList.get(position);
 
-        expediente.setText(expediente1.getMotivo_atencion());
+        expediente.setText(expediente1.getCita() + " "+ expediente1.getMotivo_atencion());
 
         return view;
     }

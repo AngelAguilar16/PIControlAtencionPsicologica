@@ -9,7 +9,7 @@ import com.aa.controldeatencionpsicolgica.Model.Expediente;
 
 public class ExpedienteDetailsActivity2 extends AppCompatActivity {
 
-    private TextView lblMotivo, lblNotas, lblTipoConsulta, fecha;
+    private TextView lblMotivo, lblNotas, lblTipoConsulta, fecha, lblTramiento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,7 @@ public class ExpedienteDetailsActivity2 extends AppCompatActivity {
         lblMotivo = findViewById(R.id.lblMotivo);
         lblTipoConsulta = findViewById(R.id.lblTipoConsulta);
         fecha = findViewById(R.id.lblFecha);
+        lblTramiento = findViewById(R.id.lblTratamiento);
 
         Bundle objeto = getIntent().getExtras();
         Expediente expediente = null;
@@ -30,6 +31,10 @@ public class ExpedienteDetailsActivity2 extends AppCompatActivity {
             lblNotas.setText(expediente.getNotas_sesion());
             lblMotivo.setText(expediente.getMotivo_atencion());
             fecha.setText(expediente.getFecha());
+
+            if(!expediente.getTratamiento().isEmpty())
+                lblTramiento.setText(expediente.getTratamiento());
+
         }
 
     }
