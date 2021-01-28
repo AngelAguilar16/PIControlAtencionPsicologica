@@ -19,13 +19,19 @@ import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Sender.SenderCita;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AddNewCitaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatePicker dp;
     TimePicker tp;
     String fecha, hora;
     int np;
+
+    DateFormat dateFormat;
+
     //EditText n_paciente;
     Spinner paciente;
     Button crear_cita;
@@ -47,7 +53,10 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View view) {
                 hora = tp.getCurrentHour() + ":" + tp.getCurrentMinute();
-                fecha = dp.getYear() + "-" + dp.getMonth() + "-" + dp.getDayOfMonth();
+                Date date = new Date();
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                fecha = dateFormat.format(date);
+                //fecha = dp.getYear() + "-" + dp.getMonth() + "-" + dp.getDayOfMonth();
 
                 Intent intent = getIntent();
                 Bundle args = intent.getBundleExtra("pacienteList");
