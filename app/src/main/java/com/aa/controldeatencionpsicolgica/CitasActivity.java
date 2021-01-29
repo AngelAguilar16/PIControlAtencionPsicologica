@@ -70,6 +70,7 @@ public class CitasActivity extends AppCompatActivity {
 
 
         pacienteList = Global.getPacientes(getApplicationContext());
+
         add.setOnClickListener(view -> {
             Intent i = new Intent(CitasActivity.this, AddNewCitaActivity.class);
             Bundle args = new Bundle();

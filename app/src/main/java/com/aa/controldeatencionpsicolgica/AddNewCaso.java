@@ -29,7 +29,7 @@ public class AddNewCaso extends AppCompatActivity {
 
     EditText etDescCaso;
     ListView lvPacientes;
-    Button btnSelectPacienteCaso, btnCrearCaso;
+    Button btnSelectPacienteCaso, btnCrearCaso, btnVerCasos;
     Paciente paciente = null;
     String urlAddress = Global.ip + "addCaso.php";
     ArrayList<Paciente> pac = new ArrayList<>();
@@ -55,6 +55,7 @@ public class AddNewCaso extends AppCompatActivity {
 
         btnSelectPacienteCaso = (Button) findViewById(R.id.btnSelectPacienteCaso);
         btnCrearCaso = (Button) findViewById(R.id.btnCrearCaso);
+        btnVerCasos = findViewById(R.id.btnVerCasos);
         showList();
 
         btnSelectPacienteCaso.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +76,14 @@ public class AddNewCaso extends AppCompatActivity {
             public void onClick(View view) {
                 SenderCaso s = new SenderCaso(AddNewCaso.this, urlAddress, etDescCaso.getText().toString(), pac);
                 s.execute();
+            }
+        });
+
+        btnVerCasos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddNewCaso.this, VerCasosActivity.class);
+                startActivity(intent);
             }
         });
     }
