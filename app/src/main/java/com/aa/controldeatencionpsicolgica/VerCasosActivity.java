@@ -45,24 +45,15 @@ public class VerCasosActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Le envio el id del caso para en detalles se muesten las personas en el caso
+                Casos caso = casosList.get(position);
                 Intent intent = new Intent(VerCasosActivity.this, PacientesCasosActivity.class);
-                intent.putExtra("id_caso", id_caso);
-                startActivity(intent);
-            }
-        });
-        
-        /*lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Paciente paciente = pacienteList.get(position);
-                Intent intent = new Intent(getApplicationContext(), AgendaDetailsActivity.class);
                 Bundle bundle = new Bundle();
 
-                bundle.putSerializable("pacienteData", paciente);
+                bundle.putSerializable("casoData", caso);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 
     private void showList() {
@@ -72,7 +63,6 @@ public class VerCasosActivity extends AppCompatActivity {
                 JSONArray array = obj.getJSONArray("casosList");
                 for(int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    id_caso = pacObj.getInt("id_caso");
                     Casos caso = new Casos(pacObj.getInt("id_caso"), pacObj.getString("fecha_apertura"), pacObj.getString("descripcion_general"), pacObj.getInt("estado"));
                     casosList.add(caso);
                 }
