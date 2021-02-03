@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class DataPackagerCita {
 
     String fecha, hora;
-    int usuario, paciente, visible;
+    int usuario, paciente, visible, id_global;
 
 
     public DataPackagerCita(String fecha, String hora, int usuario, int visible,int paciente) {
@@ -34,6 +34,7 @@ public class DataPackagerCita {
             jo.put("usuario", usuario);
             jo.put("visible", visible);
             jo.put("paciente", paciente);
+
 
 
             Boolean firstValue=true;

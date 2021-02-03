@@ -62,13 +62,6 @@ public class CitasActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         fecha = dateFormat.format(date);
 
-        /*Calendar local = new GregorianCalendar();
-        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("America/Mexico_City"));
-        calendar.setTime(local.getTime());
-        hora = calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);*/
-
-
-
         pacienteList = Global.getPacientes(getApplicationContext());
 
         add.setOnClickListener(view -> {
@@ -78,17 +71,21 @@ public class CitasActivity extends AppCompatActivity {
             i.putExtra("pacienteList", args);
             startActivity(i);
         });
-
         showList();
 
         lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(CitasActivity.this, ReporteCita.class);
+                Intent intent = new Intent(CitasActivity.this, DetailsCitaActivity.class);
                 Cita cita = citasList.get(position);
-                i.putExtra("paciente",cita.getPaciente());
-                i.putExtra("cita", cita.getId());
-                startActivity(i);
+
+                intent.putExtra("paciente",cita.getPaciente());
+                intent.putExtra("cita", cita.getId());
+                intent.putExtra("fecha", cita.getFecha());
+                intent.putExtra("hora", cita.getHora());
+                intent.putExtra("id_global", cita.getId_global());
+
+                startActivity(intent);
             }
         });
     }
@@ -107,7 +104,7 @@ public class CitasActivity extends AppCompatActivity {
                             System.out.println("Sumale 1 al contador si viste este mensaje"); // 1
                         else {
                             Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                                    pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"));
+                                    pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"), pacObj.getInt("id_global"));
                             citasList.add(c);
                         }
                     }

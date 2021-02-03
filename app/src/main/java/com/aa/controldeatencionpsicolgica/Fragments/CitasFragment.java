@@ -112,11 +112,11 @@ public class CitasFragment extends Fragment {
         });
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rvCitas.setLayoutManager(llm);
-        showList();
+        //showList();
         return v;
     }
 
-    private void showList(){
+    /*private void showList(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.1.78/dif/listCitas.php?usuario=" + 3, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
@@ -136,6 +136,7 @@ public class CitasFragment extends Fragment {
         }, error -> { });
         Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
+    */
 
     public void cargarSP() {
         SharedPreferences preferences = context.getSharedPreferences("credenciales", Context.MODE_PRIVATE);

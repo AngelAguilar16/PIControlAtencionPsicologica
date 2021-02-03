@@ -28,6 +28,7 @@ public class Paciente implements Serializable {
     String escolaridad;
     String ocupacion;
     int caso;
+    int id_global;
 
     public Paciente(int id, int usuario, String fecha_registro, String nombre, String ap, String am, String nombre_pmt, String ap_pmt, String am_pmt, String telefono, String estado, String municipio, String localidad, String calle, String numero_casa, String cp, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion, int caso) {
         this.id = id;
@@ -56,6 +57,15 @@ public class Paciente implements Serializable {
 
     public Paciente(int id_paciente, int usuario, String fecha_registro, String nombre, String ap, String am, String telefono, String estado, String municipio, String domicilio, String sexo, String fecha_nacimiento, String estado_civil, String escolaridad, String ocupacion, int caso) {
         this(id_paciente, usuario, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion, caso);
+    }
+
+    public Paciente(int id_paciente, int id_global, String nombre, String ap, String am, int usuario){
+        id = id_paciente;
+        this.usuario = usuario;
+        this.id_global = id_global;
+        this.nombre = nombre;
+        this.ap = ap;
+        this.am = am;
     }
 
     public int getId(){

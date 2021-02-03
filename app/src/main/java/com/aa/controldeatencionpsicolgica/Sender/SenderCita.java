@@ -25,7 +25,7 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
     Context c;
     String urlAddress;
     String fecha, hora;
-    int usuario, paciente, visible;
+    int usuario, paciente, visible, id_global;
 
     ProgressDialog pd;
 
@@ -38,7 +38,6 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
         this.usuario = usuario;
         this.visible = visible;
         this.paciente = paciente;
-
     }
 
     @Override

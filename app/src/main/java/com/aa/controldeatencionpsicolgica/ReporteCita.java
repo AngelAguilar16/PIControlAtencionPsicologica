@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Global.Global;
@@ -26,18 +27,24 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ReporteCita extends AppCompatActivity {
 
-    Button btnCloseReporte, btnGuardarDatosConsulta;
-    EditText editTextPaciente,editTextMotivo, editTextConsulta;
-    String pa, t_us;
-    int paciente, cita, usuario;
+    private Button btnCloseReporte, btnGuardarDatosConsulta;
+    private EditText editTextPaciente,editTextMotivo, editTextConsulta;
+    private TextView textViewNombres;
 
-    String urlAddress= Global.ip + "addReporte.php";
+    private String pa, t_us, nombres = "";
+    private int paciente, cita, usuario;
+
+
+    private String urlAddress= Global.ip + "addReporte.php";
+    private ArrayList<Integer> idUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +53,24 @@ public class ReporteCita extends AppCompatActivity {
         editTextPaciente = (EditText) findViewById(R.id.editTextPaciente);
         editTextMotivo = (EditText) findViewById(R.id.editTextMotivo);
         editTextConsulta = (EditText) findViewById(R.id.editTextConsulta);
+        textViewNombres = findViewById(R.id.txtPacientes);
 
         btnCloseReporte = findViewById(R.id.btnCloseReporte);
         btnGuardarDatosConsulta = findViewById(R.id.btnGuardarDatosConsulta);
         cargarSP();
-        paciente = getIntent().getIntExtra("paciente", 0);
-        queryPaciente(paciente);
+        //paciente = getIntent().getIntExtra("paciente", 0);
+
+        idUsuarios = new ArrayList<>();
+        ArrayList<Paciente> listaPacientes = (ArrayList<Paciente>) getIntent().getSerializableExtra("listaPacientes");
+
+        for(int i = 0; i<listaPacientes.size(); i++){
+            nombres += listaPacientes.get(i).getNombre()+" "+listaPacientes.get(i).getAp()+" "+listaPacientes.get(i).getAm() + "\n";
+            idUsuarios.add(listaPacientes.get(i).getId());
+        }
+        textViewNombres.setText(nombres);
+
+        //paciente = 8;
+        //queryPaciente(paciente);
 
         //Toast.makeText(ReporteCita.this,nombre + "",Toast.LENGTH_LONG).show();
         btnCloseReporte.setOnClickListener(new View.OnClickListener() {

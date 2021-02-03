@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,6 +36,9 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
     //EditText n_paciente;
     Spinner paciente;
     Button crear_cita;
+    private Button btnAddPacientes;
+    private TextView txtPacientesCitas;
+
     String urlAddress= Global.ip + "addCita.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
