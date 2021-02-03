@@ -53,7 +53,6 @@ public class activity_parientes extends AppCompatActivity {
 
         if(objeto != null){
             paciente = (Paciente) objeto.getSerializable("pacienteData1");
-
             //Toast.makeText(EditContactoAgendaActivity.this, "El ID es: " + paciente.getId(), Toast.LENGTH_SHORT).show();
             id_paciente = paciente.getId();
         }
