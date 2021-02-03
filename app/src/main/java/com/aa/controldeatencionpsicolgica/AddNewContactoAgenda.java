@@ -10,16 +10,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Sender.SenderNewContacto;
 
 public class AddNewContactoAgenda extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinnerMunicipio, spinnerEstado, spinnerSexo;
     EditText nombres, apellido_paterno, apellido_materno, telefono, domicilio, sexo, fecNac, estCiv, escolaridad, ocupacion;
-    String[] oMunicipio = { "Manzanillo", "Tecomán", "Armería", "Comala", "Villa de Álvarez", "Cuauhtémoc", "Ixtlahuacán", "Coquimatlán", "Minatitlán"};
-    String[] oEstado = { "Colima" };
-    String[] oSexo = {"Masculino", "Femenino", "Otro"};
+    String[] oMunicipio = { "Municipio", "Manzanillo", "Tecomán", "Armería", "Comala", "Villa de Álvarez", "Cuauhtémoc", "Ixtlahuacán", "Coquimatlán", "Minatitlán"};
+    String[] oEstado = { "Estado", "Colima" };
+    String[] oSexo = {"Sexo", "Masculino", "Femenino", "Otro"};
     int opM = 0, opE = 0, opS = 0, usuario;//caso = 1
     String urlAddress= Global.ip + "addContacto.php";
 
@@ -31,17 +30,16 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
         nombres = findViewById(R.id.etNombres);
         apellido_paterno = findViewById(R.id.etApPaterno);
         apellido_materno = findViewById(R.id.etApMaterno);
-        telefono = findViewById(R.id.etTelefono);
-        domicilio = findViewById(R.id.etDomicilio);
-        sexo = findViewById(R.id.etSexo);
-        fecNac = findViewById(R.id.etFecNac);
-        estCiv = findViewById(R.id.etEstCiv);
-        escolaridad = findViewById(R.id.etEscolaridad);
-        ocupacion = findViewById(R.id.etOcupacion);
+        telefono = findViewById(R.id.editTextTelefonoPaciente);
+        domicilio = findViewById(R.id.editTextDomicilioPaciente);
+        fecNac = findViewById(R.id.editTextFCPaciente);
+        estCiv = findViewById(R.id.editTextECPaciente);
+        escolaridad = findViewById(R.id.editTextEscolaridadPaciente);
+        ocupacion = findViewById(R.id.editTextOcupacionPaciente);
 
-        spinnerMunicipio = (Spinner) findViewById(R.id.spinnerMunicipio);
-        spinnerEstado = (Spinner) findViewById(R.id.spinnerEstado);
-        spinnerSexo = (Spinner) findViewById(R.id.spinnerSexo);
+        spinnerMunicipio = (Spinner) findViewById(R.id.spinnerEstadoM);
+        spinnerEstado = (Spinner) findViewById(R.id.spinnerMunicipioM);
+        spinnerSexo = (Spinner) findViewById(R.id.spinnerSexoM);
         ArrayAdapter<String> aa = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oMunicipio);
         ArrayAdapter<String> ab = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oEstado);
         ArrayAdapter<String> ac = new ArrayAdapter<String>(AddNewContactoAgenda.this,android.R.layout.simple_dropdown_item_1line, oSexo);
@@ -64,13 +62,13 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView.getId()==R.id.spinnerMunicipio){
+        if(adapterView.getId()==R.id.spinnerEstadoM){
             opM = i;
         }
-        if(adapterView.getId()==R.id.spinnerEstado){
+        if(adapterView.getId()==R.id.spinnerMunicipioM){
             opE = i;
         }
-        if(adapterView.getId()==R.id.spinnerSexo){
+        if(adapterView.getId()==R.id.spinnerSexoM){
             opS = i;
         }
     }

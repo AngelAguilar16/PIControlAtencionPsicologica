@@ -1,6 +1,7 @@
 package com.aa.controldeatencionpsicolgica.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aa.controldeatencionpsicolgica.AgendaDetailsActivity;
 import com.aa.controldeatencionpsicolgica.Dialogs.EditPacienteDialog;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.R;
@@ -42,12 +44,19 @@ public class RVPacientesAdapter extends RecyclerView.Adapter<RVPacientesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PacienteViewHolder holder, int position) {
-        holder.nombre.setText("Nombre: " + pacientes.get(position).getNombre());
+        holder.nombre.setText("Nombre: " + pacientes.get(position).getNombre() + " " + pacientes.get(position).getAp() + " " + pacientes.get(position).getAm());
         holder.telefono.setText("Telefono: " + pacientes.get(position).getTelefono());
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Paciente paciente = pacientes.get(position);
+                Intent intent = new Intent(context, AgendaDetailsActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable("pacienteData", paciente);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+                /*Paciente paciente = pacientes.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("pacienteData", paciente);
                 EditPacienteDialog dialogFragment = new EditPacienteDialog();
@@ -55,7 +64,7 @@ public class RVPacientesAdapter extends RecyclerView.Adapter<RVPacientesAdapter.
                 dialogFragment.setArguments(bundle);
                 ft.replace(R.id.frameLayout, dialogFragment);
                 ft.commit();
-                /*Fragment prev = ((AppCompatActivity)context).getSupportFragmentManager().findFragmentByTag("dialog");
+                Fragment prev = ((AppCompatActivity)context).getSupportFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
                     ft.remove(prev);
                 }

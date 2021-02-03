@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Adapter.RVPacientesAdapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
@@ -13,6 +14,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +33,9 @@ public class AgendaActivity extends AppCompatActivity {
 
     ListView lvPacientes;
     List<Paciente> pacienteList;
+    RecyclerView rvPacientes;
+    List<Paciente> pacientes ;
+    int us;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,11 @@ public class AgendaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agenda);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        lvPacientes = findViewById(R.id.lvPacientes);
+        rvPacientes = findViewById(R.id.rvPacientes);
+        rvPacientes.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rvPacientes.setLayoutManager(llm);
+        pacientes = new ArrayList<>();
 
         pacienteList = new ArrayList<>();
 
@@ -46,7 +56,7 @@ public class AgendaActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Paciente paciente = pacienteList.get(position);
@@ -57,7 +67,7 @@ public class AgendaActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
-        });
+        });*/
         showList();
     }
 
@@ -69,10 +79,10 @@ public class AgendaActivity extends AppCompatActivity {
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
                     Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"), pacObj.getInt("caso"));
-                    pacienteList.add(p);
+                    pacientes.add(p);
                 }
-                Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());
-                lvPacientes.setAdapter(adapter);
+                RVPacientesAdapter adapter = new RVPacientesAdapter(pacientes);
+                rvPacientes.setAdapter(adapter);
                 //Toast.makeText(AgendaActivity.this,"Funcion Activada" + Global.us,Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();

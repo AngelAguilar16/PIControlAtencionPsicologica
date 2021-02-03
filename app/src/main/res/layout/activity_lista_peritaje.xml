@@ -8,15 +8,15 @@
 
     <ListView
         android:id="@+id/lvPeritaje"
-        android:layout_width="417dp"
-        android:layout_height="487dp"
+        android:layout_width="match_parent"
+        android:layout_height="485dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPersona"/>
+        app:layout_constraintTop_toBottomOf="@+id/editTextPersona" />
 
     <EditText
         android:id="@+id/editTextPersona"
