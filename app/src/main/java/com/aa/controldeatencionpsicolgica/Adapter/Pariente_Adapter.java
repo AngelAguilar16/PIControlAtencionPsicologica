@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Pariente;
 import com.aa.controldeatencionpsicolgica.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pariente_Adapter extends ArrayAdapter<Pariente> {
@@ -32,7 +34,7 @@ public class Pariente_Adapter extends ArrayAdapter<Pariente> {
         TextView name = view.findViewById(R.id.tvNombres);
         Pariente pariente = parientesList.get(position);
 
-        name.setText(pariente.getNombre() + " - " + pariente.getTipo());
+        name.setText(pariente.getPaciente() + " - " + pariente.getTipo());
 
         return view;
     }

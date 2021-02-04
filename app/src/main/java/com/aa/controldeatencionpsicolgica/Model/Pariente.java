@@ -2,13 +2,13 @@ package com.aa.controldeatencionpsicolgica.Model;
 
 public class Pariente {
 
-    int id , id_paciente;
-    String nombre, tipo;
+    int id , id_paciente, id_paciente_1;
+    String tipo;
 
-    public Pariente(int id, int id_paciente, String nombre, String tipo) {
+    public Pariente(int id, int id_paciente, int id_paciente_1, String tipo) {
         this.id = id;
         this.id_paciente = id_paciente;
-        this.nombre = nombre;
+        this.id_paciente_1 = id_paciente_1;
         this.tipo = tipo;
     }
 
@@ -20,9 +20,7 @@ public class Pariente {
         return id_paciente;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public int getId_paciente_1() { return id_paciente_1; }
 
     public String getTipo() {
         return tipo;

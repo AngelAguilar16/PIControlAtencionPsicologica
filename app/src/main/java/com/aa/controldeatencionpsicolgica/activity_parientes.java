@@ -46,7 +46,6 @@ public class activity_parientes extends AppCompatActivity {
 
 
         parientesList = new ArrayList<>();
-        pacienteList = new ArrayList<>();
 
         Bundle objeto = getIntent().getExtras();
         Paciente paciente = null;
@@ -80,7 +79,7 @@ public class activity_parientes extends AppCompatActivity {
                 JSONArray array = obj.getJSONArray("parientesList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Pariente p = new Pariente(pacObj.getInt("id"),pacObj.getInt("id_paciente"), pacObj.getString("nombre"),pacObj.getString("tipo"));
+                    Pariente p = new Pariente(pacObj.getInt("id"),pacObj.getInt("id_paciente"), pacObj.getInt("id_paciente_1"),pacObj.getString("tipo"));
                     parientesList.add(p);
                 }
                 Pariente_Adapter adapter = new Pariente_Adapter(parientesList, getApplicationContext());

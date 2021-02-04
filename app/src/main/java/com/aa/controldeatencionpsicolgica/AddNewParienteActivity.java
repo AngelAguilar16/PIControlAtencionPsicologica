@@ -48,7 +48,7 @@ public class AddNewParienteActivity extends AppCompatActivity {
                 Paciente paciente = p.get(np);
                 //Toast.makeText(AddNewCitaActivity.this,"" + paciente.getId(),Toast.LENGTH_LONG).show();
 
-                SenderPariente s = new SenderPariente(AddNewParienteActivity.this, urlAddress, spinnerNombrePariente.getSelectedItem().toString(), spinnerTipoPariente.getSelectedItem().toString(), id_pac);
+                SenderPariente s = new SenderPariente(AddNewParienteActivity.this, urlAddress, spinnerTipoPariente.getSelectedItem().toString(),paciente.getId(), id_pac);
                 s.execute();
             }
         });

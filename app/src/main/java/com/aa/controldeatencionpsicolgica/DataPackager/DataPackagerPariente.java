@@ -8,12 +8,12 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 public class DataPackagerPariente {
-    String nombre, tipo;
-    int paciente;
+    String tipo;
+    int pacienteIn, paciente;
 
-    public DataPackagerPariente(String nombre, String tipo, int paciente) {
-        this.nombre = nombre;
+    public DataPackagerPariente(String tipo, int pacienteIn, int paciente) {
         this.tipo = tipo;
+        this.pacienteIn = pacienteIn;
         this.paciente = paciente;
     }
 
@@ -24,8 +24,8 @@ public class DataPackagerPariente {
 
         try
         {
-            jo.put("nombre", nombre);
             jo.put("tipo", tipo);
+            jo.put("idPacienteInicial", pacienteIn);
             jo.put("idPaciente", paciente);
 
 

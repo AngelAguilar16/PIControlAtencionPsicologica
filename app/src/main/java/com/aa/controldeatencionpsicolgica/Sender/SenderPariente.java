@@ -24,15 +24,15 @@ public class SenderPariente extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    String nombre, tipo;
-    int paciente;
+    String tipo;
+    int pacienteIn, paciente;
     ProgressDialog pd;
 
-    public SenderPariente(Context c, String urlAddress, String nombre, String tipo, int paciente) {
+    public SenderPariente(Context c, String urlAddress, String tipo, int pacienteIn, int paciente) {
         this.c = c;
         this.urlAddress = urlAddress;
-        this.nombre = nombre;
         this.tipo = tipo;
+        this.pacienteIn = pacienteIn;
         this.paciente = paciente;
     }
 
@@ -84,7 +84,7 @@ public class SenderPariente extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerPariente(nombre,tipo,paciente).packData());
+            bw.write(new DataPackagerPariente(tipo,pacienteIn,paciente).packData());
 
             bw.flush();
 
