@@ -50,7 +50,7 @@ public class DetailsCitaPActivity extends AppCompatActivity {
 
         fecha = getIntent().getStringExtra("fecha");
         hora = getIntent().getStringExtra("hora");
-        paciente = getIntent().getIntExtra("paciente", 0);
+        paciente = getIntent().getIntExtra("paciente", 1);
         cita = getIntent().getIntExtra("cita", 0);
         id_global = getIntent().getIntExtra("id_global", 0);
 
@@ -80,6 +80,7 @@ public class DetailsCitaPActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PeritajeActivity.class);
                 intent.putExtra("listaPacientes", (Serializable) pacienteList);
+                intent.putExtra("nombres", pacienteList.get(id_global).getNombres());
                 startActivity(intent);
             }
         });

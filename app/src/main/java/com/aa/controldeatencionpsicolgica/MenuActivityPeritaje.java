@@ -25,6 +25,7 @@ public class MenuActivityPeritaje extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_peritaje);
         getUsuario(cargarCorreo());
+
     }
 
     public void nuevoPeritaje(View view) {
@@ -108,7 +109,7 @@ public class MenuActivityPeritaje extends AppCompatActivity {
         editor.putString("t_us", t_us);
         editor.putBoolean("s_ini", s_ini);
 
-        editor.commit();
+        editor.apply();
     }
 
     public void nuevaCita(View view) {
