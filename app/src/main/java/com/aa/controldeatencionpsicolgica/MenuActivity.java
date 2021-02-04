@@ -29,7 +29,8 @@ public class MenuActivity extends AppCompatActivity {
         getUsuario(cargarCorreo());
         //getPacientes();
         //Toast.makeText(MenuActivity.this, nP + "", Toast.LENGTH_LONG).show();
-
+        Global.clearPacienteTrans();
+        Global.clearUsuarioTrans();
     }
 
 

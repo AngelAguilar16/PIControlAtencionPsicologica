@@ -6,6 +6,7 @@ import android.content.Context;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
+import com.aa.controldeatencionpsicolgica.Model.Usuario;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -19,10 +20,10 @@ public class Global {
     public final static String ip ="http://p5s.000webhostapp.com/dif/";
     //public final static String ip ="http://192.168.1.78/dif/";
     public static int us = 0;
+    public static Usuario usuario = null;
+    public static Paciente paciente = null;
 
-    public static void setUsuario(int usuario){
-        us = usuario;
-    }
+
 
     public static ArrayList<Paciente> getPacientes(Context c){
         ArrayList<Paciente> pacienteList = new ArrayList<>();
@@ -66,5 +67,24 @@ public class Global {
         return pacienteList;
     }
 
+    public static void setUsuario(int usuario){
+        us = usuario;
+    }
+
+    public static void setUsuarioTans(Usuario usu){
+        usuario = usu;
+    }
+
+    public static void setPacienteTrans(Paciente pac){
+        paciente = pac;
+    }
+
+    public static void clearUsuarioTrans(){
+        usuario = null;
+    }
+
+    public static void clearPacienteTrans(){
+        paciente = null;
+    }
 
 }

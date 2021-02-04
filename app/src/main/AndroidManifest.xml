@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetailsCitaPActivity"></activity>
+        <activity android:name=".ListaTUsuarios"></activity>
+        <activity android:name=".ListaTPacientes" />
+        <activity android:name=".DetailsCitaPActivity" />
         <activity android:name=".AddNewCitaPActivity" />
         <activity android:name=".CitasPActivity" />
         <activity android:name=".PacientesPCasosActivity" />

@@ -36,6 +36,7 @@ public class AgendaDetailsActivity extends AppCompatActivity {
     private String URL = Global.ip + "deletePaciente.php";
     private Intent intent;
     ArrayList<Paciente> pacienteList;
+    Paciente paciente = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class AgendaDetailsActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
 
         Bundle objeto = getIntent().getExtras();
-        Paciente paciente = null;
+
 
         if(objeto != null){
             paciente = (Paciente) objeto.getSerializable("pacienteData");
@@ -109,7 +110,7 @@ public class AgendaDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(AgendaDetailsActivity.this, UsuariosTransActivtiy.class);
-                intent.putExtra("id_paciente", id_paciente);
+                Global.setPacienteTrans(paciente);
                 startActivity(intent);
             }
         });

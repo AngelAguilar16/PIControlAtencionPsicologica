@@ -1,6 +1,8 @@
 package com.aa.controldeatencionpsicolgica.Model;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     int id_usuario;
     String nombre;
     String ap;

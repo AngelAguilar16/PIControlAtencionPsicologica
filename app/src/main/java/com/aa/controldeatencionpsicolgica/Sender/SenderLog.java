@@ -84,7 +84,7 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
                 Toast.makeText(c, "El usuario no existe", Toast.LENGTH_LONG).show();
             } else {
                 guardarDatos();
-                Toast.makeText(c, "" + response, Toast.LENGTH_LONG).show();
+                //Toast.makeText(c, "" + response, Toast.LENGTH_LONG).show();
                 if(response.equals("Peritaje")){
                     Intent ii = new Intent(c, MenuActivityPeritaje.class);
                     c.startActivity(ii);
