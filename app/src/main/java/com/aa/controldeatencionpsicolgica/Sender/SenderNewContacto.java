@@ -3,6 +3,7 @@ package com.aa.controldeatencionpsicolgica.Sender;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerNewContacto;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
 import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
@@ -98,8 +100,10 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("1")) {
                 //guardarDatos();
+
                 Intent ii = new Intent(c, MenuActivity.class);
                 c.startActivity(ii);
+
             } else if(response.equals("2")){
                 Toast.makeText(c, "Error!", Toast.LENGTH_LONG).show();
             } else {

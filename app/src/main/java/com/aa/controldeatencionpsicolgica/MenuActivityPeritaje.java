@@ -71,10 +71,9 @@ public class MenuActivityPeritaje extends AppCompatActivity {
                             usuObj.getString("correo"),
                             usuObj.getString("password"),
                             usuObj.getString("tipo_usuario"));
-                    guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
-                    //Toast.makeText(MenuActivity.this, u.getTipo_usuario(), Toast.LENGTH_SHORT).show();
                     Global.setUsuario(u.getId_usuario());
-
+                    guardarDatos(u.getId_usuario(), u.getNombre(), u.getAp(), u.getAm(), u.getCorreo(), u.getPassword(), u.getTipo_usuario());
+                    //Toast.makeText(MenuActivityPeritaje.this, u.getId_usuario() + "", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -110,5 +109,20 @@ public class MenuActivityPeritaje extends AppCompatActivity {
         editor.putBoolean("s_ini", s_ini);
 
         editor.commit();
+    }
+
+    public void nuevaCita(View view) {
+        Intent i = new Intent(MenuActivityPeritaje.this, CitasPActivity.class);
+        startActivity(i);
+    }
+
+    public void nuevoPaciente(View view) {
+        Intent i = new Intent(MenuActivityPeritaje.this, AddNewPacienteP.class);
+        startActivity(i);
+    }
+
+    public void nuevoCaso(View view) {
+        Intent i = new Intent(MenuActivityPeritaje.this, AddNewCasoP.class);
+        startActivity(i);
     }
 }

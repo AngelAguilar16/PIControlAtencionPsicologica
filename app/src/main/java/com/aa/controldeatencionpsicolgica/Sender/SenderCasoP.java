@@ -3,16 +3,18 @@ package com.aa.controldeatencionpsicolgica.Sender;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.CitasActivity;
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCaso;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
-import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
+import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
-import com.aa.controldeatencionpsicolgica.MenuMaterial;
+import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
+import com.android.volley.toolbox.StringRequest;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,25 +23,27 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
-public class SenderCita extends AsyncTask<Void,Void,String> {
+public class SenderCasoP extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    String fecha, hora;
-    int usuario, paciente, visible, id_global;
-
+    String descripcion;
+    String fecha = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    ArrayList<Paciente_peritaje> paciente;
     ProgressDialog pd;
 
-    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, int visible,int paciente) {
+    public SenderCasoP(Context c, String urlAddress, String descripcion, ArrayList<Paciente_peritaje> paciente) {
         this.c = c;
         this.urlAddress = urlAddress;
-
-        this.fecha = fecha;
-        this.hora = hora;
-        this.usuario = usuario;
-        this.visible = visible;
         this.paciente = paciente;
+
+        this.descripcion = descripcion;
+
     }
 
     @Override
@@ -47,8 +51,8 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
         super.onPreExecute();
 
         pd = new ProgressDialog(c);
-        pd.setTitle("Agendar cita");
-        pd.setMessage("Agendando cita... Espere un momento");
+        pd.setTitle("Crear Caso");
+        pd.setMessage("Creando Caso... Espere un momento");
         pd.show();
     }
 
@@ -64,19 +68,15 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
         pd.dismiss();
 
         if (response != null) {
-            if (response.equals("1")) {
-                //Toast.makeText(c, "cita realizada", Toast.LENGTH_LONG).show();
-                String us = getUs();
-                if (us.equals("Peritaje")){
-                    Intent ii = new Intent(c, MenuActivityPeritaje.class);
-                    c.startActivity(ii);
-                } else {
-                    Intent ii = new Intent(c, MenuActivity.class);
-                    c.startActivity(ii);
+            if (response.equals("false")) {
+                Toast.makeText(c, "Hubo un error", Toast.LENGTH_LONG).show();
+            } else {
+                for (Paciente_peritaje pp : paciente){
+                    asignarCaso(response, pp.getId_pacp());
                 }
 
-            } else {
-                Toast.makeText(c, "Hubo un error php " + response, Toast.LENGTH_LONG).show();
+                Intent ii = new Intent(c, MenuActivityPeritaje.class);
+                c.startActivity(ii);
             }
 
         } else {
@@ -98,7 +98,7 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerCita(fecha, hora, usuario, visible,paciente).packData());
+            bw.write(new DataPackagerCaso(descripcion, fecha).packData()); // usa el mismo DataPAckager que el caso normal, porque no cambia nada.
 
             bw.flush();
 
@@ -134,9 +134,14 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
         return null;
     }
 
-    public String getUs() {
-        SharedPreferences preferences = c.getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-        return preferences.getString("t_us", "0");
+    private void asignarCaso(String caso, int paci){
+        StringRequest stringRequest = new StringRequest(Global.ip + "asignarCasoP.php?paciente="+ paci + "&caso=" + caso, response -> {
+            try {
+                Toast.makeText(c, "" + response, Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(c).addToRequestQueue(stringRequest);
     }
 }

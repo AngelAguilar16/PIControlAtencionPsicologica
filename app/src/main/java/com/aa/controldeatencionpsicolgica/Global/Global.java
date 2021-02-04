@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -18,6 +19,10 @@ public class Global {
     public final static String ip ="http://p5s.000webhostapp.com/dif/";
     //public final static String ip ="http://192.168.1.78/dif/";
     public static int us = 0;
+
+    public static void setUsuario(int usuario){
+        us = usuario;
+    }
 
     public static ArrayList<Paciente> getPacientes(Context c){
         ArrayList<Paciente> pacienteList = new ArrayList<>();
@@ -40,7 +45,26 @@ public class Global {
         return pacienteList;
     }
 
-    public static void setUsuario(int usuario){
-        us = usuario;
+    public static ArrayList<Paciente_peritaje> getPacientesP(Context c){
+        ArrayList<Paciente_peritaje> pacienteList = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(ip + "listPacientesP.php?usuario="+us, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("pacientesList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+                    Paciente_peritaje p = new Paciente_peritaje(pacObj.getInt("id_pacp"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("CURP"),pacObj.getInt("caso"));
+                    pacienteList.add(p);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(c).addToRequestQueue(stringRequest);
+
+        return pacienteList;
     }
+
+
 }

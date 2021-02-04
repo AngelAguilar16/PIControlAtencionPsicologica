@@ -19,18 +19,32 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnReportes"
+        android:id="@+id/btnAddPaciente"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:backgroundTint="#A9A528"
-        android:onClick="nuevoPeritaje"
-        android:text="Nuevo Peritaje"
+        android:onClick="nuevoPaciente"
+        android:text="Pacientes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintHorizontal_bias="0.815"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
+
+    <Button
+        android:id="@+id/btnAddCaso"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#A9A528"
+        android:onClick="nuevoCaso"
+        android:text="Casos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.789" />
 
     <Button
         android:id="@+id/btnExpedientes"
@@ -41,10 +55,37 @@
         android:text="Reportes de Peritaje"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.167" />
+
+    <Button
+        android:id="@+id/btnReportes"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#A9A528"
+        android:onClick="nuevoPeritaje"
+        android:text="Nuevo Peritaje"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.815"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167" />
+
+    <Button
+        android:id="@+id/btnCitas"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:backgroundTint="#A9A528"
+        android:onClick="nuevaCita"
+        android:text="Citas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnLogout"

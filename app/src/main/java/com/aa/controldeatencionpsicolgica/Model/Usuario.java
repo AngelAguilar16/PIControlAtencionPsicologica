@@ -1,7 +1,7 @@
 package com.aa.controldeatencionpsicolgica.Model;
 
 public class Usuario {
-    Integer id_usuario;
+    int id_usuario;
     String nombre;
     String ap;
     String am;
@@ -9,7 +9,7 @@ public class Usuario {
     String password;
     String tipo_usuario;
 
-    public Usuario(Integer id_usuario, String nombre, String ap, String am, String correo, String password, String tipo_usuario) {
+    public Usuario(int id_usuario, String nombre, String ap, String am, String correo, String password, String tipo_usuario) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.ap = ap;
@@ -19,7 +19,7 @@ public class Usuario {
         this.tipo_usuario = tipo_usuario;
     }
 
-    public Integer getId_usuario() {
+    public int getId_usuario() {
         return id_usuario;
     }
 

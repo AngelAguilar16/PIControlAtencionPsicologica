@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.aa.controldeatencionpsicolgica.Sender.SenderCita;
 
 import java.text.DateFormat;
@@ -25,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AddNewCitaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddNewCitaPActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatePicker dp;
     TimePicker tp;
     String fecha, hora;
@@ -39,11 +40,11 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
     private Button btnAddPacientes;
     private TextView txtPacientesCitas;
 
-    String urlAddress= Global.ip + "addCita.php";
+    String urlAddress= Global.ip + "addCitaP.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_cita);
+        setContentView(R.layout.activity_add_new_cita_p);
 
         dp = (DatePicker) findViewById(R.id.datePicker);
         tp = (TimePicker) findViewById(R.id.timePicker);
@@ -64,33 +65,28 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
 
                 Intent intent = getIntent();
                 Bundle args = intent.getBundleExtra("pacienteList");
-                ArrayList<Paciente> p = (ArrayList<Paciente>) args.getSerializable("arraylist");
-                Paciente paciente = p.get(np);
+                ArrayList<Paciente_peritaje> p = (ArrayList<Paciente_peritaje>) args.getSerializable("arraylist");
+                Paciente_peritaje paciente = p.get(np);
                 //Toast.makeText(AddNewCitaActivity.this,"" + paciente.getId(),Toast.LENGTH_LONG).show();
 
-                SenderCita s = new SenderCita(AddNewCitaActivity.this, urlAddress, fecha, hora, Global.us, 1,paciente.getId());
+                SenderCita s = new SenderCita(AddNewCitaPActivity.this, urlAddress, fecha, hora, Global.us, 1,paciente.getId_pacp());
                 s.execute();
             }
         });
     }
 
-    public int cargarIdusuario() {
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-        return preferences.getInt("id", 0);
-    }
 
     private void setSpinner() {
-        paciente = (Spinner) findViewById(R.id.paciente);
+        paciente = (Spinner) findViewById(R.id.pacientep);
 
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("pacienteList");
-        ArrayList<Paciente> p = (ArrayList<Paciente>) args.getSerializable("arraylist");
+        ArrayList<Paciente_peritaje> p = (ArrayList<Paciente_peritaje>) args.getSerializable("arraylist");
 
 
         if (p != null) {
 
-            ArrayAdapter<Paciente> adapter = new ArrayAdapter<Paciente>(this, android.R.layout.simple_spinner_dropdown_item, p);
+            ArrayAdapter<Paciente_peritaje> adapter = new ArrayAdapter<Paciente_peritaje>(this, android.R.layout.simple_spinner_dropdown_item, p);
             adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
             paciente.setAdapter(adapter);
@@ -98,7 +94,7 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
             // Spinner click listener
             paciente.setOnItemSelectedListener(this);
         } else {
-            Toast.makeText(AddNewCitaActivity.this,"p  AAAA",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddNewCitaPActivity.this,"p  AAAA",Toast.LENGTH_LONG).show();
 
         }
 
@@ -107,7 +103,7 @@ public class AddNewCitaActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView.getId()==R.id.paciente){
+        if(adapterView.getId()==R.id.pacientep){
             np = i;
         }
     }

@@ -3,16 +3,15 @@ package com.aa.controldeatencionpsicolgica.Sender;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.CitasActivity;
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerNewContacto;
+import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerNewPacienteP;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
-import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
-import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,25 +20,45 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-public class SenderCita extends AsyncTask<Void,Void,String> {
+public class SenderNewPacienteP extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
-    String fecha, hora;
-    int usuario, paciente, visible, id_global;
+    String sexo;
+    EditText nombres, apellido_paterno, apellido_materno, fecNac, CURP;
+    String nom;
+    String ap;
+    String am;
+    String curp;
+    String fechaN;
+    int usuario, caso;
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     ProgressDialog pd;
 
-    public SenderCita(Context c, String urlAddress, String fecha, String hora, int usuario, int visible,int paciente) {
+    public SenderNewPacienteP(Context c, String urlAddress, String sexo, int usuario, int caso, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
-
-        this.fecha = fecha;
-        this.hora = hora;
+        this.sexo = sexo;
         this.usuario = usuario;
-        this.visible = visible;
-        this.paciente = paciente;
+        this.caso = caso;
+
+        this.nombres = editTexts[0];
+        this.apellido_paterno = editTexts[1];
+        this.apellido_materno = editTexts[2];
+        this.CURP = editTexts[3];
+        this.fecNac = editTexts[4];
+
+        nom = nombres.getText().toString();
+        ap = apellido_paterno.getText().toString();
+        am = apellido_materno.getText().toString();
+        curp = CURP.getText().toString();
+        fechaN = fecNac.getText().toString();
+
     }
 
     @Override
@@ -47,8 +66,8 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
         super.onPreExecute();
 
         pd = new ProgressDialog(c);
-        pd.setTitle("Agendar cita");
-        pd.setMessage("Agendando cita... Espere un momento");
+        pd.setTitle("Registrar paciente");
+        pd.setMessage("Registrando paciente... Espere un momento");
         pd.show();
     }
 
@@ -65,18 +84,15 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
 
         if (response != null) {
             if (response.equals("1")) {
-                //Toast.makeText(c, "cita realizada", Toast.LENGTH_LONG).show();
-                String us = getUs();
-                if (us.equals("Peritaje")){
-                    Intent ii = new Intent(c, MenuActivityPeritaje.class);
-                    c.startActivity(ii);
-                } else {
-                    Intent ii = new Intent(c, MenuActivity.class);
-                    c.startActivity(ii);
-                }
+                //guardarDatos();
 
+                Intent ii = new Intent(c, MenuActivityPeritaje.class);
+                c.startActivity(ii);
+
+            } else if(response.equals("2")){
+                Toast.makeText(c, "Error!", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(c, "Hubo un error php " + response, Toast.LENGTH_LONG).show();
+                Toast.makeText(c, "Ya existe", Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -98,7 +114,7 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerCita(fecha, hora, usuario, visible,paciente).packData());
+            bw.write(new DataPackagerNewPacienteP(nom, ap, am, sexo, fechaN, curp, date, usuario, caso).packData());
 
             bw.flush();
 
@@ -133,10 +149,5 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
 
         return null;
     }
-
-    public String getUs() {
-        SharedPreferences preferences = c.getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-        return preferences.getString("t_us", "0");
-    }
 }
+

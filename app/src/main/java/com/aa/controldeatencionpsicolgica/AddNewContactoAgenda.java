@@ -55,8 +55,7 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     }
 
     public void addNewContactBtn(View view) {
-        usuario = cargarIdusuario();
-        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], usuario, 1, nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
+        SenderNewContacto s = new SenderNewContacto(AddNewContactoAgenda.this, urlAddress, oEstado[opE], oMunicipio[opM], oSexo[opS], Global.us, 1, nombres, apellido_paterno, apellido_materno, telefono, domicilio, fecNac, estCiv, escolaridad, ocupacion);
         s.execute();
     }
 
@@ -77,8 +76,5 @@ public class AddNewContactoAgenda extends AppCompatActivity implements AdapterVi
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-    public int cargarIdusuario() {
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        return preferences.getInt("id", 0);
-    }
+
 }

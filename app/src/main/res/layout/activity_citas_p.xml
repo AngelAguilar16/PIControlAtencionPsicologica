@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CitasActivity">
-
+    tools:context=".CitasPActivity">
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
@@ -71,5 +70,4 @@
         app:layout_constraintVertical_bias="0.772">
 
     </ListView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
