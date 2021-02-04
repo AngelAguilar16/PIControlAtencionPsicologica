@@ -10,10 +10,10 @@ import java.util.Iterator;
 public class DataPackagerReporte {
 
     String motivo, notas, t_consulta, fecha, hora;
-    int paciente, usuario, cita;
+    int paciente, usuario, cita, id_global;
 
 
-    public DataPackagerReporte(int paciente, String motivo, String notas, int usuario, int cita, String t_consulta, String fecha, String hora) {
+    public DataPackagerReporte(int paciente, String motivo, String notas, int usuario, int cita, String t_consulta, String fecha, String hora, int id_global) {
         this.paciente = paciente;
         this.motivo = motivo;
         this.notas = notas;
@@ -22,6 +22,7 @@ public class DataPackagerReporte {
         this.t_consulta = t_consulta;
         this.fecha = fecha;
         this.hora = hora;
+        this.id_global = id_global;
     }
 
     public String packData()
@@ -39,6 +40,7 @@ public class DataPackagerReporte {
             jo.put("t_consulta", t_consulta);
             jo.put("fecha", fecha);
             jo.put("hora", hora);
+            jo.put("id_global", id_global);
 
 
             Boolean firstValue=true;

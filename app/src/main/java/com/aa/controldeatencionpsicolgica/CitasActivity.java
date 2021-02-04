@@ -79,11 +79,12 @@ public class CitasActivity extends AppCompatActivity {
                 Intent intent = new Intent(CitasActivity.this, DetailsCitaActivity.class);
                 Cita cita = citasList.get(position);
 
-                intent.putExtra("paciente",cita.getPaciente());
+                intent.putExtra("paciente",cita.getPaciente()); // Retorna id del paciente
                 intent.putExtra("cita", cita.getId());
                 intent.putExtra("fecha", cita.getFecha());
                 intent.putExtra("hora", cita.getHora());
                 intent.putExtra("id_global", cita.getId_global());
+                intent.putExtra("usuario", cita.getUsuario());
 
                 startActivity(intent);
             }

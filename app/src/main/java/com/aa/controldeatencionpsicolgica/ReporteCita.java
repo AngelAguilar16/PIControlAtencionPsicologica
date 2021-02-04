@@ -40,16 +40,18 @@ public class ReporteCita extends AppCompatActivity {
     private TextView textViewNombres;
 
     private String pa, t_us, nombres = "";
-    private int paciente, cita, usuario;
+    private int paciente, cita, usuario, id_global;
 
 
     private String urlAddress= Global.ip + "addReporte.php";
     private ArrayList<Integer> idUsuarios;
+    private ArrayList<Paciente> listaPacientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporte_cita);
+
         editTextPaciente = (EditText) findViewById(R.id.editTextPaciente);
         editTextMotivo = (EditText) findViewById(R.id.editTextMotivo);
         editTextConsulta = (EditText) findViewById(R.id.editTextConsulta);
@@ -57,22 +59,17 @@ public class ReporteCita extends AppCompatActivity {
 
         btnCloseReporte = findViewById(R.id.btnCloseReporte);
         btnGuardarDatosConsulta = findViewById(R.id.btnGuardarDatosConsulta);
+
+        // Consigo los valores de DetailsCitaActivity
+        paciente = getIntent().getIntExtra("paciente", 0);
+        cita = getIntent().getIntExtra("cita", 0);
+        //usuario = getIntent().getIntExtra("usuario", 0);
+        id_global = getIntent().getIntExtra("id_global", 0);
+
+        setTextView();
         cargarSP();
-        //paciente = getIntent().getIntExtra("paciente", 0);
+        Toast.makeText(this, ""+usuario, Toast.LENGTH_SHORT).show();
 
-        idUsuarios = new ArrayList<>();
-        ArrayList<Paciente> listaPacientes = (ArrayList<Paciente>) getIntent().getSerializableExtra("listaPacientes");
-
-        for(int i = 0; i<listaPacientes.size(); i++){
-            nombres += listaPacientes.get(i).getNombre()+" "+listaPacientes.get(i).getAp()+" "+listaPacientes.get(i).getAm() + "\n";
-            idUsuarios.add(listaPacientes.get(i).getId());
-        }
-        textViewNombres.setText(nombres);
-
-        //paciente = 8;
-        //queryPaciente(paciente);
-
-        //Toast.makeText(ReporteCita.this,nombre + "",Toast.LENGTH_LONG).show();
         btnCloseReporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,12 +84,24 @@ public class ReporteCita extends AppCompatActivity {
             public void onClick(View view) {
                 setUpdateCitas();
 
-                cita = getIntent().getIntExtra("cita", 0);
-                SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, paciente, t_us, editTextMotivo, editTextConsulta);
+                SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, paciente, t_us, id_global, editTextMotivo, editTextConsulta);
                 s.execute();
 
             }
         });
+    }
+
+    private void setTextView(){
+        //Recuperamos los valores de DetailsCitaActivity
+        listaPacientes = (ArrayList<Paciente>) getIntent().getSerializableExtra("listaPacientes");
+        idUsuarios = new ArrayList<>();
+
+        for(int i = 0; i<listaPacientes.size(); i++){
+            nombres += listaPacientes.get(i).getNombre()+" "+listaPacientes.get(i).getAp()+" "+listaPacientes.get(i).getAm() + "\n";
+            idUsuarios.add(listaPacientes.get(i).getId());
+            System.out.println("Nombre: "+listaPacientes.get(i).getNombre() + " - Id: "+listaPacientes.get(i).getId());
+        }
+        textViewNombres.setText(nombres);
     }
 
     private void setUpdateCitas(){
@@ -120,6 +129,13 @@ public class ReporteCita extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+    public void cargarSP() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        usuario = preferences.getInt("id", 0);
+        t_us = preferences.getString("t_us", "a");
+    }
+
     private void queryPaciente(int paciente){
         StringRequest stringRequest = new StringRequest(Global.ip + "getPaciente.php?id_paciente="+ paciente, response -> {
             try {
@@ -139,12 +155,5 @@ public class ReporteCita extends AppCompatActivity {
             }
         }, error -> { });
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-    }
-
-    public void cargarSP() {
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-        usuario = preferences.getInt("id", 0);
-        t_us = preferences.getString("t_us", "a");
     }
 }

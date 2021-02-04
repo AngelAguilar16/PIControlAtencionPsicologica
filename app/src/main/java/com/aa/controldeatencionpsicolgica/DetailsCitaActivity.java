@@ -52,6 +52,9 @@ public class DetailsCitaActivity extends AppCompatActivity {
         paciente = getIntent().getIntExtra("paciente", 0);
         cita = getIntent().getIntExtra("cita", 0);
         id_global = getIntent().getIntExtra("id_global", 0);
+        usuario = getIntent().getIntExtra("usuario", 0);
+
+        Toast.makeText(this, ""+id_global, Toast.LENGTH_SHORT).show();
 
         textViewHora.setText(hora);
         textViewFecha.setText(fecha);
@@ -78,7 +81,14 @@ public class DetailsCitaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReporteCita.class);
-                intent.putExtra("listaPacientes", (Serializable) pacienteList);
+
+                // Datos que enviamos a ReporteCita
+                intent.putExtra("listaPacientes", (Serializable) pacienteList); // Paciente o pacientes que toman la cita
+                intent.putExtra("paciente", paciente);
+                intent.putExtra("cita", cita); // id de cita
+                intent.putExtra("usuario", usuario); //Quien atiende
+                intent.putExtra("id_global", id_global); // Numero que vincula a los pacientes
+
                 startActivity(intent);
             }
         });
@@ -92,10 +102,6 @@ public class DetailsCitaActivity extends AppCompatActivity {
                 JSONArray array = obj.getJSONArray("citasList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    // Crear adaptador para Paciente pero solo usando
-                    // nombre, ap, am, id_global, paciente;
-                    id_paciente = pacObj.getInt("id_paciente");
-                    usuario = pacObj.getInt("usuario");
                     Paciente p = new Paciente(pacObj.getInt("id_paciente"),  pacObj.getInt("id_global"), pacObj.getString("nombres"), pacObj.getString("ap"), pacObj.getString("am"), pacObj.getInt("usuario"));
                     pacienteList.add(p);
                 }
