@@ -2,6 +2,7 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -84,7 +85,7 @@ public class AddNewCaso extends Fragment {
         lvPacientes = v.findViewById(R.id.lvPacientesSelec);
         btnCSNC = v.findViewById(R.id.btnCSNC);
         String a = getActivity().getIntent().getStringExtra("desc");
-        Bundle objeto = getActivity().getIntent().getExtras();
+        Bundle objeto = getArguments();
 
         if(objeto != null){
             pac = (ArrayList<Paciente>) objeto.getSerializable("pacientes");
@@ -102,13 +103,14 @@ public class AddNewCaso extends Fragment {
         btnSelectPacienteCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ListaPacientes.class);
-                Bundle bundle = new Bundle();
-
-                bundle.putSerializable("pacientes", pac);
-                i.putExtras(bundle);
-                i.putExtra("desc", etDescCaso.getText().toString());
-                startActivity(i);
+                Bundle args = new Bundle();
+                args.putSerializable("pacientes", pac);
+                args.putString("desc", etDescCaso.getText().toString());
+                ListaPacientes fragment = new ListaPacientes();
+                fragment.setArguments(args);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, fragment);
+                transaction.commit();
             }
         });
 
