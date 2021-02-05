@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.PacientesP_Adapter;
@@ -46,6 +48,7 @@ public class AddNewCasoP extends Fragment {
     private String mParam2;
     EditText etDescCaso;
     ListView lvPacientes;
+    ImageButton btnCSNCP;
     Button btnSelectPacienteCaso, btnCrearCaso, btnVerCasos;
     Paciente_peritaje paciente = null;
     String urlAddress = Global.ip + "addCaso.php";
@@ -87,6 +90,7 @@ public class AddNewCasoP extends Fragment {
 
         etDescCaso = (EditText) v.findViewById(R.id.etDescCaso);
         lvPacientes = v.findViewById(R.id.lvPacientesSelec);
+        btnCSNCP = v.findViewById(R.id.btnCSNCP);
 
         Bundle objeto = getArguments();
 
@@ -141,6 +145,13 @@ public class AddNewCasoP extends Fragment {
             }
         });
 
+        btnCSNCP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnCSNCP();
+            }
+        });
+
         return v;
     }
 
@@ -167,6 +178,25 @@ public class AddNewCasoP extends Fragment {
             }
         }, error -> { });
         Handler.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void logoutBtnCSNCP() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("s_ini", Boolean.FALSE);
+        editor.apply();
+
+        SharedPreferences pref = getActivity().getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.apply();
+
+        Intent i = new Intent(context, MainActivity.class);
+        startActivity(i);
     }
 
 }
