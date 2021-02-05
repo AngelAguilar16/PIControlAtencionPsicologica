@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/homeP"
+        android:icon="@drawable/ic_home"
+        android:title="Reportes" />
+    <item android:id="@+id/trendP"
+        android:icon="@drawable/ic_trend"
+        android:title="Citas" />
+    <item android:id="@+id/accountP"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Pacientes" />
+    <item android:id="@+id/settingP"
+        android:icon="@drawable/ic_settings"
+        android:title="Casos" />
+</menu>

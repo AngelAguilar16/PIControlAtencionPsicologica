@@ -1,18 +1,25 @@
 package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.PacientesP_Adapter;
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Fragments.ExpedientesFragment;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
+import com.aa.controldeatencionpsicolgica.Model.Expediente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.aa.controldeatencionpsicolgica.Sender.SenderCaso;
@@ -24,9 +31,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AddNewCasoP extends AppCompatActivity {
+public class AddNewCasoP extends Fragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
     EditText etDescCaso;
     ListView lvPacientes;
     Button btnSelectPacienteCaso, btnCrearCaso, btnVerCasos;
@@ -34,16 +50,43 @@ public class AddNewCasoP extends AppCompatActivity {
     String urlAddress = Global.ip + "addCaso.php";
     ArrayList<Paciente_peritaje> pac = new ArrayList<>();
     ArrayList<Paciente_peritaje> pacienteList = new ArrayList<>();
+    Context context;
+
+    public AddNewCasoP() {
+        // Required empty public constructor
+    }
+
+    public static AddNewCasoP newInstance(String param1, String param2) {
+        AddNewCasoP fragment = new AddNewCasoP();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_caso_p);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        etDescCaso = (EditText) findViewById(R.id.etDescCaso);
-        lvPacientes = findViewById(R.id.lvPacientesSelec);
-        String a = getIntent().getStringExtra("desc");
-        Bundle objeto = getIntent().getExtras();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_add_new_caso_p, container, false);
+
+        context = getContext();
+
+
+        etDescCaso = (EditText) v.findViewById(R.id.etDescCaso);
+        lvPacientes = v.findViewById(R.id.lvPacientesSelec);
+        String a = getActivity().getIntent().getStringExtra("desc");
+        Bundle objeto = getActivity().getIntent().getExtras();
 
         if(objeto != null){
             pac = (ArrayList<Paciente_peritaje>) objeto.getSerializable("pacientes");
@@ -53,15 +96,15 @@ public class AddNewCasoP extends AppCompatActivity {
         if (a != null){ etDescCaso.setText(a); }
 
 
-        btnSelectPacienteCaso = (Button) findViewById(R.id.btnSelectPacienteCaso);
-        btnCrearCaso = (Button) findViewById(R.id.btnCrearCaso);
-        btnVerCasos = findViewById(R.id.btnVerCasos);
+        btnSelectPacienteCaso = (Button) v.findViewById(R.id.btnSelectPacienteCaso);
+        btnCrearCaso = (Button) v.findViewById(R.id.btnCrearCaso);
+        btnVerCasos = v.findViewById(R.id.btnVerCasos);
         showList();
 
         btnSelectPacienteCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AddNewCasoP.this, ListaPacienteP.class);
+                Intent i = new Intent(getActivity(), ListaPacienteP.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putSerializable("pacientes", pac);
@@ -74,7 +117,7 @@ public class AddNewCasoP extends AppCompatActivity {
         btnCrearCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SenderCasoP s = new SenderCasoP(AddNewCasoP.this, urlAddress, etDescCaso.getText().toString(), pac);
+                SenderCasoP s = new SenderCasoP(context, urlAddress, etDescCaso.getText().toString(), pac);
                 s.execute();
             }
         });
@@ -82,10 +125,12 @@ public class AddNewCasoP extends AppCompatActivity {
         btnVerCasos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddNewCasoP.this, VerCasosPActivity.class);
+                Intent intent = new Intent(getActivity(), VerCasosPActivity.class);
                 startActivity(intent);
             }
         });
+
+        return v;
     }
 
     private void showList(){
@@ -102,7 +147,7 @@ public class AddNewCasoP extends AppCompatActivity {
                     }
 
                 }
-                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, getApplicationContext());
+                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, context);
                 lvPacientes.setAdapter(adapter);
                 //Toast.makeText(ListaPacientes.this,"" + pList.size(),Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
@@ -110,7 +155,7 @@ public class AddNewCasoP extends AppCompatActivity {
                 e.printStackTrace();
             }
         }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
 }

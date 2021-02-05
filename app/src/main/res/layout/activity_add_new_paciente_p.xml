@@ -102,7 +102,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_input_layout_FN"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="293dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:hint="Fec. Nacimiento"
@@ -110,7 +110,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextFCPaciente"
-                        android:layout_width="match_parent"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName" />
 
@@ -128,7 +128,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_input_layout_curp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="343dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:hint="Curp"
@@ -136,7 +136,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextCurp"
-                        android:layout_width="356dp"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName" />
 

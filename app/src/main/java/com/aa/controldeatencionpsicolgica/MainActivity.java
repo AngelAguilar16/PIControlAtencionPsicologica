@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         if (s_ini.equals(Boolean.TRUE)){
             Global.setUsuario(id);
             if(t_us.equals("Peritaje")){
-                i = new Intent(MainActivity.this, MenuActivityPeritaje.class);
+                i = new Intent(MainActivity.this, MenuMaterialPeritaje.class);
                 startActivity(i);
             } else {
                 i = new Intent(MainActivity.this, MenuMaterial.class);

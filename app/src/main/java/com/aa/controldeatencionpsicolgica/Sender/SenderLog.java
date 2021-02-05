@@ -16,6 +16,7 @@ import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
 import com.aa.controldeatencionpsicolgica.MenuMaterial;
+import com.aa.controldeatencionpsicolgica.MenuMaterialPeritaje;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
 import com.android.volley.toolbox.StringRequest;
@@ -86,7 +87,7 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
                 guardarDatos();
                 //Toast.makeText(c, "" + response, Toast.LENGTH_LONG).show();
                 if(response.equals("Peritaje")){
-                    Intent ii = new Intent(c, MenuActivityPeritaje.class);
+                    Intent ii = new Intent(c, MenuMaterialPeritaje.class);
                     c.startActivity(ii);
                 } else if (response.equals("Psicología") || response.equals("Psiquiatría")){
                     Intent ii = new Intent(c, MenuMaterial.class);
@@ -163,7 +164,7 @@ public class SenderLog extends AsyncTask<Void,Void,String> {
         editor.putBoolean("s_ini", s_ini);
 
 
-        editor.commit();
+        editor.apply();
     }
 
 

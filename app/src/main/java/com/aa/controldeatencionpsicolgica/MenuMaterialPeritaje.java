@@ -11,10 +11,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.aa.controldeatencionpsicolgica.Fragments.AgendaFragment;
-import com.aa.controldeatencionpsicolgica.Fragments.CitasFragment;
-import com.aa.controldeatencionpsicolgica.Fragments.ExpedientesFragment;
-import com.aa.controldeatencionpsicolgica.Fragments.ReportesFragment;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Usuario;
@@ -25,52 +21,47 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MenuMaterial extends AppCompatActivity {
+public class MenuMaterialPeritaje extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_material);
+        setContentView(R.layout.activity_menu_material_peritaje);
         getUsuario(cargarCorreo());
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        BottomNavigationView bottomNavP = findViewById(R.id.bottomNavP);
 
-        openFragment(new AgendaActivity());
+        openFragment(new ListaPeritaje());
 
-
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavP.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-
-                    case R.id.home:
-                        openFragment(new AgendaActivity());
+                    case R.id.homeP:
+                        openFragment(new ListaPeritaje());
                         return true;
 
-                    case R.id.trend:
-                        openFragment(new CitasActivity());
+                    case R.id.trendP:
+                        openFragment(new CitasPActivity());
                         return true;
 
-                    case R.id.account:
-                        openFragment(new AddNewCaso());
+                    case R.id.accountP:
+                        openFragment(new AddNewPacienteP());
                         return true;
 
-                    case R.id.setting:
-                        openFragment(new ExpedienteActivity());
+                    case R.id.settingP:
+                        openFragment(new AddNewCasoP());
                         return true;
-
                 }
-
 
                 return false;
             }
         });
-
     }
 
     void openFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.replace(R.id.frameLayoutP, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
@@ -124,7 +115,7 @@ public class MenuMaterial extends AppCompatActivity {
 
 
             } catch (JSONException e) {
-                Toast.makeText(MenuMaterial.this,"Hubo un error" + e,Toast.LENGTH_LONG).show();
+                Toast.makeText(MenuMaterialPeritaje.this,"Hubo un error" + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }, error -> { });

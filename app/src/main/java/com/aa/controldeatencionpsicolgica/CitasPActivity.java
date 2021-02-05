@@ -2,15 +2,20 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
+import com.aa.controldeatencionpsicolgica.Fragments.ExpedientesFragment;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Cita;
@@ -32,24 +37,59 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CitasPActivity extends AppCompatActivity {
+public class CitasPActivity extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     private String fecha, hora;
     private Date date1, date2;
     DateFormat dateFormat;
-
+    Context context;
     ListView lvCitas;
     List<Cita> citasList;
     ArrayList<Paciente_peritaje> pacienteList;
 
+    public CitasPActivity() {
+        // Required empty public constructor
+    }
+
+    public static CitasPActivity newInstance(String param1, String param2) {
+        CitasPActivity fragment = new CitasPActivity();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_citas_p);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        FloatingActionButton add = findViewById(R.id.add);
-        lvCitas = (ListView) findViewById(R.id.lvCitasP);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_citas_p, container, false);
+
+        context = getContext();
+
+        FloatingActionButton add = v.findViewById(R.id.add);
+        lvCitas = (ListView) v.findViewById(R.id.lvCitasP);
 
         citasList = new ArrayList<>();
         pacienteList = new ArrayList<>();
@@ -58,10 +98,10 @@ public class CitasPActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         fecha = dateFormat.format(date);
 
-        pacienteList = Global.getPacientesP(getApplicationContext());
+        pacienteList = Global.getPacientesP(context);
 
         add.setOnClickListener(view -> {
-            Intent i = new Intent(CitasPActivity.this, AddNewCitaPActivity.class);
+            Intent i = new Intent(getActivity(), AddNewCitaPActivity.class);
             Bundle args = new Bundle();
             args.putSerializable("arraylist",(Serializable)pacienteList);
             i.putExtra("pacienteList", args);
@@ -72,7 +112,7 @@ public class CitasPActivity extends AppCompatActivity {
         lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CitasPActivity.this, DetailsCitaPActivity.class);
+                Intent intent = new Intent(getActivity(), DetailsCitaPActivity.class);
                 Cita cita = citasList.get(position);
 
                 intent.putExtra("cita", cita.getId());
@@ -83,6 +123,8 @@ public class CitasPActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        return v;
     }
 
     private void showList(){
@@ -104,7 +146,7 @@ public class CitasPActivity extends AppCompatActivity {
                         }
                     }
                 }
-                Citas_Adapter adapter = new Citas_Adapter(citasList, getApplicationContext());
+                Citas_Adapter adapter = new Citas_Adapter(citasList, context);
                 lvCitas.setAdapter(adapter);
                 //Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
             } catch (JSONException | ParseException e) {
@@ -112,7 +154,7 @@ public class CitasPActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
 }
