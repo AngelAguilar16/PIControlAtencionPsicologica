@@ -8,7 +8,7 @@
         android:title="Citas" />
     <item android:id="@+id/account"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="Reportes" />
+        android:title="Casos" />
     <item android:id="@+id/setting"
         android:icon="@drawable/ic_settings"
         android:title="Expedientes" />

@@ -109,8 +109,8 @@ public class ExpedientesFragment extends Fragment {
                             pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
                     expedientesList.add(expediente);
                 }
-                RVExpedienteAdapter adapter = new RVExpedienteAdapter(expedientesList);
-                rvExpedientes.setAdapter(adapter);
+                /*RVExpedienteAdapter adapter = new RVExpedienteAdapter(expedientesList);
+                rvExpedientes.setAdapter(adapter);*/
 
             } catch (JSONException e){
                 e.printStackTrace();

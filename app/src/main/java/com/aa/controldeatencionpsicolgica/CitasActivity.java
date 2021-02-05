@@ -2,18 +2,25 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
+import com.aa.controldeatencionpsicolgica.Adapter.RVCitasAdapter;
+import com.aa.controldeatencionpsicolgica.Fragments.CitasFragment;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Cita;
@@ -36,25 +43,61 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class CitasActivity extends AppCompatActivity {
+public class CitasActivity extends Fragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
     private String fecha, hora;
     private Date date1, date2;
     DateFormat dateFormat;
+    Context context;
 
     ListView lvCitas;
     List<Cita> citasList;
     ArrayList<Paciente> pacienteList;
+    RecyclerView rvCitas;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    public CitasActivity() {
+        // Required empty public constructor
+    }
+
+    public static CitasActivity newInstance(String param1, String param2) {
+        CitasActivity fragment = new CitasActivity();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_citas);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        FloatingActionButton add = findViewById(R.id.add);
-        lvCitas = (ListView) findViewById(R.id.lvCitas);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_citas, container, false);
+        context = getContext();
+        FloatingActionButton add = v.findViewById(R.id.add);
+        lvCitas = (ListView) v.findViewById(R.id.lvCitas);
+        rvCitas = v.findViewById(R.id.rvCitas);
 
+        rvCitas.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        rvCitas.setLayoutManager(llm);
         citasList = new ArrayList<>();
         pacienteList = new ArrayList<>();
 
@@ -62,10 +105,10 @@ public class CitasActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         fecha = dateFormat.format(date);
 
-        pacienteList = Global.getPacientes(getApplicationContext());
+        pacienteList = Global.getPacientes(context);
 
         add.setOnClickListener(view -> {
-            Intent i = new Intent(CitasActivity.this, AddNewCitaActivity.class);
+            Intent i = new Intent(getActivity(), AddNewCitaActivity.class);
             Bundle args = new Bundle();
             args.putSerializable("arraylist",(Serializable)pacienteList);
             i.putExtra("pacienteList", args);
@@ -73,10 +116,10 @@ public class CitasActivity extends AppCompatActivity {
         });
         showList();
 
-        lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CitasActivity.this, DetailsCitaActivity.class);
+                Intent intent = new Intent(getActivity(), DetailsCitaActivity.class);
                 Cita cita = citasList.get(position);
 
                 intent.putExtra("cita", cita.getId());
@@ -86,7 +129,9 @@ public class CitasActivity extends AppCompatActivity {
 
                 startActivity(intent);
             }
-        });
+        });*/
+
+        return v;
     }
 
     private void showList(){
@@ -108,15 +153,15 @@ public class CitasActivity extends AppCompatActivity {
                         }
                     }
                 }
-                Citas_Adapter adapter = new Citas_Adapter(citasList, getApplicationContext());
-                lvCitas.setAdapter(adapter);
+                RVCitasAdapter adapter = new RVCitasAdapter(citasList);
+                rvCitas.setAdapter(adapter);
                 //Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
             } catch (JSONException | ParseException e) {
                 //Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
 }

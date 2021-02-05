@@ -1,16 +1,21 @@
 package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
+import com.aa.controldeatencionpsicolgica.Fragments.ReportesFragment;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
@@ -25,7 +30,16 @@ import org.json.JSONObject;
 import java.sql.Struct;
 import java.util.ArrayList;
 
-public class AddNewCaso extends AppCompatActivity {
+public class AddNewCaso extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     EditText etDescCaso;
     ListView lvPacientes;
@@ -34,16 +48,39 @@ public class AddNewCaso extends AppCompatActivity {
     String urlAddress = Global.ip + "addCaso.php";
     ArrayList<Paciente> pac = new ArrayList<>();
     ArrayList<Paciente> pacienteList = new ArrayList<>();
+    Context context;
+
+    public AddNewCaso() {
+        // Required empty public constructor
+    }
+
+    public static AddNewCaso newInstance(String param1, String param2) {
+        AddNewCaso fragment = new AddNewCaso();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_caso);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        etDescCaso = (EditText) findViewById(R.id.etDescCaso);
-        lvPacientes = findViewById(R.id.lvPacientesSelec);
-        String a = getIntent().getStringExtra("desc");
-        Bundle objeto = getIntent().getExtras();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_add_new_caso, container, false);
+        context = getContext();
+        etDescCaso = (EditText) v.findViewById(R.id.etDescCaso);
+        lvPacientes = v.findViewById(R.id.lvPacientesSelec);
+        String a = getActivity().getIntent().getStringExtra("desc");
+        Bundle objeto = getActivity().getIntent().getExtras();
 
         if(objeto != null){
             pac = (ArrayList<Paciente>) objeto.getSerializable("pacientes");
@@ -53,15 +90,15 @@ public class AddNewCaso extends AppCompatActivity {
         if (a != null){ etDescCaso.setText(a); }
 
 
-        btnSelectPacienteCaso = (Button) findViewById(R.id.btnSelectPacienteCaso);
-        btnCrearCaso = (Button) findViewById(R.id.btnCrearCaso);
-        btnVerCasos = findViewById(R.id.btnVerCasos);
+        btnSelectPacienteCaso = (Button) v.findViewById(R.id.btnSelectPacienteCaso);
+        btnCrearCaso = (Button) v.findViewById(R.id.btnCrearCaso);
+        btnVerCasos = v.findViewById(R.id.btnVerCasos);
         showList();
 
         btnSelectPacienteCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AddNewCaso.this, ListaPacientes.class);
+                Intent i = new Intent(getActivity(), ListaPacientes.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putSerializable("pacientes", pac);
@@ -74,7 +111,7 @@ public class AddNewCaso extends AppCompatActivity {
         btnCrearCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SenderCaso s = new SenderCaso(AddNewCaso.this, urlAddress, etDescCaso.getText().toString(), pac);
+                SenderCaso s = new SenderCaso(getActivity(), urlAddress, etDescCaso.getText().toString(), pac);
                 s.execute();
             }
         });
@@ -82,10 +119,12 @@ public class AddNewCaso extends AppCompatActivity {
         btnVerCasos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddNewCaso.this, VerCasosActivity.class);
+                Intent intent = new Intent(getActivity(), VerCasosActivity.class);
                 startActivity(intent);
             }
         });
+
+        return v;
     }
 
     private void showList(){
@@ -102,7 +141,7 @@ public class AddNewCaso extends AppCompatActivity {
                     }
 
                 }
-                Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());
+                Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, context);
                 lvPacientes.setAdapter(adapter);
                 //Toast.makeText(ListaPacientes.this,"" + pList.size(),Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
@@ -110,7 +149,7 @@ public class AddNewCaso extends AppCompatActivity {
                 e.printStackTrace();
             }
         }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
 }

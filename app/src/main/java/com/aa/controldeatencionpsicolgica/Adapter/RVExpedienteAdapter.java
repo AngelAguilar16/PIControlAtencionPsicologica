@@ -13,10 +13,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aa.controldeatencionpsicolgica.ExpedienteDetailsActivity;
+import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Expediente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.R;
+import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -28,40 +30,35 @@ import java.util.List;
 
 public class RVExpedienteAdapter extends RecyclerView.Adapter<RVExpedienteAdapter.ExpedienteViewHolder> {
 
-    List<Expediente> expedientes;
+    List<Paciente> expedientes;
     Context context;
     private List<Paciente> pacienteList;
     int us;
 
-    public RVExpedienteAdapter(List<Expediente> expedientes){
+    public RVExpedienteAdapter(List<Paciente> expedientes){
         this.expedientes = expedientes;
     }
 
     @NonNull
     @Override
     public ExpedienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_expedientes, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_pacientes, parent, false);
         ExpedienteViewHolder evh = new ExpedienteViewHolder(v);
         context = v.getContext();
-
         pacienteList = new ArrayList<>();
-        cargarSP();
-        showList();
         return evh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RVExpedienteAdapter.ExpedienteViewHolder holder, int position) {
-        holder.paciente.setText("Paciente: " + expedientes.get(position).getPaciente());
-        holder.fecha.setText("Fecha: " + expedientes.get(position).getFecha());
-        holder.notas.setText("Notas: " + expedientes.get(position).getNotas_sesion());
+        holder.nombre.setText("Nombre: " + expedientes.get(position).getNombre() + " " + expedientes.get(position).getAp() + " " + expedientes.get(position).getAm());
+        holder.telefono.setText("Telefono: " + expedientes.get(position).getTelefono());
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Paciente paciente = pacienteList.get(position);
+                Paciente paciente = pacienteList.get(position);
                 Intent intent = new Intent(context, ExpedienteDetailsActivity.class);
                 Bundle bundle = new Bundle();
-
                 bundle.putSerializable("pacienteData", paciente);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
@@ -83,6 +80,8 @@ public class RVExpedienteAdapter extends RecyclerView.Adapter<RVExpedienteAdapte
                 EditPacienteDialog.display(manager);*/
             }
         });
+
+        showList();
     }
 
     @Override
@@ -93,16 +92,14 @@ public class RVExpedienteAdapter extends RecyclerView.Adapter<RVExpedienteAdapte
     public static class ExpedienteViewHolder extends RecyclerView.ViewHolder{
 
         CardView cv;
-        TextView paciente;
-        TextView fecha;
-        TextView notas;
+        TextView nombre;
+        TextView telefono;
 
         ExpedienteViewHolder(@NonNull View itemView) {
             super(itemView);
-            cv = itemView.findViewById(R.id.cvExpediente);
-            paciente = itemView.findViewById(R.id.cvTxtPE);
-            fecha = itemView.findViewById(R.id.cvTxtFE);
-            notas = itemView.findViewById(R.id.cvTxtNotas);
+            cv = itemView.findViewById(R.id.cvPaciente);
+            nombre = itemView.findViewById(R.id.cvTxtNombre);
+            telefono = itemView.findViewById(R.id.cvTxtTelefono);
         }
     }
 
@@ -112,15 +109,21 @@ public class RVExpedienteAdapter extends RecyclerView.Adapter<RVExpedienteAdapte
     }
 
     private void showList() {
-        StringRequest stringRequest = new StringRequest("http://192.168.1.78/dif/listPacientes.php?usuario="+ us, response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "listPacientes.php?usuario="+ Global.us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("pacientesList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombre"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"), pacObj.getInt("caso"));
+                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),
+                            pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"),
+                            pacObj.getString("telefono"), pacObj.getString("estado"), pacObj.getString("municipio"),
+                            pacObj.getString("domicilio"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"),
+                            pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"),
+                            pacObj.getInt("caso"));
                     pacienteList.add(p);
                 }
+                Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, context);
                 //Toast.makeText(AgendaActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();

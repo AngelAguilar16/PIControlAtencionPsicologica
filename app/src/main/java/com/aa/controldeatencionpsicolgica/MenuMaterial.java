@@ -32,19 +32,19 @@ public class MenuMaterial extends AppCompatActivity {
                 switch (item.getItemId()){
 
                     case R.id.home:
-                        openFragment(new AgendaFragment());
+                        openFragment(new AgendaActivity());
                         return true;
 
                     case R.id.trend:
-                        openFragment(new CitasFragment());
+                        openFragment(new CitasActivity());
                         return true;
 
                     case R.id.account:
-                        openFragment(new ReportesFragment());
+                        openFragment(new AddNewCaso());
                         return true;
 
                     case R.id.setting:
-                        openFragment(new ExpedientesFragment());
+                        openFragment(new ExpedienteActivity());
                         return true;
 
                 }

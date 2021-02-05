@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 i = new Intent(MainActivity.this, MenuActivityPeritaje.class);
                 startActivity(i);
             } else {
-                i = new Intent(MainActivity.this, MenuActivity.class);
+                i = new Intent(MainActivity.this, MenuMaterial.class);
                 startActivity(i);
             }
 
