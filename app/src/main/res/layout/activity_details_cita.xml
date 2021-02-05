@@ -112,22 +112,32 @@
         android:id="@+id/btnAddPacienteCita"
         android:layout_width="135dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="Agregar\nPaciente"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnSesion"
         android:layout_width="135dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="64dp"
         android:text="Tomar Sesion"
-        app:layout_constraintBottom_toBottomOf="@+id/btnAddPacienteCita"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.778"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btndeleteCita"
+        android:layout_width="118dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="24dp"
+        android:text="Borrar\nCita"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView

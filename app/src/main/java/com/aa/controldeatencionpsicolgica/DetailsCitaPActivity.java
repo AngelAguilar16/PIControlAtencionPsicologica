@@ -14,7 +14,13 @@ import com.aa.controldeatencionpsicolgica.Adapter.PacientesP_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,12 +28,14 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetailsCitaPActivity extends AppCompatActivity {
 
     private TextView textViewFecha, textViewHora;
-    private Button btnAddPacientes, btnSesiones;
+    private Button btnAddPacientes, btnSesiones, btndeleteCita;
 
     private ListView lvPacientes;
     private List<Paciente_peritaje> pacienteList;
@@ -45,6 +53,7 @@ public class DetailsCitaPActivity extends AppCompatActivity {
         btnAddPacientes = findViewById(R.id.btnAddPacienteCita);
         lvPacientes = findViewById(R.id.lvPacientesCitasP);
         btnSesiones = findViewById(R.id.btnSesion);
+        btndeleteCita = findViewById(R.id.btndeleteCita);
 
         fecha = getIntent().getStringExtra("fecha");
         hora = getIntent().getStringExtra("hora");
@@ -76,6 +85,34 @@ public class DetailsCitaPActivity extends AppCompatActivity {
                 intent.putExtra("cita", cita);
                 intent.putExtra("usuario", usuario);
                 startActivity(intent);
+            }
+        });
+
+        btndeleteCita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.ip + "deleteCita.php", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(DetailsCitaPActivity.this, "Cita Eliminada", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MenuMaterial.class);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(DetailsCitaPActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> parametros = new HashMap<>();
+                        parametros.put("id_cita", Integer.toString(cita));
+                        return parametros;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(DetailsCitaPActivity.this);
+                requestQueue.add(stringRequest);
             }
         });
 

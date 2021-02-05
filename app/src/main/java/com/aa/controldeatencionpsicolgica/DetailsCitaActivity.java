@@ -8,12 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,12 +28,14 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetailsCitaActivity extends AppCompatActivity {
 
     private TextView textViewFecha, textViewHora;
-    private Button btnAddPacientes, btnSesiones;
+    private Button btnAddPacientes, btnSesiones, btnBorrar;
 
     private ListView lvPacientes;
     private List<Paciente> pacienteList;
@@ -44,6 +53,7 @@ public class DetailsCitaActivity extends AppCompatActivity {
         btnAddPacientes = findViewById(R.id.btnAddPacienteCita);
         lvPacientes = findViewById(R.id.lvPacientesCitasP);
         btnSesiones = findViewById(R.id.btnSesion);
+        btnBorrar = findViewById(R.id.btndeleteCita);
 
         fecha = getIntent().getStringExtra("fecha");
         hora = getIntent().getStringExtra("hora");
@@ -79,6 +89,34 @@ public class DetailsCitaActivity extends AppCompatActivity {
                 intent.putExtra("usuario", usuario); //Quien atiende
 
                 startActivity(intent);
+            }
+        });
+
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.ip + "deleteCita.php", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(DetailsCitaActivity.this, "Cita Eliminada", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MenuMaterial.class);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(DetailsCitaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> parametros = new HashMap<>();
+                        parametros.put("id_cita", Integer.toString(cita));
+                        return parametros;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(DetailsCitaActivity.this);
+                requestQueue.add(stringRequest);
             }
         });
 
