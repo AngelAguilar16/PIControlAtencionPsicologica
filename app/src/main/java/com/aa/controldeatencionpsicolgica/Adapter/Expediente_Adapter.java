@@ -31,7 +31,7 @@ public class Expediente_Adapter extends ArrayAdapter<Expediente> {
         TextView expediente = view.findViewById(R.id.tvExpedientes);
         Expediente expediente1 = expedienteList.get(position);
 
-        expediente.setText(expediente1.getCita() + " "+ expediente1.getMotivo_atencion());
+        expediente.setText(expediente1.getId_consulta() + " "+ expediente1.getMotivo_atencion());
 
         return view;
     }

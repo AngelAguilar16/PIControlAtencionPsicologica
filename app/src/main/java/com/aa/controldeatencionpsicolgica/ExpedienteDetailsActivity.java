@@ -44,15 +44,16 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
         Paciente paciente = null;
 
         // Consigo los datos del paciente que quiero ver su expediente
+        // Necesito el id_cita - > ExpedienteActivity
+
         if(objeto != null){
             paciente = (Paciente) objeto.getSerializable("pacienteData");
             lblNombre.setText(paciente.getNombre());
             us = paciente.getId();
 
             showList();
-
-            Toast.makeText(ExpedienteDetailsActivity.this, "Id apciente: "+ us, Toast.LENGTH_SHORT).show();
         }
+
         lvExpediente.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -63,22 +64,24 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
                 bundle.putSerializable("expedienteData", expediente);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
             }
         });
     }
 
-    // Metodo para mostrar los reportes del paciente
+    // Metodo para mostrar los reportes/citas del paciente
     private void showList() {
+        Toast.makeText(ExpedienteDetailsActivity.this, "Id apciente: "+ us, Toast.LENGTH_SHORT).show();
+
         StringRequest stringRequest = new StringRequest(Global.ip + "listExpediente.php?paciente="+ us, response -> {
             try{
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("expedienteList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Expediente expediente = new Expediente(pacObj.getInt("id_consulta"), pacObj.getInt("usuario"), pacObj.getInt("cita"),
-                            pacObj.getInt("paciente"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"), pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
+                    Expediente expediente = new Expediente(pacObj.getInt("id_cita"), pacObj.getInt("usuario"),
+                            pacObj.getInt("cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
+                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"),
+                            pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
                     expedientesList.add(expediente);
                 }
                 Expediente_Adapter adapter = new Expediente_Adapter(expedientesList, getApplicationContext());
@@ -90,5 +93,7 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
         }, error -> {});
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
+
+
 
 }

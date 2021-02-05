@@ -59,10 +59,8 @@ public class Paciente implements Serializable {
         this(id_paciente, usuario, fecha_registro, nombre, ap, am, "", "", "", telefono, estado, municipio,"", domicilio, "", "", sexo, fecha_nacimiento, estado_civil, escolaridad, ocupacion, caso);
     }
 
-    public Paciente(int id_paciente, int id_global, String nombre, String ap, String am, int usuario){
+    public Paciente(int id_paciente, String nombre, String ap, String am){
         id = id_paciente;
-        this.usuario = usuario;
-        this.id_global = id_global;
         this.nombre = nombre;
         this.ap = ap;
         this.am = am;

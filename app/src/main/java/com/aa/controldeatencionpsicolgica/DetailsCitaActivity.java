@@ -49,12 +49,10 @@ public class DetailsCitaActivity extends AppCompatActivity {
 
         fecha = getIntent().getStringExtra("fecha");
         hora = getIntent().getStringExtra("hora");
-        paciente = getIntent().getIntExtra("paciente", 0);
         cita = getIntent().getIntExtra("cita", 0);
-        id_global = getIntent().getIntExtra("id_global", 0);
         usuario = getIntent().getIntExtra("usuario", 0);
 
-        Toast.makeText(this, ""+id_global, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+cita, Toast.LENGTH_SHORT).show();
 
         textViewHora.setText(hora);
         textViewFecha.setText(fecha);
@@ -67,12 +65,7 @@ public class DetailsCitaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectPacienteActivity.class);
 
-                intent.putExtra("fecha", fecha);
-                intent.putExtra("hora", hora);
-                intent.putExtra("id_paciente", id_paciente);
-                intent.putExtra("usuario", usuario);
-                intent.putExtra("id_global",id_global);
-
+                intent.putExtra("id_cita", cita);
                 startActivity(intent);
             }
         });
@@ -87,7 +80,6 @@ public class DetailsCitaActivity extends AppCompatActivity {
                 intent.putExtra("paciente", paciente);
                 intent.putExtra("cita", cita); // id de cita
                 intent.putExtra("usuario", usuario); //Quien atiende
-                intent.putExtra("id_global", id_global); // Numero que vincula a los pacientes
 
                 startActivity(intent);
             }
@@ -96,13 +88,14 @@ public class DetailsCitaActivity extends AppCompatActivity {
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Global.ip + "listPacientesCita.php?id_global="+ id_global, response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "listPacientesCita.php?id_cita="+ cita, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),  pacObj.getInt("id_global"), pacObj.getString("nombres"), pacObj.getString("ap"), pacObj.getString("am"), pacObj.getInt("usuario"));
+                    Paciente p = new Paciente(pacObj.getInt("id_cita"), pacObj.getString("nombres"),
+                                                pacObj.getString("ap"), pacObj.getString("am"));
                     pacienteList.add(p);
                 }
                 Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());

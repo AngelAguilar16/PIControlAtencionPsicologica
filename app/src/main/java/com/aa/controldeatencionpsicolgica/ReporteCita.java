@@ -61,10 +61,7 @@ public class ReporteCita extends AppCompatActivity {
         btnGuardarDatosConsulta = findViewById(R.id.btnGuardarDatosConsulta);
 
         // Consigo los valores de DetailsCitaActivity
-        paciente = getIntent().getIntExtra("paciente", 0);
         cita = getIntent().getIntExtra("cita", 0);
-        //usuario = getIntent().getIntExtra("usuario", 0);
-        id_global = getIntent().getIntExtra("id_global", 0);
 
         setTextView();
         cargarSP();
@@ -84,7 +81,7 @@ public class ReporteCita extends AppCompatActivity {
             public void onClick(View view) {
                 setUpdateCitas();
 
-                SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, paciente, t_us, id_global, editTextMotivo, editTextConsulta);
+                SenderReporte s = new SenderReporte(ReporteCita.this, urlAddress, usuario, cita, t_us, editTextMotivo, editTextConsulta);
                 s.execute();
 
             }

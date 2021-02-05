@@ -35,14 +35,12 @@ public class SenderReporte extends AsyncTask<Void,Void,String> {
     String hora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
     ProgressDialog pd;
 
-    public SenderReporte(Context c, String urlAddress, int usuario, int cita, int paciente, String t_consulta, int id_global, EditText... editTexts) {
+    public SenderReporte(Context c, String urlAddress, int usuario, int cita, String t_consulta, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.usuario = usuario;
         this.cita = cita;
         this.t_consulta = t_consulta;
-        this.paciente = paciente;
-        this.id_global = id_global;
 
         this.motivo = editTexts[0];
         this.notas = editTexts[1];
@@ -100,7 +98,7 @@ public class SenderReporte extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerReporte(paciente, mot, nots, usuario, cita, t_consulta, date, hora, id_global).packData());
+            bw.write(new DataPackagerReporte(mot, nots, usuario, cita, t_consulta, date, hora).packData());
 
             bw.flush();
 

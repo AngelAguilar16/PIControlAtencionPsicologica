@@ -100,7 +100,7 @@ public class CitasPActivity extends AppCompatActivity {
                             System.out.println("Sumale 1 al contador si viste este mensaje"); // 1
                         else {
                             Cita c = new Cita(pacObj.getInt("id_citap"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                                    pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"), pacObj.getInt("id_global"));
+                                    pacObj.getInt("usuario"), pacObj.getInt("asistio"));
                             citasList.add(c);
                         }
                     }

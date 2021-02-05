@@ -13,8 +13,7 @@ public class DataPackagerReporte {
     int paciente, usuario, cita, id_global;
 
 
-    public DataPackagerReporte(int paciente, String motivo, String notas, int usuario, int cita, String t_consulta, String fecha, String hora, int id_global) {
-        this.paciente = paciente;
+    public DataPackagerReporte(String motivo, String notas, int usuario, int cita, String t_consulta, String fecha, String hora) {
         this.motivo = motivo;
         this.notas = notas;
         this.usuario = usuario;
@@ -22,7 +21,6 @@ public class DataPackagerReporte {
         this.t_consulta = t_consulta;
         this.fecha = fecha;
         this.hora = hora;
-        this.id_global = id_global;
     }
 
     public String packData()
@@ -32,7 +30,6 @@ public class DataPackagerReporte {
 
         try
         {
-            jo.put("paciente", paciente);
             jo.put("motivo", motivo);
             jo.put("notas", notas);
             jo.put("usuario", usuario);
@@ -40,7 +37,7 @@ public class DataPackagerReporte {
             jo.put("t_consulta", t_consulta);
             jo.put("fecha", fecha);
             jo.put("hora", hora);
-            jo.put("id_global", id_global);
+
 
 
             Boolean firstValue=true;

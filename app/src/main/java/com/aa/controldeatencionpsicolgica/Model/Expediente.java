@@ -8,6 +8,25 @@ public class Expediente implements Serializable {
     private Integer id_consulta, usuario, cita, caso, paciente;
     private String fecha, hora, motivo_atencion, notas_sesion, tipo_consulta;
 
+    public Expediente(int id_consulta, int usuario, int cita, String fecha, String hora, String motivo_atencion, String notas_sesion, String tipo_consulta, String tratamiento) {
+        this.id_consulta = id_consulta;
+        this.usuario = usuario;
+        this.cita = cita;
+        //this.paciente = paciente;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.motivo_atencion = motivo_atencion;
+        this.notas_sesion = notas_sesion;
+        this.tipo_consulta = tipo_consulta;
+        this.tratamiento = tratamiento;
+
+    }
+
+    public Expediente(int id_cita, String motivo) {
+        id_consulta = id_cita;
+        motivo_atencion = motivo;
+    }
+
     public Integer getId_consulta() {
         return id_consulta;
     }
@@ -49,18 +68,4 @@ public class Expediente implements Serializable {
     }
 
     public String getTratamiento(){return tratamiento;}
-
-    public Expediente(int id_consulta, int usuario, int cita, int paciente, String fecha, String hora, String motivo_atencion, String notas_sesion, String tipo_consulta, String tratamiento) {
-        this.id_consulta = id_consulta;
-        this.usuario = usuario;
-        this.cita = cita;
-        this.paciente = paciente;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.motivo_atencion = motivo_atencion;
-        this.notas_sesion = notas_sesion;
-        this.tipo_consulta = tipo_consulta;
-        this.tratamiento = tratamiento;
-
-    }
 }

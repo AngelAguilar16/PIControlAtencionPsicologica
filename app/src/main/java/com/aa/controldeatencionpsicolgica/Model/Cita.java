@@ -4,14 +4,14 @@ public class Cita {
     private int id ,usuario, asistio, paciente, id_global;
     private String fecha, hora;
 
-    public Cita(int id, String fecha, String hora, int paciente, int usuario, int asistio, int id_global) {
+    public Cita(int id, String fecha, String hora, int usuario, int asistio) {
         this.id = id;
         this.fecha = fecha;
         this.hora = hora;
-        this.paciente = paciente;
+        //this.paciente = paciente;
         this.usuario = usuario;
         this.asistio = asistio;
-        this.id_global = id_global;
+        //this.id_global = id_global;
     }
 
     public int getId() {

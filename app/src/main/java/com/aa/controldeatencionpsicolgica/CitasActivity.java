@@ -79,11 +79,9 @@ public class CitasActivity extends AppCompatActivity {
                 Intent intent = new Intent(CitasActivity.this, DetailsCitaActivity.class);
                 Cita cita = citasList.get(position);
 
-                intent.putExtra("paciente",cita.getPaciente()); // Retorna id del paciente
                 intent.putExtra("cita", cita.getId());
                 intent.putExtra("fecha", cita.getFecha());
                 intent.putExtra("hora", cita.getHora());
-                intent.putExtra("id_global", cita.getId_global());
                 intent.putExtra("usuario", cita.getUsuario());
 
                 startActivity(intent);
@@ -105,7 +103,7 @@ public class CitasActivity extends AppCompatActivity {
                             System.out.println("Sumale 1 al contador si viste este mensaje"); // 1
                         else {
                             Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                                    pacObj.getInt("paciente"), pacObj.getInt("usuario"), pacObj.getInt("asistio"), pacObj.getInt("id_global"));
+                                                pacObj.getInt("usuario"), pacObj.getInt("asistio"));
                             citasList.add(c);
                         }
                     }

@@ -103,9 +103,10 @@ public class ExpedientesFragment extends Fragment {
                 JSONArray array = obj.getJSONArray("expedienteList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Expediente expediente = new Expediente(pacObj.getInt("id_consulta"), pacObj.getInt("usuario"), pacObj.getInt("cita"),
-                            pacObj.getInt("paciente"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"), pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
+                    Expediente expediente = new Expediente(pacObj.getInt("id_cita"), pacObj.getInt("usuario"),
+                            pacObj.getInt("cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
+                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"),
+                            pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
                     expedientesList.add(expediente);
                 }
                 RVExpedienteAdapter adapter = new RVExpedienteAdapter(expedientesList);

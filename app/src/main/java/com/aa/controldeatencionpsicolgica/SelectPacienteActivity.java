@@ -38,7 +38,7 @@ public class SelectPacienteActivity extends AppCompatActivity {
     private List<Paciente> pacienteList;
 
     private String fecha, hora;
-    private int paciente, cita, id_global, id_paciente = 0, usuario = 0;
+    private int id_paciente, id_cita;
     private int id_paciente1 = 0;
 
     private String URL = Global.ip + "addPacienteCita.php";
@@ -50,11 +50,7 @@ public class SelectPacienteActivity extends AppCompatActivity {
 
         lvPacientes = findViewById(R.id.lvPacientesCitas);
 
-        id_paciente = getIntent().getIntExtra("id_paciente", 0);
-        fecha = getIntent().getStringExtra("fecha");
-        hora = getIntent().getStringExtra("hora");
-        usuario = getIntent().getIntExtra("usuario", 0);
-        id_global = getIntent().getIntExtra("id_global", 0);
+        id_cita = getIntent().getIntExtra("id_cita", 0);
 
         pacienteList = new ArrayList<>();
         showList();
@@ -65,32 +61,28 @@ public class SelectPacienteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Paciente paciente = pacienteList.get(position);
-                if(paciente.getId() == id_paciente)
-                    Toast.makeText(getApplicationContext(), "El paciente ya fue seleccionado", Toast.LENGTH_SHORT).show();
-                else{
-                    id_paciente1 = paciente.getId();
+                id_paciente1 = paciente.getId();
 
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(SelectPacienteActivity.this);
-                    alerta.setMessage("¿Deseas agregar al paciente ").setCancelable(true)
-                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Aqui insertaremos los datos
-                                    addPacientes();
-                                    Intent intent = new Intent(getApplicationContext(), CitasActivity.class);
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog titulo = alerta.create();
-                    titulo.setTitle("Agregar Paciente");
-                    titulo.show();
-                }
+                AlertDialog.Builder alerta = new AlertDialog.Builder(SelectPacienteActivity.this);
+                alerta.setMessage("¿Deseas agregar al paciente ").setCancelable(true)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Aqui insertaremos los datos
+                                addPacientes();
+                                Intent intent = new Intent(getApplicationContext(), CitasActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog titulo = alerta.create();
+                titulo.setTitle("Agregar Paciente");
+                titulo.show();
             }
         });
     }
@@ -114,11 +106,8 @@ public class SelectPacienteActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<>();
 
-                parametros.put("fecha",fecha);
-                parametros.put("hora", hora);
-                parametros.put("paciente", Integer.toString(id_paciente1));
-                parametros.put("usuario", Integer.toString(usuario));
-                parametros.put("id_global", Integer.toString(id_global));
+                parametros.put("id_paciente", Integer.toString(id_paciente1));
+                parametros.put("id_cita", Integer.toString(id_cita));
 
                 return parametros;
             }
