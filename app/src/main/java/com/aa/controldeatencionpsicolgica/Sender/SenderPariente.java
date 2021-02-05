@@ -11,6 +11,7 @@ import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
 import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerPariente;
 import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
+import com.aa.controldeatencionpsicolgica.MenuMaterial;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -60,7 +61,7 @@ public class SenderPariente extends AsyncTask<Void,Void,String> {
         if (response != null) {
             if (response.equals("1")) {
                 //Toast.makeText(c, "cita realizada", Toast.LENGTH_LONG).show();
-                Intent ii = new Intent(c, AgendaActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
             } else {
                 Toast.makeText(c, "Hubo un error php " + response, Toast.LENGTH_LONG).show();

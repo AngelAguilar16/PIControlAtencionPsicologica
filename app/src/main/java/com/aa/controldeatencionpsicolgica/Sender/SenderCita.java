@@ -13,6 +13,7 @@ import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerCita;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
 import com.aa.controldeatencionpsicolgica.MenuMaterial;
+import com.aa.controldeatencionpsicolgica.MenuMaterialPeritaje;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -68,10 +69,10 @@ public class SenderCita extends AsyncTask<Void,Void,String> {
                 //Toast.makeText(c, "cita realizada", Toast.LENGTH_LONG).show();
                 String us = getUs();
                 if (us.equals("Peritaje")){
-                    Intent ii = new Intent(c, MenuActivityPeritaje.class);
+                    Intent ii = new Intent(c, MenuMaterialPeritaje.class);
                     c.startActivity(ii);
                 } else {
-                    Intent ii = new Intent(c, MenuActivity.class);
+                    Intent ii = new Intent(c, MenuMaterial.class);
                     c.startActivity(ii);
                 }
 

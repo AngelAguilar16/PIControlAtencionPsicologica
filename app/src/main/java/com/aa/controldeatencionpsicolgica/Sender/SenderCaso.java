@@ -77,7 +77,7 @@ public class SenderCaso extends AsyncTask<Void,Void,String> {
                     asignarCaso(response, pp.getId());
                 }
 
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
             }
 

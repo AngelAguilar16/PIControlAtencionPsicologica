@@ -13,6 +13,7 @@ import com.aa.controldeatencionpsicolgica.DataPackager.DataPackagerReg;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
 import com.aa.controldeatencionpsicolgica.MenuMaterial;
+import com.aa.controldeatencionpsicolgica.MenuMaterialPeritaje;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -83,7 +84,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
                 id = Integer.parseInt(response);
                 guardarDatos();
                 if(t_us.equals("Peritaje")){
-                    Intent ii = new Intent(c, MenuActivityPeritaje.class);
+                    Intent ii = new Intent(c, MenuMaterialPeritaje.class);
                     c.startActivity(ii);
                 } else {
                     Intent ii = new Intent(c, MenuMaterial.class);

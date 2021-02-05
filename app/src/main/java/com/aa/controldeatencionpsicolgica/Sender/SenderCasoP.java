@@ -12,6 +12,7 @@ import com.aa.controldeatencionpsicolgica.Handlers.Connector;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.MenuActivity;
 import com.aa.controldeatencionpsicolgica.MenuActivityPeritaje;
+import com.aa.controldeatencionpsicolgica.MenuMaterialPeritaje;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.android.volley.toolbox.StringRequest;
@@ -75,7 +76,7 @@ public class SenderCasoP extends AsyncTask<Void,Void,String> {
                     asignarCaso(response, pp.getId_pacp());
                 }
 
-                Intent ii = new Intent(c, MenuActivityPeritaje.class);
+                Intent ii = new Intent(c, MenuMaterialPeritaje.class);
                 c.startActivity(ii);
             }
 

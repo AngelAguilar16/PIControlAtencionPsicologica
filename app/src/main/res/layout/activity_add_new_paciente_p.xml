@@ -151,10 +151,10 @@
                 android:layout_margin="10dp" />
 
             <Button
+                android:id="@+id/btnAñadirPacienteP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Añadir paciente"
-                android:onClick="addNewContactPBtn"/>
+                android:text="Añadir paciente" />
 
         </LinearLayout>
 
