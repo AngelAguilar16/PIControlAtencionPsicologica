@@ -101,7 +101,7 @@ public class SenderNewContacto extends AsyncTask<Void,Void,String> {
             if (response.equals("1")) {
                 //guardarDatos();
 
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
 
             } else if(response.equals("2")){

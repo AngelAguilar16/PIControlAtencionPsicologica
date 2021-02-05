@@ -67,6 +67,7 @@
         android:backgroundTint="#A9A528"
         android:onClick="nuevoPeritaje"
         android:text="Nuevo Peritaje"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.815"

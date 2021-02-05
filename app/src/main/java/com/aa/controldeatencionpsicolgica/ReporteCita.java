@@ -70,7 +70,7 @@ public class ReporteCita extends AppCompatActivity {
         btnCloseReporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ReporteCita.this, MenuActivity.class);
+                Intent i = new Intent(ReporteCita.this, MenuMaterial.class);
                 startActivity(i);
                 finish();
             }

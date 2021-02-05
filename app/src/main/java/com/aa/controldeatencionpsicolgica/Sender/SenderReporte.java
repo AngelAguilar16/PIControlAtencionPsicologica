@@ -73,7 +73,7 @@ public class SenderReporte extends AsyncTask<Void,Void,String> {
 
         if (response != null) {
             if (response.equals("1")) {
-                Intent ii = new Intent(c, MenuActivity.class);
+                Intent ii = new Intent(c, MenuMaterial.class);
                 c.startActivity(ii);
             } else {
                 Toast.makeText(c, "Error php" + response, Toast.LENGTH_LONG).show();
