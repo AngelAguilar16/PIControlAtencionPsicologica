@@ -3,15 +3,18 @@ package com.aa.controldeatencionpsicolgica;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
@@ -53,6 +56,7 @@ public class CitasPActivity extends Fragment {
     Context context;
     ListView lvCitas;
     List<Cita> citasList;
+    ImageButton btnCSCP;
     ArrayList<Paciente_peritaje> pacienteList;
 
     public CitasPActivity() {
@@ -90,6 +94,7 @@ public class CitasPActivity extends Fragment {
 
         FloatingActionButton add = v.findViewById(R.id.add);
         lvCitas = (ListView) v.findViewById(R.id.lvCitasP);
+        btnCSCP = v.findViewById(R.id.btnCSCP);
 
         citasList = new ArrayList<>();
         pacienteList = new ArrayList<>();
@@ -109,18 +114,33 @@ public class CitasPActivity extends Fragment {
         });
         showList();
 
+        btnCSCP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnCP();
+            }
+        });
+
         lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), DetailsCitaPActivity.class);
                 Cita cita = citasList.get(position);
-
+                /*Intent intent = new Intent(getActivity(), DetailsCitaPActivity.class);
                 intent.putExtra("cita", cita.getId());
                 intent.putExtra("fecha", cita.getFecha());
                 intent.putExtra("hora", cita.getHora());
                 intent.putExtra("usuario", cita.getUsuario());
-
-                startActivity(intent);
+                startActivity(intent);*/
+                Bundle args = new Bundle();
+                args.putInt("cita", cita.getId());
+                args.putString("fecha", cita.getFecha());
+                args.putString("hora", cita.getHora());
+                args.putInt("usuario", cita.getUsuario());
+                DetailsCitaPActivity fragment = new DetailsCitaPActivity();
+                fragment.setArguments(args);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayoutP, fragment);
+                transaction.commit();
             }
         });
 
@@ -155,6 +175,25 @@ public class CitasPActivity extends Fragment {
             }
         }, error -> { });
         Handler.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void logoutBtnCP() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("s_ini", Boolean.FALSE);
+        editor.commit();
+
+        SharedPreferences pref = getActivity().getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 
 }

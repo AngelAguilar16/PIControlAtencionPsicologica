@@ -1,10 +1,15 @@
 package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +37,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DetailsCitaPActivity extends AppCompatActivity {
+public class DetailsCitaPActivity extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
 
     private TextView textViewFecha, textViewHora;
     private Button btnAddPacientes, btnSesiones, btndeleteCita;
@@ -42,23 +56,50 @@ public class DetailsCitaPActivity extends AppCompatActivity {
 
     private String fecha, hora;
     private int paciente, cita, id_global, id_paciente = 0, usuario = 0;
+    Context context;
+
+    public DetailsCitaPActivity() {
+        // Required empty public constructor
+    }
+
+    public static DetailsCitaPActivity newInstance(String param1, String param2) {
+        DetailsCitaPActivity fragment = new DetailsCitaPActivity();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_cita_p);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        textViewFecha = findViewById(R.id.textViewFecha);
-        textViewHora = findViewById(R.id.textViewHora);
-        btnAddPacientes = findViewById(R.id.btnAddPacienteCita);
-        lvPacientes = findViewById(R.id.lvPacientesCitasP);
-        btnSesiones = findViewById(R.id.btnSesion);
-        btndeleteCita = findViewById(R.id.btndeleteCita);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_details_cita_p, container, false);
 
-        fecha = getIntent().getStringExtra("fecha");
-        hora = getIntent().getStringExtra("hora");
-        cita = getIntent().getIntExtra("cita", 0);
-        usuario = getIntent().getIntExtra("usuario", 0);
+        context = getContext();
+
+
+        textViewFecha = v.findViewById(R.id.textViewFecha);
+        textViewHora = v.findViewById(R.id.textViewHora);
+        btnAddPacientes = v.findViewById(R.id.btnAddPacienteCita);
+        lvPacientes = v.findViewById(R.id.lvPacientesCitasP);
+        btnSesiones = v.findViewById(R.id.btnSesion);
+        btndeleteCita = v.findViewById(R.id.btndeleteCita);
+
+        fecha = getArguments().getString("fecha");
+        hora = getArguments().getString("hora");
+        cita = getArguments().getInt("cita",0);
+        usuario = getArguments().getInt("usuario",0);
 
         textViewHora.setText(hora);
         textViewFecha.setText(fecha);
@@ -70,16 +111,20 @@ public class DetailsCitaPActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Mandarlo a SelectPacienteActivityP
-                Intent intent = new Intent(getApplicationContext(), SelectPacienteActivityP.class); //FALTA!!!!!!!!!!!!!
-                intent.putExtra("id_cita", cita);
-                startActivity(intent);
+                Bundle args = new Bundle();
+                args.putInt("id_cita", cita);
+                SelectPacienteActivityP fragment = new SelectPacienteActivityP();
+                fragment.setArguments(args);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayoutP, fragment);
+                transaction.commit();
             }
         });
 
         btnSesiones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PeritajeActivity.class);
+                Intent intent = new Intent(context, PeritajeActivity.class);
                 intent.putExtra("listaPacientes", (Serializable) pacienteList);
                 intent.putExtra("paciente", paciente);
                 intent.putExtra("cita", cita);
@@ -94,14 +139,14 @@ public class DetailsCitaPActivity extends AppCompatActivity {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.ip + "deleteCita.php", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(DetailsCitaPActivity.this, "Cita Eliminada", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MenuMaterial.class);
+                        Toast.makeText(context, "Cita Eliminada", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, MenuMaterialPeritaje.class);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(DetailsCitaPActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }){
                     @Override
@@ -111,11 +156,12 @@ public class DetailsCitaPActivity extends AppCompatActivity {
                         return parametros;
                     }
                 };
-                RequestQueue requestQueue = Volley.newRequestQueue(DetailsCitaPActivity.this);
+                RequestQueue requestQueue = Volley.newRequestQueue(context);
                 requestQueue.add(stringRequest);
             }
         });
 
+        return v;
     }
 
     private void showList(){
@@ -133,14 +179,14 @@ public class DetailsCitaPActivity extends AppCompatActivity {
                                                                 pacObj.getString("ap"), pacObj.getString("am"));
                     pacienteList.add(p);
                 }
-                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, getApplicationContext());
+                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, context);
                 lvPacientes.setAdapter(adapter);
-                Toast.makeText(DetailsCitaPActivity.this,"Funcion Activada" + id_paciente,Toast.LENGTH_LONG).show();
+                //Toast.makeText(context,"Funcion Activada" + id_paciente,Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 }

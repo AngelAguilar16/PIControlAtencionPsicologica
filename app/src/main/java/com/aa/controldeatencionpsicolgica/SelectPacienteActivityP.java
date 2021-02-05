@@ -2,11 +2,16 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,7 +39,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SelectPacienteActivityP extends AppCompatActivity {
+public class SelectPacienteActivityP extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
 
     private ListView lvPacientes;
     private List<Paciente_peritaje> pacienteList;
@@ -42,17 +57,44 @@ public class SelectPacienteActivityP extends AppCompatActivity {
     private String fecha, hora;
     private int id_paciente, id_cita;
     private int id_paciente1 = 0;
+    Context context;
 
     private String URL = Global.ip + "addPacienteCitaP.php";
 
+    public SelectPacienteActivityP() {
+        // Required empty public constructor
+    }
+
+    public static SelectPacienteActivityP newInstance(String param1, String param2) {
+        SelectPacienteActivityP fragment = new SelectPacienteActivityP();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_paciente_p);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
 
-        lvPacientes = findViewById(R.id.lvPacientesCitasP);
+    }
 
-        id_cita = getIntent().getIntExtra("id_cita", 0);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_select_paciente_p, container, false);
+
+        context = getContext();
+
+        lvPacientes = v.findViewById(R.id.lvPacientesCitasP);
+
+        id_cita = getArguments().getInt("id_cita", 0);
 
         pacienteList = new ArrayList<>();
         showList();
@@ -63,15 +105,13 @@ public class SelectPacienteActivityP extends AppCompatActivity {
                 Paciente_peritaje paciente = pacienteList.get(position);
                 id_paciente1 = paciente.getId_pacp();
 
-                AlertDialog.Builder alerta = new AlertDialog.Builder(SelectPacienteActivityP.this);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(context);
                 alerta.setMessage("¿Deseas agregar al paciente ").setCancelable(true)
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Aqui insertaremos los datos
                                 addPacientes();
-                                Intent intent = new Intent(getApplicationContext(), CitasPActivity.class);
-                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -85,9 +125,10 @@ public class SelectPacienteActivityP extends AppCompatActivity {
                 titulo.show();
             }
         });
+        return v;
     }
 
-    private void showList() {
+        private void showList() {
         StringRequest stringRequest = new StringRequest(Global.ip + "listSelectPacientesP.php?usuario="+ Global.us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
@@ -99,7 +140,7 @@ public class SelectPacienteActivityP extends AppCompatActivity {
                                                                 pacObj.getString("fecha_nacimiento"), pacObj.getString("CURP"), pacObj.getInt("caso"));
                     pacienteList.add(p);
                 }
-                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, getApplicationContext());
+                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, context);
                 lvPacientes.setAdapter(adapter);
                 //Toast.makeText(AgendaActivity.this,"Funcion Activada" + Global.us,Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
@@ -107,21 +148,23 @@ public class SelectPacienteActivityP extends AppCompatActivity {
                 e.printStackTrace();
             }
         }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
     private void addPacientes(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), "Paciente añadido!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SelectPacienteActivityP.this, CitasPActivity.class);
-                startActivity(intent);
+                Toast.makeText(context, "Paciente añadido!", Toast.LENGTH_SHORT).show();
+                CitasPActivity fragment = new CitasPActivity();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayoutP, fragment);
+                transaction.commit();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SelectPacienteActivityP.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -134,7 +177,7 @@ public class SelectPacienteActivityP extends AppCompatActivity {
                 return parametros;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(SelectPacienteActivityP.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
 
     }

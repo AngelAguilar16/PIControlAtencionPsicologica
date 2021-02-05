@@ -12,17 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
-import com.aa.controldeatencionpsicolgica.Adapter.Peritaje_Adapter;
-import com.aa.controldeatencionpsicolgica.Fragments.AgendaFragment;
+import com.aa.controldeatencionpsicolgica.Adapter.PacientesP_Adapter;
+import com.aa.controldeatencionpsicolgica.Adapter.PacientesPeritajeDetails;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
-import com.aa.controldeatencionpsicolgica.Model.Peritaje;
+import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,8 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaPeritaje extends Fragment {
-
+public class ListaPacientesPeritaje extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,17 +41,20 @@ public class ListaPeritaje extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ListView lvPeritaje;
-    List<Peritaje> peritajeList;
-    ImageButton back, btnCSLP;
+    ListView lvPacientes;
+    List<Paciente_peritaje> pacienteList;
+    List<Paciente> pacientes;
+    ArrayList<Paciente_peritaje> pList = new ArrayList<>();
+    FloatingActionButton addPP;
     Context context;
+    ImageButton btnCSPP;
 
-    public ListaPeritaje() {
+    public ListaPacientesPeritaje() {
         // Required empty public constructor
     }
 
-    public static ListaPeritaje newInstance(String param1, String param2) {
-        ListaPeritaje fragment = new ListaPeritaje();
+    public static ListaPacientesPeritaje newInstance(String param1, String param2) {
+        ListaPacientesPeritaje fragment = new ListaPacientesPeritaje();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,72 +69,72 @@ public class ListaPeritaje extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.activity_lista_peritaje, container, false);
+        View v = inflater.inflate(R.layout.activity_lista_pacientes_peritaje, container, false);
+
         context = getContext();
-        FloatingActionButton fab = v.findViewById(R.id.fab);
-        lvPeritaje = v.findViewById(R.id.lvPeritaje);
-        btnCSLP = v.findViewById(R.id.btnCSLP);
 
-        peritajeList = new ArrayList<>();
+        lvPacientes = v.findViewById(R.id.lvPacientesP);
+        addPP = v.findViewById(R.id.addPP);
+        btnCSPP = v.findViewById(R.id.btnCSPP);
+        pacienteList = new ArrayList<>();
 
-        fab.setOnClickListener(view -> {
-            Intent i = new Intent(getActivity(), PeritajeActivity.class);
-            startActivity(i);
-        });
-
-        btnCSLP.setOnClickListener(new View.OnClickListener() {
+        lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                logoutBtnLP();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Paciente_peritaje paciente = pacienteList.get(position);
+                Intent intent = new Intent(context, PacientesPeritajeDetails.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("pacienteData", paciente);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
 
-        lvPeritaje.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        addPP.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Peritaje peritaje = peritajeList.get(position);
-                /*Intent intent = new Intent(context, PeritajeDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("peritajeData", peritaje);
-                intent.putExtras(bundle);
-                startActivity(intent);*/
-                PeritajeDetailsActivity fragment = new PeritajeDetailsActivity();
-                Bundle args = new Bundle();
-                args.putSerializable("peritajeData", peritaje);
-                fragment.setArguments(args);
+            public void onClick(View v) {
+                AddNewPacienteP fragment = new AddNewPacienteP();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayoutP, fragment);
                 transaction.commit();
             }
         });
 
+        btnCSPP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnPP();
+            }
+        });
         showList();
-
         return v;
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Global.ip + "listPeritaje.php?usuario="+ Global.us, response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "listPacientesP.php?usuario="+ Global.us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
-                JSONArray array = obj.getJSONArray("peritajeList");
+                JSONArray array = obj.getJSONArray("pacientesList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Peritaje p = new Peritaje(pacObj.getInt("id_peritaje"),pacObj.getInt("usuario"),pacObj.getString("nombres"),
-                                            pacObj.getString("ap"), pacObj.getString("am"), pacObj.getString("fecha"),
-                                            pacObj.getString("hora"),pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"));
-                    peritajeList.add(p);
+                    Paciente_peritaje p = new Paciente_peritaje(pacObj.getInt("id_pacp"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),pacObj.getString("nombres"),pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("sexo"),pacObj.getString("fecha_nacimiento"), pacObj.getString("CURP"),pacObj.getInt("caso"));
+                    if (pList.size() == 0) {
+                        pacienteList.add(p);
+                    } else {
+                        if (!pList.contains(p)){
+                            pacienteList.add(p);
+                        }
+                    }
                 }
-                Peritaje_Adapter a = new Peritaje_Adapter(peritajeList, context);
-                lvPeritaje.setAdapter(a);
-                //Toast.makeText(AgendaActivity.this,"Funcion Activada" + Global.us,Toast.LENGTH_LONG).show();
+                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, context);
+                lvPacientes.setAdapter(adapter);
+                //Toast.makeText(ListaPacientes.this,"" + pList.size(),Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();
@@ -143,7 +143,7 @@ public class ListaPeritaje extends Fragment {
         Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
-    public void logoutBtnLP() {
+    public void logoutBtnPP() {
         SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();

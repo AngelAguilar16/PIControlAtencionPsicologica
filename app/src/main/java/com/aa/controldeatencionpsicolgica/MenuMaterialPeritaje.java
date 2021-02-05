@@ -46,7 +46,7 @@ public class MenuMaterialPeritaje extends AppCompatActivity {
                         return true;
 
                     case R.id.accountP:
-                        openFragment(new AddNewPacienteP());
+                        openFragment(new ListaPacientesPeritaje());
                         return true;
 
                     case R.id.settingP:

@@ -91,7 +91,7 @@ public class PeritajeActivity extends AppCompatActivity {
         btnCloseReporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(PeritajeActivity.this, MenuActivityPeritaje.class);
+                Intent i = new Intent(PeritajeActivity.this, MenuMaterialPeritaje.class);
                 startActivity(i);
                 finish();
             }
