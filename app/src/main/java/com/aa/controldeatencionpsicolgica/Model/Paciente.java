@@ -66,6 +66,7 @@ public class Paciente implements Serializable {
         this.am = am;
     }
 
+
     public int getId(){
         return id;
     }

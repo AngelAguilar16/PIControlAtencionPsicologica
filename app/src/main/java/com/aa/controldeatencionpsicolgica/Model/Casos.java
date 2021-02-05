@@ -14,6 +14,11 @@ public class Casos implements Serializable {
         this.descripcion_general = descripcion_general;
     }
 
+    public Casos(int id, String descripcion_general){
+        this.id = id;
+        this.descripcion_general = descripcion_general;
+    }
+
     public int getId() {
         return id;
     }

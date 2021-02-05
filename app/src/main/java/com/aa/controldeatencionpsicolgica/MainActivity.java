@@ -49,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
         Boolean s_ini = preferences.getBoolean("s_ini", Boolean.FALSE);
         String t_us = preferences.getString("t_us", "false");
+        int id = preferences.getInt("id", 0);
 
         if (s_ini.equals(Boolean.TRUE)){
+            Global.setUsuario(id);
             if(t_us.equals("Peritaje")){
                 i = new Intent(MainActivity.this, MenuActivityPeritaje.class);
                 startActivity(i);

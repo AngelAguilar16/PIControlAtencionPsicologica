@@ -13,6 +13,7 @@ import com.aa.controldeatencionpsicolgica.Adapter.Casos_Adapter;
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
+import com.aa.controldeatencionpsicolgica.Model.CasoU;
 import com.aa.controldeatencionpsicolgica.Model.Casos;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -28,7 +29,7 @@ import java.util.List;
 public class VerCasosActivity extends AppCompatActivity {
 
     private ListView lvCasos;
-    private List<Casos> casosList;
+    private List<CasoU> casosList;
     private int id_caso;
 
     @Override
@@ -45,7 +46,7 @@ public class VerCasosActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Le envio el id del caso para en detalles se muesten las personas en el caso
-                Casos caso = casosList.get(position);
+                CasoU caso = casosList.get(position);
                 Intent intent = new Intent(VerCasosActivity.this, PacientesCasosActivity.class);
                 Bundle bundle = new Bundle();
 
@@ -57,13 +58,13 @@ public class VerCasosActivity extends AppCompatActivity {
     }
 
     private void showList() {
-        StringRequest stringRequest = new StringRequest(Global.ip+"listCasos.php", response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip+"listCasos.php?id=" + Global.us, response -> {
             try{
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("casosList");
                 for(int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Casos caso = new Casos(pacObj.getInt("id_caso"), pacObj.getString("fecha_apertura"), pacObj.getString("descripcion_general"), pacObj.getInt("estado"));
+                    CasoU caso = new CasoU(pacObj.getInt("id_caso"), pacObj.getString("descripcion_general"), pacObj.getString("nombres"), pacObj.getString("ap"), pacObj.getString("am"));
                     casosList.add(caso);
                 }
                 Casos_Adapter adapter = new Casos_Adapter(casosList, getApplicationContext());

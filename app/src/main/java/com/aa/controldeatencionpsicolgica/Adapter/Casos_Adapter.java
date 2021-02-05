@@ -10,19 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.aa.controldeatencionpsicolgica.Model.CasoU;
 import com.aa.controldeatencionpsicolgica.Model.Casos;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.R;
 
 import java.util.List;
 
-public class Casos_Adapter extends ArrayAdapter<Casos> {
+public class Casos_Adapter extends ArrayAdapter<CasoU> {
 
-    private List<Casos> casosList;
+    private List<CasoU> casosList;
     private Context mCtx;
 
 
-    public Casos_Adapter(List<Casos> P, Context c) {
+    public Casos_Adapter(List<CasoU> P, Context c) {
         super(c, R.layout.list_casos, P);
         this.casosList = P;
         this.mCtx = c;
@@ -34,9 +35,9 @@ public class Casos_Adapter extends ArrayAdapter<Casos> {
         View view = inflater.inflate(R.layout.list_casos, null, true);
 
         TextView descripcion = view.findViewById(R.id.lblDescripcion);
-        Casos caso = casosList.get(position);
+        CasoU caso = casosList.get(position);
 
-        descripcion.setText(caso.getDescripcion_general());
+        descripcion.setText(caso.getDescripcion_general() + " " + caso.getNombres() + " " + caso.getAp());
 
         return view;
     }

@@ -24,7 +24,7 @@
         android:layout_height="140dp"
         android:layout_below="@id/btnCitas"
         android:backgroundTint="#A9A528"
-        android:text="Reportes"
+        android:text="Casos"
         android:onClick="reportesBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

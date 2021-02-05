@@ -96,7 +96,7 @@ public class AgendaDetailsActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> parametros = new HashMap<>();
-                        parametros.put("id_user", Integer.toString(id_paciente));
+                        parametros.put("id_paciente", Integer.toString(id_paciente));
                         return parametros;
                     }
                 };
