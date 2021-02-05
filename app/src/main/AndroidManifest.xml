@@ -13,10 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlDeAtenciónPsicológica"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ExpedientePDetailsActivity2"></activity>
         <activity android:name=".MenuMaterialPeritaje" />
         <activity android:name=".ListaPacientesPeritaje" />
-        <activity android:name=".Adapter.PacientesPeritajeDetails"></activity>
-        <activity android:name=".ExpedientePActivity"></activity>
+        <activity android:name=".Adapter.PacientesPeritajeDetails" />
+        <activity android:name=".ExpedientePActivity" />
         <activity android:name=".ExpedientePDetailsActivity" />
         <activity android:name=".SelectPacienteActivityP" />
         <activity android:name=".ListaTUsuarios" />

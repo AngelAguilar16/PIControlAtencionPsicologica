@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Expediente_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
@@ -50,7 +51,7 @@ public class ExpedientePDetailsActivity extends AppCompatActivity {
             paciente = (Paciente_peritaje) objeto.getSerializable("pacienteData");
             lblNombre.setText(paciente.getNombres());
             us = paciente.getId_pacp();
-
+            //Toast.makeText(ExpedientePDetailsActivity.this, "aaa ", Toast.LENGTH_SHORT).show();
             showList();
         }
 
@@ -58,7 +59,7 @@ public class ExpedientePDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Expediente expediente = expedientesList.get(position);
-                Intent intent = new Intent(getApplicationContext(), ExpedienteDetailsActivity2.class);
+                Intent intent = new Intent(getApplicationContext(), ExpedientePDetailsActivity2.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putSerializable("expedienteData", expediente);
@@ -82,6 +83,7 @@ public class ExpedientePDetailsActivity extends AppCompatActivity {
                             pacObj.getInt("cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
                             pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"));
                     expedientesList.add(expediente);
+
                 }
                 Expediente_Adapter adapter = new Expediente_Adapter(expedientesList, getApplicationContext());
                 lvExpediente.setAdapter(adapter);

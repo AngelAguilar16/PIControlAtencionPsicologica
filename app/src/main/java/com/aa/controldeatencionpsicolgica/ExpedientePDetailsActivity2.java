@@ -9,14 +9,14 @@ import android.widget.Toast;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Expediente;
-import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Model.Peritaje;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ExpedienteDetailsActivity2 extends AppCompatActivity {
+public class ExpedientePDetailsActivity2 extends AppCompatActivity {
 
     private TextView lblMotivo, lblNotas, lblTipoConsulta, fecha, lblTramiento, lblPacientes;
     private String pacientes;
@@ -39,7 +39,7 @@ public class ExpedienteDetailsActivity2 extends AppCompatActivity {
 
         if(objeto != null){
             expediente = (Expediente) objeto.getSerializable("expedienteData");
-            lblTipoConsulta.setText(expediente.getTipo_consulta());
+            lblTipoConsulta.setText("Peritaje");
             lblNotas.setText(expediente.getNotas_sesion());
             lblMotivo.setText(expediente.getMotivo_atencion());
             fecha.setText(expediente.getFecha());
@@ -47,8 +47,6 @@ public class ExpedienteDetailsActivity2 extends AppCompatActivity {
             id_cita = expediente.getId_consulta();
             //Toast.makeText(this, ""+ id_cita, Toast.LENGTH_SHORT).show();
 
-            if(!expediente.getTratamiento().isEmpty())
-                lblTramiento.setText(expediente.getTratamiento());
 
             //showPacientes();
         }
