@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -62,6 +64,7 @@ public class CitasActivity extends Fragment {
     List<Cita> citasList;
     ArrayList<Paciente> pacienteList;
     RecyclerView rvCitas;
+    ImageButton btnCSC;
 
     public CitasActivity() {
         // Required empty public constructor
@@ -94,6 +97,7 @@ public class CitasActivity extends Fragment {
         FloatingActionButton add = v.findViewById(R.id.add);
         lvCitas = (ListView) v.findViewById(R.id.lvCitas);
         rvCitas = v.findViewById(R.id.rvCitas);
+        btnCSC = v.findViewById(R.id.btnCSC);
 
         rvCitas.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(context);
@@ -131,6 +135,13 @@ public class CitasActivity extends Fragment {
             }
         });*/
 
+        btnCSC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnC();
+            }
+        });
+
         return v;
     }
 
@@ -162,6 +173,25 @@ public class CitasActivity extends Fragment {
             }
         }, error -> { });
         Handler.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void logoutBtnC() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("s_ini", Boolean.FALSE);
+        editor.commit();
+
+        SharedPreferences pref = getActivity().getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 
 }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
@@ -46,6 +47,7 @@ public class ExpedienteActivity extends Fragment {
     private RecyclerView rvExpedientes;
     private List<Paciente> pacienteList;
     Context context;
+    ImageButton btnCSE;
 
     public ExpedienteActivity() {
         // Required empty public constructor
@@ -76,6 +78,7 @@ public class ExpedienteActivity extends Fragment {
         View v = inflater.inflate(R.layout.activity_expediente, container, false);
         context = getContext();
         rvExpedientes = v.findViewById(R.id.rvExpedientes);
+        btnCSE = v.findViewById(R.id.btnCSE);
 
         pacienteList = new ArrayList<>();
         rvExpedientes.setHasFixedSize(true);
@@ -94,6 +97,14 @@ public class ExpedienteActivity extends Fragment {
                 startActivity(intent);
             }
         });*/
+
+        btnCSE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnE();
+            }
+        });
+
         showList();
 
         return v;
@@ -123,5 +134,24 @@ public class ExpedienteActivity extends Fragment {
             }
         }, error -> { });
         Handler.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void logoutBtnE() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("s_ini", Boolean.FALSE);
+        editor.commit();
+
+        SharedPreferences pref = getActivity().getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 }

@@ -86,7 +86,7 @@ public class SenderReg extends AsyncTask<Void,Void,String> {
                     Intent ii = new Intent(c, MenuActivityPeritaje.class);
                     c.startActivity(ii);
                 } else {
-                    Intent ii = new Intent(c, MenuActivity.class);
+                    Intent ii = new Intent(c, MenuMaterial.class);
                     c.startActivity(ii);
                 }
 

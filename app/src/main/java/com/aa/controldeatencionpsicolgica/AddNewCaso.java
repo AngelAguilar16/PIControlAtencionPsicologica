@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class AddNewCaso extends Fragment {
     ArrayList<Paciente> pac = new ArrayList<>();
     ArrayList<Paciente> pacienteList = new ArrayList<>();
     Context context;
+    ImageButton btnCSNC;
 
     public AddNewCaso() {
         // Required empty public constructor
@@ -79,6 +82,7 @@ public class AddNewCaso extends Fragment {
         context = getContext();
         etDescCaso = (EditText) v.findViewById(R.id.etDescCaso);
         lvPacientes = v.findViewById(R.id.lvPacientesSelec);
+        btnCSNC = v.findViewById(R.id.btnCSNC);
         String a = getActivity().getIntent().getStringExtra("desc");
         Bundle objeto = getActivity().getIntent().getExtras();
 
@@ -124,6 +128,13 @@ public class AddNewCaso extends Fragment {
             }
         });
 
+        btnCSNC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnNC();
+            }
+        });
+
         return v;
     }
 
@@ -150,6 +161,25 @@ public class AddNewCaso extends Fragment {
             }
         }, error -> { });
         Handler.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void logoutBtnNC() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("s_ini", Boolean.FALSE);
+        editor.commit();
+
+        SharedPreferences pref = getActivity().getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 
 }

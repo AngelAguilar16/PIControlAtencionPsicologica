@@ -2,6 +2,7 @@ package com.aa.controldeatencionpsicolgica;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.aa.controldeatencionpsicolgica.Adapter.RVPacientesAdapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ public class AgendaActivity extends Fragment {
     RecyclerView rvPacientes;
     List<Paciente> pacientes ;
     Context context;
+    ImageButton btnCSA;
 
     public AgendaActivity(){
     }
@@ -67,6 +71,7 @@ public class AgendaActivity extends Fragment {
 
         FloatingActionButton fab = v.findViewById(R.id.fab);
         rvPacientes = v.findViewById(R.id.rvPacientes);
+        btnCSA = v.findViewById(R.id.btnCSA);
 
 
         rvPacientes.setHasFixedSize(true);
@@ -79,6 +84,13 @@ public class AgendaActivity extends Fragment {
         fab.setOnClickListener(view -> {
             Intent i = new Intent(getActivity(), AddNewContactoAgenda.class);
             startActivity(i);
+        });
+
+        btnCSA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutBtnA();
+            }
         });
 
         showList();
@@ -107,5 +119,23 @@ public class AgendaActivity extends Fragment {
         Handler.getInstance(context).addToRequestQueue(stringRequest);
     }
 
+    public void logoutBtnA() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("s_ini", Boolean.FALSE);
+        editor.commit();
+
+        SharedPreferences pref = getActivity().getSharedPreferences("a", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor e = pref.edit();
+
+        e.putString("u", "false");
+        e.commit();
+
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
+    }
 
 }
