@@ -2,6 +2,7 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -51,6 +52,7 @@ public class AddNewCasoP extends Fragment {
     ArrayList<Paciente_peritaje> pac = new ArrayList<>();
     ArrayList<Paciente_peritaje> pacienteList = new ArrayList<>();
     Context context;
+    String a;
 
     public AddNewCasoP() {
         // Required empty public constructor
@@ -85,10 +87,11 @@ public class AddNewCasoP extends Fragment {
 
         etDescCaso = (EditText) v.findViewById(R.id.etDescCaso);
         lvPacientes = v.findViewById(R.id.lvPacientesSelec);
-        String a = getActivity().getIntent().getStringExtra("desc");
-        Bundle objeto = getActivity().getIntent().getExtras();
+
+        Bundle objeto = getArguments();
 
         if(objeto != null){
+            a = getArguments().get("desc").toString();
             pac = (ArrayList<Paciente_peritaje>) objeto.getSerializable("pacientes");
             paciente = (Paciente_peritaje) objeto.getSerializable("pacienteData");
             pac.add(paciente);
@@ -104,13 +107,21 @@ public class AddNewCasoP extends Fragment {
         btnSelectPacienteCaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ListaPacienteP.class);
+                /*Intent i = new Intent(getActivity(), ListaPacienteP.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putSerializable("pacientes", pac);
                 i.putExtras(bundle);
                 i.putExtra("desc", etDescCaso.getText().toString());
-                startActivity(i);
+                startActivity(i);*/
+                Bundle args = new Bundle();
+                args.putSerializable("pacientes", pac);
+                args.putString("desc", etDescCaso.getText().toString());
+                ListaPacienteP fragment = new ListaPacienteP();
+                fragment.setArguments(args);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayoutP, fragment);
+                transaction.commit();
             }
         });
 
