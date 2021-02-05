@@ -10,39 +10,58 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.aa.controldeatencionpsicolgica.Sender.SenderPeritaje;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PeritajeActivity extends AppCompatActivity {
-    Button btnCloseReporte, btnGuardarDatosConsulta;
-    ImageButton btnFechaP;
-    EditText editTextPaciente,editTextMotivo, editTextConsulta, editTextFechaP;
+    private Button btnCloseReporte, btnGuardarDatosConsulta;
+    private ImageButton btnFechaP;
+    private EditText editTextPaciente,editTextMotivo, editTextConsulta, editTextFechaP;
+    private TextView textViewNombres;
 
+    private String nombres = "";
+    private int cita = 0;
 
-    String urlAddress= Global.ip + "addPeritaje.php";
+    private String urlAddress= Global.ip + "addPeritaje.php";
+    private ArrayList<Integer> idUsuarios;
+    private ArrayList<Paciente_peritaje> listaPacientes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peritaje);
-        Intent intent = getIntent();
-        String nombre = intent.getStringExtra("nombres");
 
-        editTextPaciente = (EditText) findViewById(R.id.editTextPacienteP);
+        textViewNombres = findViewById(R.id.txtPacientesP);
         editTextMotivo = (EditText) findViewById(R.id.editTextMotivoP);
         editTextConsulta = (EditText) findViewById(R.id.editTextConsultaP);
         editTextFechaP = findViewById(R.id.editTextFechaCitaP);
 
-        editTextPaciente.setText(nombre);
+
         btnCloseReporte = findViewById(R.id.btnCloseReporteP);
         btnGuardarDatosConsulta = findViewById(R.id.btnGuardarDatosConsultaP);
         btnFechaP = findViewById(R.id.btnFechaP);
+
+        // Consigo los valores de DetailsCitaPActivity
+        cita = getIntent().getIntExtra("cita", 0);
+        setTextView();
 
         btnFechaP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +88,6 @@ public class PeritajeActivity extends AppCompatActivity {
             }
         });
 
-
         //Toast.makeText(ReporteCita.this,nombre + "",Toast.LENGTH_LONG).show();
         btnCloseReporte.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +101,52 @@ public class PeritajeActivity extends AppCompatActivity {
         btnGuardarDatosConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SenderPeritaje s = new SenderPeritaje(PeritajeActivity.this, urlAddress, Global.us, editTextPaciente, editTextMotivo, editTextConsulta);
+                setUpdateCitas();
+                SenderPeritaje s = new SenderPeritaje(PeritajeActivity.this, urlAddress, Global.us, cita, editTextMotivo, editTextConsulta);
                 s.execute();
             }
         });
 
     }
+
+    private void setUpdateCitas() {
+        StringRequest request = new StringRequest(Request.Method.POST, Global.ip + "updateCitasP.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(PeritajeActivity.this, "Cita Actualizada", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PeritajeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<>();
+
+                parametros.put("id", Integer.toString(cita));
+                parametros.put("asistio", "1");
+                parametros.put("visible", "0");
+
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(PeritajeActivity.this);
+        requestQueue.add(request);
+    }
+
+    private void setTextView(){
+        //Recuperamos los valores de DetailsCitaActivity
+        listaPacientes = (ArrayList<Paciente_peritaje>) getIntent().getSerializableExtra("listaPacientes");
+        idUsuarios = new ArrayList<>();
+
+        for(int i = 0; i<listaPacientes.size(); i++){
+            nombres += listaPacientes.get(i).getNombres()+" "+listaPacientes.get(i).getAp()+" "+listaPacientes.get(i).getAm() + "\n";
+            idUsuarios.add(listaPacientes.get(i).getId_pacp());
+            System.out.println("Nombre: "+listaPacientes.get(i).getNombres() + " - Id: "+listaPacientes.get(i).getId_pacp());
+        }
+        textViewNombres.setText(nombres);
+    }
+
 }

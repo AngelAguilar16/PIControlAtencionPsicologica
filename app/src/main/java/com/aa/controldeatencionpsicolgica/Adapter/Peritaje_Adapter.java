@@ -31,7 +31,8 @@ public class Peritaje_Adapter extends ArrayAdapter<Peritaje> {
         TextView hora = view.findViewById(R.id.tvhora);
         Peritaje per = peritajeList.get(position);
 
-        name.setText(per.getPaciente());
+        String nombre = per.getNombre() +" "+per.getAp() +" "+ per.getAm();
+        name.setText(nombre);
         fecha.setText(per.getFecha());
         hora.setText(per.getHora());
 

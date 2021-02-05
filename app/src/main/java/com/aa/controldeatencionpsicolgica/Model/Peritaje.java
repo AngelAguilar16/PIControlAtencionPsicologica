@@ -11,10 +11,25 @@ public class Peritaje implements Serializable {
     String motivo_atencion;
     String notas_sesion;
 
+    // Nuevas variables alv
+    private String nombre, ap, am;
+
     public Peritaje(int id_peritaje, int usuario, String paciente, String fecha, String hora, String motivo_atencion, String notas_sesion) {
         this.id_peritaje = id_peritaje;
         this.usuario = usuario;
         this.paciente = paciente;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.motivo_atencion = motivo_atencion;
+        this.notas_sesion = notas_sesion;
+    }
+
+    public Peritaje(int id_peritaje, int usuario, String nombre, String ap, String am, String fecha, String hora, String motivo_atencion, String notas_sesion) {
+        this.id_peritaje = id_peritaje;
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.ap = ap;
+        this.am = am;
         this.fecha = fecha;
         this.hora = hora;
         this.motivo_atencion = motivo_atencion;
@@ -43,6 +58,18 @@ public class Peritaje implements Serializable {
 
     public void setPaciente(String paciente) {
         this.paciente = paciente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getAp() {
+        return ap;
+    }
+
+    public String getAm() {
+        return am;
     }
 
     public String getFecha() {

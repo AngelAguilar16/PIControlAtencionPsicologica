@@ -49,7 +49,7 @@ public class CitasPActivity extends AppCompatActivity {
         setContentView(R.layout.activity_citas_p);
 
         FloatingActionButton add = findViewById(R.id.add);
-        lvCitas = (ListView) findViewById(R.id.lvCitas);
+        lvCitas = (ListView) findViewById(R.id.lvCitasP);
 
         citasList = new ArrayList<>();
         pacienteList = new ArrayList<>();
@@ -75,11 +75,10 @@ public class CitasPActivity extends AppCompatActivity {
                 Intent intent = new Intent(CitasPActivity.this, DetailsCitaPActivity.class);
                 Cita cita = citasList.get(position);
 
-                intent.putExtra("paciente",cita.getPaciente());
                 intent.putExtra("cita", cita.getId());
                 intent.putExtra("fecha", cita.getFecha());
                 intent.putExtra("hora", cita.getHora());
-                intent.putExtra("id_global", cita.getId_global());
+                intent.putExtra("usuario", cita.getUsuario());
 
                 startActivity(intent);
             }

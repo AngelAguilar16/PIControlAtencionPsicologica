@@ -77,7 +77,9 @@ public class ListaPeritaje extends AppCompatActivity {
                 JSONArray array = obj.getJSONArray("peritajeList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Peritaje p = new Peritaje(pacObj.getInt("id_peritaje"),pacObj.getInt("usuario"),pacObj.getString("paciente"),pacObj.getString("fecha"),pacObj.getString("hora"),pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"));
+                    Peritaje p = new Peritaje(pacObj.getInt("id_peritaje"),pacObj.getInt("usuario"),pacObj.getString("nombres"),
+                                            pacObj.getString("ap"), pacObj.getString("am"), pacObj.getString("fecha"),
+                                            pacObj.getString("hora"),pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"));
                     peritajeList.add(p);
                 }
                 Peritaje_Adapter a = new Peritaje_Adapter(peritajeList, getApplicationContext());

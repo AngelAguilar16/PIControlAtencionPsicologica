@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
@@ -44,7 +42,7 @@ public class DetailsCitaActivity extends AppCompatActivity {
         textViewFecha = findViewById(R.id.textViewFecha);
         textViewHora = findViewById(R.id.textViewHora);
         btnAddPacientes = findViewById(R.id.btnAddPacienteCita);
-        lvPacientes = findViewById(R.id.lvPacientesCitas);
+        lvPacientes = findViewById(R.id.lvPacientesCitasP);
         btnSesiones = findViewById(R.id.btnSesion);
 
         fecha = getIntent().getStringExtra("fecha");
@@ -52,7 +50,6 @@ public class DetailsCitaActivity extends AppCompatActivity {
         cita = getIntent().getIntExtra("cita", 0);
         usuario = getIntent().getIntExtra("usuario", 0);
 
-        Toast.makeText(this, ""+cita, Toast.LENGTH_SHORT).show();
 
         textViewHora.setText(hora);
         textViewFecha.setText(fecha);

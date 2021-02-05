@@ -38,6 +38,22 @@ public class MenuActivityPeritaje extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void nuevaCita(View view) {
+        Intent i = new Intent(MenuActivityPeritaje.this, CitasPActivity.class);
+        startActivity(i);
+    }
+
+    public void nuevoPaciente(View view) {
+        Intent i = new Intent(MenuActivityPeritaje.this, AddNewPacienteP.class);
+        startActivity(i);
+    }
+
+    public void nuevoCaso(View view) {
+        Intent i = new Intent(MenuActivityPeritaje.this, AddNewCasoP.class);
+        startActivity(i);
+    }
+
+
     public void logoutBtn(View view) {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
@@ -55,6 +71,31 @@ public class MenuActivityPeritaje extends AppCompatActivity {
 
         Intent i = new Intent(MenuActivityPeritaje.this, MainActivity.class);
         startActivity(i);
+    }
+
+    public String cargarCorreo() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        return preferences.getString("email", "Error");
+    }
+
+    public void guardarDatos(int id, String nombre, String ap, String am, String email, String pass, String t_us) {
+
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        Boolean s_ini = Boolean.TRUE; //True significa que la sesión se quedará iniciada cada que se inicie la aplicación, se cambiará el valor a False cuando se cierre sesión.
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("id", id);
+        editor.putString("user", nombre);
+        editor.putString("ap", ap);
+        editor.putString("am", am);
+        editor.putString("email", email);
+        editor.putString("pass", pass);
+        editor.putString("t_us", t_us);
+        editor.putBoolean("s_ini", s_ini);
+
+        editor.apply();
     }
 
     public void getUsuario(String correo){
@@ -87,43 +128,5 @@ public class MenuActivityPeritaje extends AppCompatActivity {
         Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
-    public String cargarCorreo() {
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
-        return preferences.getString("email", "Error");
-    }
-
-    public void guardarDatos(int id, String nombre, String ap, String am, String email, String pass, String t_us) {
-
-        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
-        Boolean s_ini = Boolean.TRUE; //True significa que la sesión se quedará iniciada cada que se inicie la aplicación, se cambiará el valor a False cuando se cierre sesión.
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("id", id);
-        editor.putString("user", nombre);
-        editor.putString("ap", ap);
-        editor.putString("am", am);
-        editor.putString("email", email);
-        editor.putString("pass", pass);
-        editor.putString("t_us", t_us);
-        editor.putBoolean("s_ini", s_ini);
-
-        editor.apply();
-    }
-
-    public void nuevaCita(View view) {
-        Intent i = new Intent(MenuActivityPeritaje.this, CitasPActivity.class);
-        startActivity(i);
-    }
-
-    public void nuevoPaciente(View view) {
-        Intent i = new Intent(MenuActivityPeritaje.this, AddNewPacienteP.class);
-        startActivity(i);
-    }
-
-    public void nuevoCaso(View view) {
-        Intent i = new Intent(MenuActivityPeritaje.this, AddNewCasoP.class);
-        startActivity(i);
-    }
 }

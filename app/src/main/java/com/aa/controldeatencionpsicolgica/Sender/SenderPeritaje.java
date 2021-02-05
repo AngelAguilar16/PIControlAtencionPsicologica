@@ -30,23 +30,21 @@ public class SenderPeritaje extends AsyncTask<Void,Void,String> {
     String urlAddress;
     EditText motivo, notas, paciente;
     String mot, nots, pac;
-    int usuario;
+    int usuario, cita;
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     String hora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
     ProgressDialog pd;
 
-    public SenderPeritaje(Context c, String urlAddress, int usuario, EditText... editTexts) {
+    public SenderPeritaje(Context c, String urlAddress, int usuario, int cita, EditText... editTexts) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.usuario = usuario;
-        this.paciente = editTexts[0];
-        this.motivo = editTexts[1];
-        this.notas = editTexts[2];
-
+        this.cita = cita;
+        this.motivo = editTexts[0];
+        this.notas = editTexts[1];
 
         mot = motivo.getText().toString();
         nots = notas.getText().toString();
-        pac = paciente.getText().toString();
 
     }
 
@@ -98,7 +96,7 @@ public class SenderPeritaje extends AsyncTask<Void,Void,String> {
 
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            bw.write(new DataPackagerPeritaje(pac, mot, nots, usuario, date, hora).packData());
+            bw.write(new DataPackagerPeritaje(cita, mot, nots, usuario, date, hora).packData());
 
             bw.flush();
 

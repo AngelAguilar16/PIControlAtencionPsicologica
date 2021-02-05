@@ -11,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.aa.controldeatencionpsicolgica.Adapter.PacientesP_Adapter;
 import com.aa.controldeatencionpsicolgica.Adapter.Pacientes_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,45 +34,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SelectPacienteActivity extends AppCompatActivity {
+public class SelectPacienteActivityP extends AppCompatActivity {
 
     private ListView lvPacientes;
-    private List<Paciente> pacienteList;
+    private List<Paciente_peritaje> pacienteList;
 
     private String fecha, hora;
     private int id_paciente, id_cita;
     private int id_paciente1 = 0;
 
-    private String URL = Global.ip + "addPacienteCita.php";
+    private String URL = Global.ip + "addPacienteCitaP.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_paciente);
+        setContentView(R.layout.activity_select_paciente_p);
 
-        lvPacientes = findViewById(R.id.lvPacientesCitas);
+        lvPacientes = findViewById(R.id.lvPacientesCitasP);
 
         id_cita = getIntent().getIntExtra("id_cita", 0);
 
         pacienteList = new ArrayList<>();
         showList();
 
-
-
         lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Paciente paciente = pacienteList.get(position);
-                id_paciente1 = paciente.getId();
+                Paciente_peritaje paciente = pacienteList.get(position);
+                id_paciente1 = paciente.getId_pacp();
 
-                AlertDialog.Builder alerta = new AlertDialog.Builder(SelectPacienteActivity.this);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(SelectPacienteActivityP.this);
                 alerta.setMessage("¿Deseas agregar al paciente ").setCancelable(true)
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Aqui insertaremos los datos
                                 addPacientes();
-                                Intent intent = new Intent(getApplicationContext(), CitasActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), CitasPActivity.class);
                                 startActivity(intent);
                             }
                         })
@@ -87,18 +87,41 @@ public class SelectPacienteActivity extends AppCompatActivity {
         });
     }
 
-    private void addPacientes() {
+    private void showList() {
+        StringRequest stringRequest = new StringRequest(Global.ip + "listSelectPacientesP.php?usuario="+ Global.us, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray array = obj.getJSONArray("pacientesList");
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject pacObj = array.getJSONObject(i);
+                    Paciente_peritaje p = new Paciente_peritaje(pacObj.getInt("id_pacp"), pacObj.getInt("usuario"), pacObj.getString("fecha_registro"),
+                                                                pacObj.getString("nombres"), pacObj.getString("ap"), pacObj.getString("am"), pacObj.getString("sexo"),
+                                                                pacObj.getString("fecha_nacimiento"), pacObj.getString("CURP"), pacObj.getInt("caso"));
+                    pacienteList.add(p);
+                }
+                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, getApplicationContext());
+                lvPacientes.setAdapter(adapter);
+                //Toast.makeText(AgendaActivity.this,"Funcion Activada" + Global.us,Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }, error -> { });
+        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void addPacientes(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getApplicationContext(), "Paciente añadido!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SelectPacienteActivity.this, CitasActivity.class);
+                Intent intent = new Intent(SelectPacienteActivityP.this, CitasPActivity.class);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SelectPacienteActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelectPacienteActivityP.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -111,32 +134,8 @@ public class SelectPacienteActivity extends AppCompatActivity {
                 return parametros;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(SelectPacienteActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(SelectPacienteActivityP.this);
         requestQueue.add(stringRequest);
-    }
 
-    private void showList(){
-        StringRequest stringRequest = new StringRequest(Global.ip + "listSelectPacientes.php?usuario="+ Global.us, response -> {
-            try {
-                JSONObject obj = new JSONObject(response);
-                JSONArray array = obj.getJSONArray("pacientesList");
-                for (int i = 0; i < array.length(); i++){
-                    JSONObject pacObj = array.getJSONObject(i);
-                    Paciente p = new Paciente(pacObj.getInt("id_paciente"),pacObj.getInt("usuario"),pacObj.getString("fecha_registro"),
-                            pacObj.getString("nombres"), pacObj.getString("ap"),pacObj.getString("am"), pacObj.getString("telefono"),
-                            pacObj.getString("estado"), pacObj.getString("municipio"), pacObj.getString("domicilio"), pacObj.getString("sexo"),
-                            pacObj.getString("fecha_nacimiento"), pacObj.getString("estado_civil"), pacObj.getString("escolaridad"), pacObj.getString("ocupacion"),
-                            pacObj.getInt("caso"));
-                    pacienteList.add(p);
-                }
-                Pacientes_Adapter adapter = new Pacientes_Adapter(pacienteList, getApplicationContext());
-                lvPacientes.setAdapter(adapter);
-                //Toast.makeText(AgendaActivity.this,"Funcion Activada" + Global.us,Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
-                //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
-        }, error -> { });
-        Handler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 }

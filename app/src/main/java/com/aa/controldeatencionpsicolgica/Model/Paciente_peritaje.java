@@ -37,6 +37,15 @@ public class Paciente_peritaje implements Serializable {
         this.ap = ap;
         this.am = am;
     }
+
+    public Paciente_peritaje(int id_pacp, String nombres, String ap, String am){
+        this.id_pacp = id_pacp;
+        this.nombres = nombres;
+        this.ap = ap;
+        this.am = am;
+
+    }
+
     public int getId_pacp() {
         return id_pacp;
     }
