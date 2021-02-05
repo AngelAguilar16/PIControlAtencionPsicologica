@@ -61,7 +61,6 @@ public class PeritajeActivity extends AppCompatActivity {
 
         // Consigo los valores de DetailsCitaPActivity
         cita = getIntent().getIntExtra("cita", 0);
-        setTextView();
 
         btnFechaP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,17 +135,5 @@ public class PeritajeActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    private void setTextView(){
-        //Recuperamos los valores de DetailsCitaActivity
-        listaPacientes = (ArrayList<Paciente_peritaje>) getIntent().getSerializableExtra("listaPacientes");
-        idUsuarios = new ArrayList<>();
-
-        for(int i = 0; i<listaPacientes.size(); i++){
-            nombres += listaPacientes.get(i).getNombres()+" "+listaPacientes.get(i).getAp()+" "+listaPacientes.get(i).getAm() + "\n";
-            idUsuarios.add(listaPacientes.get(i).getId_pacp());
-            System.out.println("Nombre: "+listaPacientes.get(i).getNombres() + " - Id: "+listaPacientes.get(i).getId_pacp());
-        }
-        textViewNombres.setText(nombres);
-    }
 
 }

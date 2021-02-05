@@ -2,6 +2,7 @@ package com.aa.controldeatencionpsicolgica;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -91,12 +92,18 @@ public class ListaPeritaje extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Peritaje peritaje = peritajeList.get(position);
-                Intent intent = new Intent(context, PeritajeDetailsActivity.class);
+                /*Intent intent = new Intent(context, PeritajeDetailsActivity.class);
                 Bundle bundle = new Bundle();
-
                 bundle.putSerializable("peritajeData", peritaje);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivity(intent);*/
+                PeritajeDetailsActivity fragment = new PeritajeDetailsActivity();
+                Bundle args = new Bundle();
+                args.putSerializable("peritajeData", peritaje);
+                fragment.setArguments(args);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayoutP, fragment);
+                transaction.commit();
             }
         });
 
