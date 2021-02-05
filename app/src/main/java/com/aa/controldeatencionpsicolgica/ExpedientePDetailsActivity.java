@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Expediente_Adapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Expediente;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
+import com.aa.controldeatencionpsicolgica.Model.Paciente_peritaje;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpedienteDetailsActivity extends AppCompatActivity {
+public class ExpedientePDetailsActivity extends AppCompatActivity {
 
     private TextView lblNombre;
     private ListView lvExpediente;
@@ -34,22 +34,22 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expediente_details);
+        setContentView(R.layout.activity_expediente_p_details);
 
         lblNombre = findViewById(R.id.lblNombrePaciente);
         lvExpediente = findViewById(R.id.lvExpedientes);
         expedientesList = new ArrayList<>();
 
         Bundle objeto = getIntent().getExtras();
-        Paciente paciente = null;
+        Paciente_peritaje paciente = null;
 
         // Consigo los datos del paciente que quiero ver su expediente
         // Necesito el id_cita - > ExpedienteActivity
 
         if(objeto != null){
-            paciente = (Paciente) objeto.getSerializable("pacienteData");
-            lblNombre.setText(paciente.getNombre());
-            us = paciente.getId();
+            paciente = (Paciente_peritaje) objeto.getSerializable("pacienteData");
+            lblNombre.setText(paciente.getNombres());
+            us = paciente.getId_pacp();
 
             showList();
         }
@@ -72,16 +72,15 @@ public class ExpedienteDetailsActivity extends AppCompatActivity {
     private void showList() {
         //Toast.makeText(ExpedienteDetailsActivity.this, "Id apciente: "+ us, Toast.LENGTH_SHORT).show();
 
-        StringRequest stringRequest = new StringRequest(Global.ip + "listExpediente.php?paciente="+ us, response -> {
+        StringRequest stringRequest = new StringRequest(Global.ip + "listExpedienteP.php?paciente="+ us, response -> {
             try{
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("expedienteList");
                 for (int i = 0; i < array.length(); i++){
                     JSONObject pacObj = array.getJSONObject(i);
-                    Expediente expediente = new Expediente(pacObj.getInt("id_cita"), pacObj.getInt("usuario"),
+                    Expediente expediente = new Expediente(pacObj.getInt("id_citap"), pacObj.getInt("usuario"),
                             pacObj.getInt("cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
-                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"),
-                            pacObj.getString("tipo_consulta"), pacObj.getString("tratamiento"));
+                            pacObj.getString("motivo_atencion"), pacObj.getString("notas_sesion"));
                     expedientesList.add(expediente);
                 }
                 Expediente_Adapter adapter = new Expediente_Adapter(expedientesList, getApplicationContext());

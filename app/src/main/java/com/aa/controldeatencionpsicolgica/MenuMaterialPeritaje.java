@@ -31,14 +31,14 @@ public class MenuMaterialPeritaje extends AppCompatActivity {
 
         BottomNavigationView bottomNavP = findViewById(R.id.bottomNavP);
 
-        openFragment(new ListaPeritaje());
+        openFragment(new ExpedientePActivity());
 
         bottomNavP.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.homeP:
-                        openFragment(new ListaPeritaje());
+                        openFragment(new ExpedientePActivity());
                         return true;
 
                     case R.id.trendP:

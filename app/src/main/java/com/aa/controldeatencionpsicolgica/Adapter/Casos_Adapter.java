@@ -37,7 +37,7 @@ public class Casos_Adapter extends ArrayAdapter<CasoU> {
         TextView descripcion = view.findViewById(R.id.lblDescripcion);
         CasoU caso = casosList.get(position);
 
-        descripcion.setText(caso.getDescripcion_general() + " " + caso.getNombres() + " " + caso.getAp());
+        descripcion.setText(caso.getDescripcion_general() + " - " + caso.getNombres() + " " + caso.getAp());
 
         return view;
     }

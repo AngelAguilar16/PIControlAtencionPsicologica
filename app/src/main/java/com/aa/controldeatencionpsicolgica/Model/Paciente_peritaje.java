@@ -46,6 +46,7 @@ public class Paciente_peritaje implements Serializable {
 
     }
 
+
     public int getId_pacp() {
         return id_pacp;
     }

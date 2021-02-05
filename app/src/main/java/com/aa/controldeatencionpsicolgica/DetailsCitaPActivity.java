@@ -181,7 +181,7 @@ public class DetailsCitaPActivity extends Fragment {
                 }
                 PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, context);
                 lvPacientes.setAdapter(adapter);
-                //Toast.makeText(context,"Funcion Activada" + id_paciente,Toast.LENGTH_LONG).show();
+                //Toast.makeText(DetailsCitaPActivity.this,"Funcion Activada" + id_paciente,Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();
                 e.printStackTrace();

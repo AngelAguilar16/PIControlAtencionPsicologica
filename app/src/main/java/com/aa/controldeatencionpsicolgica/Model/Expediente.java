@@ -22,6 +22,18 @@ public class Expediente implements Serializable {
 
     }
 
+    public Expediente(Integer id_consulta, Integer usuario, Integer cita, String fecha, String hora, String motivo_atencion, String notas_sesion) {
+        this.id_consulta = id_consulta;
+        this.usuario = usuario;
+        this.cita = cita;
+        this.caso = caso;
+        this.paciente = paciente;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.motivo_atencion = motivo_atencion;
+        this.notas_sesion = notas_sesion;
+    }
+
     public Expediente(int id_cita, String motivo) {
         id_consulta = id_cita;
         motivo_atencion = motivo;
