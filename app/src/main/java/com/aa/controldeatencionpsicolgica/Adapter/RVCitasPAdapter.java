@@ -3,16 +3,20 @@ package com.aa.controldeatencionpsicolgica.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aa.controldeatencionpsicolgica.DetailsCitaActivity;
+import com.aa.controldeatencionpsicolgica.DetailsCitaPActivity;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Cita;
@@ -35,6 +39,7 @@ import java.util.List;
 public class RVCitasPAdapter extends RecyclerView.Adapter<RVCitasPAdapter.CitaViewPHolder>{
 
     List<Cita> citas;
+    List<Cita> citasList;
     Context context;
     ArrayList<Paciente> pacienteList;
     private String fecha, hora;
@@ -62,7 +67,7 @@ public class RVCitasPAdapter extends RecyclerView.Adapter<RVCitasPAdapter.CitaVi
         SharedPreferences prefs = context.getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         String user = prefs.getString("user", null);
         holder.usuario.setText("Encargado: " + user);
-        citas = new ArrayList<>();
+        citasList = new ArrayList<>();
         pacienteList = new ArrayList<>();
         Date date = new Date();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -71,15 +76,17 @@ public class RVCitasPAdapter extends RecyclerView.Adapter<RVCitasPAdapter.CitaVi
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cita cita = citas.get(position);
-                Intent intent = new Intent(context, DetailsCitaActivity.class);
-
-                intent.putExtra("cita", cita.getId());
-                intent.putExtra("fecha", cita.getFecha());
-                intent.putExtra("hora", cita.getHora());
-                intent.putExtra("usuario", cita.getUsuario());
-
-                context.startActivity(intent);
+                Cita cita = citasList.get(position);
+                Bundle args = new Bundle();
+                args.putInt("cita", cita.getId());
+                args.putString("fecha", cita.getFecha());
+                args.putString("hora", cita.getHora());
+                args.putInt("usuario", cita.getUsuario());
+                DetailsCitaPActivity fragment = new DetailsCitaPActivity();
+                fragment.setArguments(args);
+                FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayoutP, fragment);
+                transaction.commit();
                 //bundle.putSerializable("citaData", cita);
                 /*EditPacienteDialog dialogFragment = new EditPacienteDialog();
                 FragmentTransaction ft = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
@@ -119,7 +126,7 @@ public class RVCitasPAdapter extends RecyclerView.Adapter<RVCitasPAdapter.CitaVi
     }
 
     private void showList(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global.ip + "listCitas.php?usuario=" + Global.us, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Global.ip + "listCitasP.php?usuario=" + Global.us, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray array = obj.getJSONArray("citasList");
@@ -131,9 +138,9 @@ public class RVCitasPAdapter extends RecyclerView.Adapter<RVCitasPAdapter.CitaVi
                         if(date1.compareTo(date2) > 0 )
                             System.out.println("Sumale 1 al contador si viste este mensaje"); // 1
                         else {
-                            Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
+                            Cita c = new Cita(pacObj.getInt("id_citap"), pacObj.getString("fecha"), pacObj.getString("hora"),
                                     pacObj.getInt("usuario"), pacObj.getInt("asistio"));
-                            citas.add(c);
+                            citasList.add(c);
                         }
                     }
                 }

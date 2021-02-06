@@ -77,16 +77,12 @@ public class RVCitasAdapter extends RecyclerView.Adapter<RVCitasAdapter.CitaView
             @Override
             public void onClick(View v) {
                 Cita cita = citasList.get(position);
-                Bundle args = new Bundle();
-                args.putInt("cita", cita.getId());
-                args.putString("fecha", cita.getFecha());
-                args.putString("hora", cita.getHora());
-                args.putInt("usuario", cita.getUsuario());
-                DetailsCitaPActivity fragment = new DetailsCitaPActivity();
-                fragment.setArguments(args);
-                FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameLayoutP, fragment);
-                transaction.commit();
+                Intent intent = new Intent(context, DetailsCitaActivity.class);
+                intent.putExtra("cita", cita.getId());
+                intent.putExtra("fecha", cita.getFecha());
+                intent.putExtra("hora", cita.getHora());
+                intent.putExtra("usuario", cita.getUsuario());
+                context.startActivity(intent);
                 //bundle.putSerializable("citaData", cita);
                 /*EditPacienteDialog dialogFragment = new EditPacienteDialog();
                 FragmentTransaction ft = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
