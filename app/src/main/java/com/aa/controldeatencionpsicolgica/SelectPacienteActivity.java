@@ -70,7 +70,7 @@ public class SelectPacienteActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Aqui insertaremos los datos
                                 addPacientes();
-                                Intent intent = new Intent(getApplicationContext(), CitasActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MenuMaterial.class);
                                 startActivity(intent);
                             }
                         })
@@ -92,7 +92,7 @@ public class SelectPacienteActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getApplicationContext(), "Paciente añadido!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SelectPacienteActivity.this, CitasActivity.class);
+                Intent intent = new Intent(SelectPacienteActivity.this, MenuMaterial.class);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {

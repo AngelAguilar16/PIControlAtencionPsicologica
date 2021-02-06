@@ -133,7 +133,7 @@ public class UsuariosTransActivtiy extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(UsuariosTransActivtiy.this, "Paciente transferido a " + Global.usuario.getNombre(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), AgendaActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MenuMaterial.class);
                 Global.clearPacienteTrans();
                 Global.clearUsuarioTrans();
                 startActivity(intent);

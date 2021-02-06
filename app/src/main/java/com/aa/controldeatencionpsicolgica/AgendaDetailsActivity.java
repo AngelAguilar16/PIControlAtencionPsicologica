@@ -84,7 +84,7 @@ public class AgendaDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(AgendaDetailsActivity.this, "Paciente Eliminado", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(getApplicationContext(), AgendaActivity.class);
+                        intent = new Intent(getApplicationContext(), MenuMaterial.class);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {

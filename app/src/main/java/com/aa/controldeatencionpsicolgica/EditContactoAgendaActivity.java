@@ -80,7 +80,7 @@ public class EditContactoAgendaActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(EditContactoAgendaActivity.this, "Datos actualizados!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditContactoAgendaActivity.this, AgendaActivity.class);
+                        Intent intent = new Intent(EditContactoAgendaActivity.this, MenuMaterial.class);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {

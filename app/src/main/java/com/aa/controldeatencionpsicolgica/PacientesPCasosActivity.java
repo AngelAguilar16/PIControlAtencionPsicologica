@@ -98,7 +98,7 @@ public class PacientesPCasosActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(PacientesPCasosActivity.this, "Caso Eliminado", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), MenuActivityPeritaje.class);
+                Intent intent = new Intent(getApplicationContext(), MenuMaterialPeritaje.class);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
