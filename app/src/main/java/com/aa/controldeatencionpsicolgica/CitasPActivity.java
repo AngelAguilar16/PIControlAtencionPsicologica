@@ -4,6 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.Citas_Adapter;
+import com.aa.controldeatencionpsicolgica.Adapter.RVCitasPAdapter;
 import com.aa.controldeatencionpsicolgica.Fragments.ExpedientesFragment;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
@@ -58,6 +61,7 @@ public class CitasPActivity extends Fragment {
     List<Cita> citasList;
     ImageButton btnCSCP;
     ArrayList<Paciente_peritaje> pacienteList;
+    RecyclerView rvCitasP;
 
     public CitasPActivity() {
         // Required empty public constructor
@@ -93,8 +97,13 @@ public class CitasPActivity extends Fragment {
         context = getContext();
 
         FloatingActionButton add = v.findViewById(R.id.add);
-        lvCitas = (ListView) v.findViewById(R.id.lvCitasP);
         btnCSCP = v.findViewById(R.id.btnCSCP);
+        rvCitasP = v.findViewById(R.id.rvCitasP);
+
+        rvCitasP.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        rvCitasP.setLayoutManager(llm);
+
 
         citasList = new ArrayList<>();
         pacienteList = new ArrayList<>();
@@ -104,6 +113,8 @@ public class CitasPActivity extends Fragment {
         fecha = dateFormat.format(date);
 
         pacienteList = Global.getPacientesP(context);
+
+        rvCitasP.getRecycledViewPool().clear();
 
         add.setOnClickListener(view -> {
             Intent i = new Intent(getActivity(), AddNewCitaPActivity.class);
@@ -121,7 +132,7 @@ public class CitasPActivity extends Fragment {
             }
         });
 
-        lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lvCitas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cita cita = citasList.get(position);
@@ -130,7 +141,7 @@ public class CitasPActivity extends Fragment {
                 intent.putExtra("fecha", cita.getFecha());
                 intent.putExtra("hora", cita.getHora());
                 intent.putExtra("usuario", cita.getUsuario());
-                startActivity(intent);*/
+                startActivity(intent);
                 Bundle args = new Bundle();
                 args.putInt("cita", cita.getId());
                 args.putString("fecha", cita.getFecha());
@@ -142,7 +153,7 @@ public class CitasPActivity extends Fragment {
                 transaction.replace(R.id.frameLayoutP, fragment);
                 transaction.commit();
             }
-        });
+        });*/
 
         return v;
     }
@@ -166,8 +177,9 @@ public class CitasPActivity extends Fragment {
                         }
                     }
                 }
-                Citas_Adapter adapter = new Citas_Adapter(citasList, context);
-                lvCitas.setAdapter(adapter);
+                RVCitasPAdapter adapter = new RVCitasPAdapter(citasList);
+                adapter.notifyDataSetChanged();
+                rvCitasP.setAdapter(adapter);
                 //Toast.makeText(CitasActivity.this,"Funcion Activada",Toast.LENGTH_LONG).show();
             } catch (JSONException | ParseException e) {
                 //Toast.makeText(CitasActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();

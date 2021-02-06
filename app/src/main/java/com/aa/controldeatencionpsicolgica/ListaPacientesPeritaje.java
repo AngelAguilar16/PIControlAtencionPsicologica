@@ -3,6 +3,8 @@ package com.aa.controldeatencionpsicolgica;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,8 @@ import android.widget.ListView;
 
 import com.aa.controldeatencionpsicolgica.Adapter.PacientesP_Adapter;
 import com.aa.controldeatencionpsicolgica.Adapter.PacientesPeritajeDetails;
+import com.aa.controldeatencionpsicolgica.Adapter.RVExpedientePAdapter;
+import com.aa.controldeatencionpsicolgica.Adapter.RVPacientesPAdapter;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Paciente;
@@ -42,6 +46,7 @@ public class ListaPacientesPeritaje extends Fragment {
     private String mParam2;
 
     ListView lvPacientes;
+    RecyclerView rvPacientesP;
     List<Paciente_peritaje> pacienteList;
     List<Paciente> pacientes;
     ArrayList<Paciente_peritaje> pList = new ArrayList<>();
@@ -79,12 +84,16 @@ public class ListaPacientesPeritaje extends Fragment {
 
         context = getContext();
 
-        lvPacientes = v.findViewById(R.id.lvPacientesP);
+        rvPacientesP = v.findViewById(R.id.rvPacientesP);
         addPP = v.findViewById(R.id.addPP);
         btnCSPP = v.findViewById(R.id.btnCSPP);
         pacienteList = new ArrayList<>();
 
-        lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        rvPacientesP.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        rvPacientesP.setLayoutManager(llm);
+
+        /*lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Paciente_peritaje paciente = pacienteList.get(position);
@@ -94,7 +103,7 @@ public class ListaPacientesPeritaje extends Fragment {
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
-        });
+        });*/
 
         addPP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +141,8 @@ public class ListaPacientesPeritaje extends Fragment {
                         }
                     }
                 }
-                PacientesP_Adapter adapter = new PacientesP_Adapter(pacienteList, context);
-                lvPacientes.setAdapter(adapter);
+                RVPacientesPAdapter adapter = new RVPacientesPAdapter(pacienteList);
+                rvPacientesP.setAdapter(adapter);
                 //Toast.makeText(ListaPacientes.this,"" + pList.size(),Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 //Toast.makeText(AgendaActivity.this,"Funcion No Jalo " + e,Toast.LENGTH_LONG).show();

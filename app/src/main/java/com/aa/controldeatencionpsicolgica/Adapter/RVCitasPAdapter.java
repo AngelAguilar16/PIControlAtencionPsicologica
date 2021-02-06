@@ -3,20 +3,16 @@ package com.aa.controldeatencionpsicolgica.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aa.controldeatencionpsicolgica.AddNewCitaActivity;
 import com.aa.controldeatencionpsicolgica.DetailsCitaActivity;
-import com.aa.controldeatencionpsicolgica.DetailsCitaPActivity;
 import com.aa.controldeatencionpsicolgica.Global.Global;
 import com.aa.controldeatencionpsicolgica.Handlers.Handler;
 import com.aa.controldeatencionpsicolgica.Model.Cita;
@@ -29,7 +25,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,37 +32,37 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RVCitasAdapter extends RecyclerView.Adapter<RVCitasAdapter.CitaViewHolder> {
+public class RVCitasPAdapter extends RecyclerView.Adapter<RVCitasPAdapter.CitaViewPHolder>{
 
     List<Cita> citas;
-    List<Cita> citasList;
     Context context;
     ArrayList<Paciente> pacienteList;
     private String fecha, hora;
     private Date date1, date2;
     DateFormat dateFormat;
 
-    public RVCitasAdapter(List<Cita> citas){
+
+    public RVCitasPAdapter (List<Cita> citas){
         this.citas = citas;
     }
 
     @NonNull
     @Override
-    public CitaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RVCitasPAdapter.CitaViewPHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_citas, parent, false);
-        RVCitasAdapter.CitaViewHolder cvh = new RVCitasAdapter.CitaViewHolder(v);
+        RVCitasPAdapter.CitaViewPHolder cvh = new RVCitasPAdapter.CitaViewPHolder(v);
         context = v.getContext();
         return cvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RVCitasAdapter.CitaViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RVCitasPAdapter.CitaViewPHolder holder, int position) {
         holder.fecha.setText("Fecha: " + citas.get(position).getFecha());
         holder.hora.setText("Hora: " + citas.get(position).getHora());
         SharedPreferences prefs = context.getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         String user = prefs.getString("user", null);
         holder.usuario.setText("Encargado: " + user);
-        citasList = new ArrayList<>();
+        citas = new ArrayList<>();
         pacienteList = new ArrayList<>();
         Date date = new Date();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -76,17 +71,15 @@ public class RVCitasAdapter extends RecyclerView.Adapter<RVCitasAdapter.CitaView
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cita cita = citasList.get(position);
-                Bundle args = new Bundle();
-                args.putInt("cita", cita.getId());
-                args.putString("fecha", cita.getFecha());
-                args.putString("hora", cita.getHora());
-                args.putInt("usuario", cita.getUsuario());
-                DetailsCitaPActivity fragment = new DetailsCitaPActivity();
-                fragment.setArguments(args);
-                FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameLayoutP, fragment);
-                transaction.commit();
+                Cita cita = citas.get(position);
+                Intent intent = new Intent(context, DetailsCitaActivity.class);
+
+                intent.putExtra("cita", cita.getId());
+                intent.putExtra("fecha", cita.getFecha());
+                intent.putExtra("hora", cita.getHora());
+                intent.putExtra("usuario", cita.getUsuario());
+
+                context.startActivity(intent);
                 //bundle.putSerializable("citaData", cita);
                 /*EditPacienteDialog dialogFragment = new EditPacienteDialog();
                 FragmentTransaction ft = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
@@ -103,20 +96,21 @@ public class RVCitasAdapter extends RecyclerView.Adapter<RVCitasAdapter.CitaView
         return citas.size();
     }
 
-    public static class CitaViewHolder extends RecyclerView.ViewHolder{
+    public static class CitaViewPHolder extends RecyclerView.ViewHolder{
 
         CardView cv;
         TextView fecha;
         TextView hora;
         TextView usuario;
 
-        CitaViewHolder(@NonNull View itemView) {
+        CitaViewPHolder(@NonNull View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cvCita);
             fecha = itemView.findViewById(R.id.cvTxtFecha);
             hora = itemView.findViewById(R.id.cvTxtHora);
             usuario = itemView.findViewById(R.id.cvTxtUsuarioE);
         }
+
     }
 
     @Override
@@ -139,7 +133,7 @@ public class RVCitasAdapter extends RecyclerView.Adapter<RVCitasAdapter.CitaView
                         else {
                             Cita c = new Cita(pacObj.getInt("id_cita"), pacObj.getString("fecha"), pacObj.getString("hora"),
                                     pacObj.getInt("usuario"), pacObj.getInt("asistio"));
-                            citasList.add(c);
+                            citas.add(c);
                         }
                     }
                 }
